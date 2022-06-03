@@ -1,62 +1,60 @@
 package modelo;
 
+import modelo.aspectos.CargaHoraria;
+import modelo.aspectos.Estudios;
+import modelo.aspectos.ExpPrevia;
+import modelo.aspectos.Locacion;
+import modelo.aspectos.PuestoLaboral;
+import modelo.aspectos.RangoEtario;
+import modelo.aspectos.Remuneracion;
+
 public class Formulario {
-	private int locacion;		// 0: home office ; 1: presencial ; 2: indistinta
-	private int remuneracion;	// 0: <50k ; 1: >50k && <100k ; 2: >100k
-	private int cargaHr;		// 0: media ; 1: completa ; 2: extendida
-	private int puestoLaboral;	// 0: junior ; 1: senior ; 2: gerencial
-	private int rangoEtario;	// (0:<40 ; 1: >40 && <50 ; 2:>50)
-	private int expPrevia;		// 0: nada ; 1: media ; 2: mucha
-	private int estudios;		// 0: primario ; 1: secundario ; 2: terciario
+	private Locacion locacion;		
+	private Remuneracion remuneracion;	
+	private CargaHoraria cargaHoraria;		
+	private PuestoLaboral puestoLaboral;	
+	private RangoEtario rangoEtario;	
+	private ExpPrevia expPrevia;		
+	private Estudios estudios;		
 	
-	/**
-	 * Constructor del formulario de empleo/empleado. Se establecen datos relacionados con el empleo.<br>
-	 * <b>Pre</b>: Los parámetros del formulario deben ser 0,1 o 2.<br>
-	 * <b>Post</b>: El formulario se creó correctamente (se asignó a cada atributo el valor correcto) <br>
-	 * @param locacion: locación que el empleador busca para el el empleo. 0=Home Office, 1=presencial, 2= indistinto.
-	 * @param remuneracion: remuneración que el empleador ofrece pagar para el empleo. 0=hasta 50k, 1= entre 50k y 100k, 2=+100k
-	 * @param cargaHr: carga horaria que el empleado busca para el empleo. 0=media, 1=completa, 2=extendida.
-	 * @param puestoLaboral: tipo de puesto que el empleador ofrece para el trabajo. 0=junior, 1=senior, 2=managment
-	 * @param rangoEtario: rango etario que el empleador busca para el empleo. 0=menos de 40, 1= entre 40 y 50, 2=más de 50.
-	 * @param expPrevia: experiencia previa que el empleador busca para el empleo. 0= nada, 1=media, 2=mucha.
-	 * @param estudios: estudios cursados que el empleador desea que el empleado tenga. 1=primario, 2=secundario, 3=terciario.
-	 */
-	public Formulario(int locacion, int remuneracion, int cargaHr, int puestoLaboral, int rangoEtario, int expPrevia, int estudios) {
+	public Formulario(Locacion locacion,Remuneracion remuneracion,CargaHoraria cargaHoraria,PuestoLaboral puestoLaboral, RangoEtario rangoEtario, ExpPrevia expPrevia, Estudios estudios) {
 		super();
 		this.locacion = locacion;
 		this.remuneracion = remuneracion;
-		this.cargaHr = cargaHr;
+		this.cargaHoraria = cargaHoraria;
 		this.puestoLaboral = puestoLaboral;
 		this.rangoEtario = rangoEtario;
 		this.expPrevia = expPrevia;
 		this.estudios = estudios;
 	}
-
-	public int getLocacion() {
+	
+	
+	public Locacion getLocacion() {
 		return locacion;
 	}
 
-	public int getRemuneracion() {
+	public Remuneracion getRemuneracion() {
 		return remuneracion;
 	}
 
-	public int getCargaHr() {
-		return cargaHr;
+	public CargaHoraria getCargaHoraria() {
+		return cargaHoraria;
 	}
 
-	public int getPuestoLaboral() {
+	public PuestoLaboral getPuestoLaboral() {
 		return puestoLaboral;
 	}
 
-	public int getRangoEtario() {
+
+	public RangoEtario getRangoEtario() {
 		return rangoEtario;
 	}
 
-	public int getExpPrevia() {
+	public ExpPrevia getExpPrevia() {
 		return expPrevia;
 	}
 
-	public int getEstudios() {
+	public Estudios getEstudios() {
 		return estudios;
 	}
 
@@ -70,13 +68,13 @@ public class Formulario {
 	 */
 	public boolean equals(Object obj) {
 		Formulario f = (Formulario) obj;
-		return this.cargaHr == f.getCargaHr() && this.locacion == f.getLocacion() && this.remuneracion == f.getRemuneracion() && this.puestoLaboral == f.getPuestoLaboral() && this.rangoEtario == f.getRangoEtario() && this.expPrevia == f.getExpPrevia() && this.estudios == f.getEstudios();
+		return this.cargaHoraria.equals(f.getCargaHoraria()) && this.locacion.equals(f.getLocacion()) && this.remuneracion.equals(f.getRemuneracion()) && this.puestoLaboral.equals(f.getPuestoLaboral()) && this.rangoEtario.equals(f.getRangoEtario()) && this.expPrevia.equals(f.getExpPrevia()) && this.estudios.equals(f.getEstudios());
 	}
 
-	
+
 	@Override
 	public String toString() {
-		return "locacion: " + locacion + ", remuneracion: " + remuneracion + ", cargaHr: " + cargaHr
+		return "locacion: " + locacion + ", remuneracion: " + remuneracion + ", cargaHr: " + cargaHoraria
 				+ ", puestoLaboral: " + puestoLaboral + ", rangoEtario: " + rangoEtario + ", expPrevia: " + expPrevia
 				+ ", estudios: " + estudios;
 	}

@@ -12,11 +12,11 @@ public class Prueba5 {
 		try {
 			
 			Agencia agencia = Agencia.getInstance();
-			Empleado e1 = new Empleado("santisosa","saso123","Santiago Sosa","223585835",20);
+			Empleado e1 = new Empleado("santisosa","saso123","Santiago Sosa","223585835","01/01/2002");
 			agencia.addEmpleado(e1);
 			
 			// CREACION DE TICKETS (Con un peso negativo)
-			e1.emiteFormulario(agencia, e1.creaFormulario(1,2,1,1,1,2) , new Peso(-1,0.2,0.4,1,0.2,1,0.8));
+			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(-1,0.2,0.4,1,0.2,1,0.8));
 			
 		} catch (PesoInvalidoException e) {
 			System.out.println(e.getMessage());

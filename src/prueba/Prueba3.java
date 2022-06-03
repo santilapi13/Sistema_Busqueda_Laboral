@@ -21,23 +21,23 @@ public class Prueba3 {
 	public static void main(String[] args) {
 		try {
 			Agencia agencia = Agencia.getInstance();
-			Empleado e1 = new Empleado("santisosa","saso123","Santiago Sosa","223585835",20);
+			Empleado e1 = new Empleado("santisosa","saso123","Santiago Sosa","223585835","01/01/2002");
 			agencia.addEmpleado(e1);
-			Empleado e2 = new Empleado("lauluna","lau123","Lautaro Luna","223897563",21);
+			Empleado e2 = new Empleado("lauluna","lau123","Lautaro Luna","223897563","01/01/2001");
 			agencia.addEmpleado(e2);
-			Empleado e3 = new Empleado("wencho","contraseña","Wenceslao Avalos","223897563",20);
+			Empleado e3 = new Empleado("wencho","contraseña","Wenceslao Avalos","223897563","01/01/2002");
 			agencia.addEmpleado(e3);
 			Empleador er1 = new Empleador("santilapi SA", "contraseña", "Santiago Lapiana", 1, 0);
 			agencia.addEmpleador(er1);
 			Admin a1 = new Admin("admin1","contraseñaAdmin1");
 			
 			// CREACION DE TICKETS
-			e1.emiteFormulario(agencia, e1.creaFormulario(1,2,1,1,1,2) , new Peso(1,0.2,0.4,1,0.2,1,0.8));
-			e2.emiteFormulario(agencia, e2.creaFormulario(0,0,2,2,1,2) , new Peso(1,0.5,0.4,1,0.2,1,0.8));
-			e3.emiteFormulario(agencia, e3.creaFormulario(0,1,2,0,2,1) , new Peso(0.1,0.1,1,0.8,0.1,1,0.8));	// Se fuerza un puntaje negativo para el empleador
+			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(1,0.2,0.4,1,0.2,1,0.8));
+			e2.emiteFormulario(agencia, e2.creaFormulario("HomeOffice","Baja","Extendida","Managment","Media","Terciario") , new Peso(1,0.5,0.4,1,0.2,1,0.8));
+			e3.emiteFormulario(agencia, e3.creaFormulario("HomeOffice","Alta","Extendida","Junior","Mucha","Primario") , new Peso(0.1,0.1,1,0.8,0.1,1,0.8));	// Se fuerza un puntaje negativo para el empleador
 
-			er1.creaFormulario(0,1,0,1,0,1,2, new Peso(1,1,1,1,1,1,1));		// indice 0
-			er1.creaFormulario(0,1,0,1,0,1,2,new Peso(1,1,1,1,1,1,1));		// indice 1
+			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1));		// indice 0
+			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario",new Peso(1,1,1,1,1,1,1));		// indice 1
 			er1.buscaEmpleados(agencia);	// 2 tickets iguales
 			
 			a1.iniciaRondaEncuentros();

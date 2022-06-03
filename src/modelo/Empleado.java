@@ -1,12 +1,16 @@
 package modelo;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+
 /** 
 * @author Grupo 7
 */
 public class Empleado extends NoAdmin {
 	private String nya;
 	private String telefono;
-	private int edad;
+	private LocalDate fechaNacimiento;
 
     /**
      * @aggregation composite
@@ -27,13 +31,13 @@ public class Empleado extends NoAdmin {
     * @param password: String que representa la contraseña que utilizará el Empleado. <br>
     * @param nya:  String que representa el nombre y apellido del Empleado. <br>
     * @param telefono: String que representa el telefono del Empleado. <br>
-    * @param edad: Edad del Empleado. 
+    * @param fechaNac: String con dia, mes y ano de nacimiento en formato dd/MM/yyyy. 
     */
-	public Empleado(String username,String password,String nya, String telefono, int edad) {
+	public Empleado(String username,String password,String nya, String telefono,String fechaNac) {
 		super(username,password);
 		this.nya = nya;
 		this.telefono = telefono;
-		this.edad = edad;
+		this.fechaNacimiento = LocalDate.parse(fechaNac, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.ticketElegido = null;
 	}
 	
@@ -51,31 +55,31 @@ public class Empleado extends NoAdmin {
 		return telefono;
 	}
 	public int getEdad() {
-		return edad;
+		Period periodo = Period.between(fechaNacimiento, LocalDate.now());
+		return periodo.getYears();
 	}
+	public LocalDate getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	
 	public TicketEmpleo getTicket() {
 		return ticket;
 	}
 
 	/**
 	* Crea un formulario de búsqueda en base a las condiciones pasadas por parámetro. <br>
-	* <b>Pre</b>: Todos los parámetros deben tener unicamente los valores 0, 1 o 2. <br>
-	* @param username:  String que representa el nombre de usuario que utilizará el Empleado. <br>
-	* @param password: String que representa la contraseña que utilizará el Empleado. <br>
-	* @param nya:  String que representa el nombre y apellido del Empleado. <br>
-	* @param telefono: String que representa el telefono del Empleado. <br>
-	* @param edad: Edad del Empleado. <br>
 	* @return Objeto de tipo Formulario con sus atributos cargados de acuerdo a las condiciones indicadas en los parámetros. 
 	*/
-	public Formulario creaFormulario(int locacion,int remuneracion,int cargaHr,int puestoLaboral,int expPrevia,int estudios) {
-		int rangoEtario;
-		if (this.edad < 40)
-			rangoEtario = 0;
-		else if (this.edad < 50)
-			rangoEtario = 1;
+	public Formulario creaFormulario(String locacion,String remuneracion,String cargaHoraria,String puestoLaboral,String expPrevia,String estudios) {
+		String rangoEtario;
+		if (this.getEdad() < 40)
+			rangoEtario = "Edad Temprana";
+		else if (this.getEdad() < 50)
+			rangoEtario = "Edad Media";
 		else
-			rangoEtario = 2;
-		return new Formulario(locacion,remuneracion,cargaHr,puestoLaboral,rangoEtario,expPrevia,estudios);
+			rangoEtario = "Edad Avanzada";
+		FormularioFactory factory = new FormularioFactory();
+		return factory.getFormulario(locacion,remuneracion,cargaHoraria,puestoLaboral,rangoEtario,expPrevia,estudios);
 	}
 	
 	

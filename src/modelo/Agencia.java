@@ -5,14 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import datos.CargaHoraria;
 import datos.Comisiones;
-import datos.EstudiosCursados;
-import datos.ExpPrevia;
-import datos.Locacion;
-import datos.RangoEtario;
-import datos.Remuneracion;
-import datos.TipoPuesto;
 import excepciones.UsuarioRepetidoException;
 import excepciones.UsuariosInsuficientesException;
 
@@ -130,7 +123,7 @@ public class Agencia implements IAgencia {
 	 * @param peso : Tiene el peso correspondiente a cada uno de los aspectos, segun la preferencia del empleado.<br> 
 	 * @return Ticket de empleo con la informacion correspondiente al formulario f y al peso pasados por parametro.
 	 */
-	public TicketEmpleo recibeFormEmpleado(Formulario f,Peso peso) {	// double dispatch
+	public TicketEmpleo recibeFormEmpleado(Formulario f,Peso peso) {	
 		TicketEmpleo ticket = new TicketEmpleo(f,peso);
 		return ticket;
 	}
@@ -150,13 +143,13 @@ public class Agencia implements IAgencia {
 	
 	public double calculaPuntajeEncuentro(TicketEmpleado ti,TicketEmpleo tj,Peso peso) {
 		double puntaje = 0;
-		puntaje += Locacion.getInstance().calculaPuntaje(ti,tj,peso);
-		puntaje += Remuneracion.getInstance().calculaPuntaje(ti,tj,peso);
-		puntaje += CargaHoraria.getInstance().calculaPuntaje(ti,tj,peso);
-		puntaje += TipoPuesto.getInstance().calculaPuntaje(ti,tj,peso);
-		puntaje += RangoEtario.getInstance().calculaPuntaje(ti,tj,peso);
-		puntaje += ExpPrevia.getInstance().calculaPuntaje(ti,tj,peso);
-		puntaje += EstudiosCursados.getInstance().calculaPuntaje(ti,tj,peso);
+		puntaje += tj.getFormulario().getCargaHoraria().enfrentar(ti.getFormulario().getCargaHoraria())*peso.getCargaHoraria();
+		puntaje += tj.getFormulario().getEstudios().enfrentar(ti.getFormulario().getEstudios())*peso.getEstudiosCursados();
+		puntaje += tj.getFormulario().getExpPrevia().enfrentar(ti.getFormulario().getExpPrevia())*peso.getExpPrevia();
+		puntaje += tj.getFormulario().getLocacion().enfrentar(ti.getFormulario().getLocacion())*peso.getLocacion();
+		puntaje += tj.getFormulario().getRangoEtario().enfrentar(ti.getFormulario().getRangoEtario())*peso.getRangoEtario();
+		puntaje += tj.getFormulario().getRemuneracion().enfrentar(ti.getFormulario().getRemuneracion())*peso.getRemuneracion();
+		puntaje += tj.getFormulario().getPuestoLaboral().enfrentar(ti.getFormulario().getPuestoLaboral())*peso.getTipoPuesto();
 		return puntaje;
 	}
 	
@@ -172,7 +165,7 @@ public class Agencia implements IAgencia {
 		double puntajeAct;
 		for (Empleador empleadorAct : this.empleadoresDisp) {
 			for (TicketEmpleado ticketEmpleado : empleadorAct.getTickets()) {
-				puntajeAct = empAct.getTicket().calculaPuntajeEncuentro(ticketEmpleado);	// this.calculaPuntEntrevista(empAct.getTicket(),ticketEmpleado,"Empleado"); // Compara preferencias de este ticket (buscando un empleador) con las preferencias del ticket de empleado pasado por parámetro
+				puntajeAct = empAct.getTicket().calculaPuntajeEncuentro(ticketEmpleado);	
 				if (puntajeAct > 0 && !lista.ticketRepetido(ticketEmpleado,empleadorAct))
 					lista.getUsuarios().add(new ElemLA(empleadorAct,puntajeAct,ticketEmpleado));
 			}
@@ -192,7 +185,7 @@ public class Agencia implements IAgencia {
 		double puntajeAct;
 		for (Empleado empleadoAct : this.empleadosDisp) {
 			for (TicketEmpleado ticketAct : emprAct.getTickets()) {
-				puntajeAct = ticketAct.calculaPuntajeEncuentro(empleadoAct.getTicket());	// this.calculaPuntEntrevista(ticketAct,empleadoAct.getTicket(),"Empleador"); // Compara preferencias de este ticket (buscando un empleado) con las preferencias del ticket de empleo (buscando empleador) pasado por parámetro
+				puntajeAct = ticketAct.calculaPuntajeEncuentro(empleadoAct.getTicket());	
 				if (puntajeAct > 0 && !lista.ticketRepetido(empleadoAct.getTicket(),empleadoAct)) 
 					lista.getUsuarios().add(new ElemLA(empleadoAct,puntajeAct,empleadoAct.getTicket()));
 			}
@@ -400,21 +393,18 @@ public class Agencia implements IAgencia {
 	private double calculaComision(Contrato contrato,int i) {		// El porcentaje se calcula sobre valores fijos en base a los rangos de remuneracion establecidos en su formulario
 		Empleador empleador = contrato.getEmpleador();
 		Empleado empleado = contrato.getEmpleado();
+		
 		double tasaEmpleador = Comisiones.calculaTasa(empleador.getTipoPersona(),empleador.getRubro(),empleador.getPuntajeApp());
-		double tasaEmpleado = Comisiones.calculaTasa(empleado.getTicket().getFormulario().getPuestoLaboral(),empleado.getPuntajeApp());
-		double sueldo = 0;
-		switch (empleador.getTickets().get(i).getFormulario().getRemuneracion()) {
-			case 0: sueldo = 25000;		// promedio entre 0 y 50.000	
-		break;
-			case 1: sueldo = 75000;		// promedio entre 50.000 y 100.000
-		break;
-			case 2: sueldo = 125000; 	// valor fijo correspondiente a "mas de 100.000"
-		break;
-		}
+		double tasaEmpleado = Comisiones.calculaTasa(empleado);
+		
+		double sueldo = empleador.getTickets().get(i).getFormulario().getRemuneracion().getSueldoComision();
+		
 		double comisionEmpleado = sueldo*tasaEmpleado;
 		double comisionEmpleador = sueldo*tasaEmpleador;
+		
 		empleado.agregaComision(comisionEmpleado);
 		empleador.agregaComision(comisionEmpleador);
+		
 		return comisionEmpleado + comisionEmpleador;
 	}
 	

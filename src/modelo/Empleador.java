@@ -5,6 +5,7 @@ package modelo;
 */
 import java.util.ArrayList;
 
+
 public class Empleador extends NoAdmin {
 
 	private String nombre;
@@ -98,9 +99,9 @@ public class Empleador extends NoAdmin {
 	 * @param estudios: estudios cursados que el empleador desea que el empleado tenga. 1=primario, 2=secundario, 3=terciario.
 	 * @param peso: importancia que el empleador le da a cada una de las características del empleo. peso !=null.
 	 */
-	public void creaFormulario(int locacion, int remuneracion, int cargaHr, int puestoLaboral, int rangoEtario, int expPrevia, int estudios,Peso peso) {
-		Formulario f = new Formulario(locacion,remuneracion,cargaHr,puestoLaboral,rangoEtario,expPrevia,estudios);
-		this.formularios.add(f);
+	public void creaFormulario(String locacion,String remuneracion,String cargaHoraria,String puestoLaboral,String rangoEtario,String expPrevia,String estudios,Peso peso) {
+		FormularioFactory factory = new FormularioFactory();
+		this.formularios.add(factory.getFormulario(locacion,remuneracion,cargaHoraria,puestoLaboral,rangoEtario,expPrevia,estudios));
 		this.pesos.add(peso);
 	}
 	
