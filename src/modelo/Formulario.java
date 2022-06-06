@@ -62,13 +62,19 @@ public class Formulario {
 	/**
 	 * Permite comparar 2 formularios y determinar si tienen todos los campos iguales.<br>
 	 * <b>Pre</b>: obj !=null.
-	 * <b>Post</b>: se realizó la comparación correctamente. Se retornó true o false<br>
+	 * <b>Post</b>: se realizï¿½ la comparaciï¿½n correctamente. Se retornï¿½ true o false<br>
 	 * @param obj : formulario con el cual se desea comparar el valor de los campos.
-	 * @return true: si los 2 formularios tienen todos los campos iguales. false: si los formularios difieren en el valor de 1 o más campos.
+	 * @return true: si los 2 formularios tienen todos los campos iguales. false: si los formularios difieren en el valor de 1 o mï¿½s campos.
 	 */
 	public boolean equals(Object obj) {
 		Formulario f = (Formulario) obj;
-		return this.cargaHoraria.equals(f.getCargaHoraria()) && this.locacion.equals(f.getLocacion()) && this.remuneracion.equals(f.getRemuneracion()) && this.puestoLaboral.equals(f.getPuestoLaboral()) && this.rangoEtario.equals(f.getRangoEtario()) && this.expPrevia.equals(f.getExpPrevia()) && this.estudios.equals(f.getEstudios());
+		return this.cargaHoraria.getClass().getSimpleName().equals(f.getCargaHoraria().getClass().getSimpleName()) && 
+				this.locacion.getClass().getSimpleName().equals(f.getLocacion().getClass().getSimpleName()) && 
+				this.remuneracion.getClass().getSimpleName().equals(f.getRemuneracion().getClass().getSimpleName()) && 
+				this.puestoLaboral.getClass().getSimpleName().equals(f.getPuestoLaboral().getClass().getSimpleName()) && 
+				this.rangoEtario.getClass().getSimpleName().equals(f.getRangoEtario().getClass().getSimpleName()) && 
+				this.expPrevia.getClass().getSimpleName().equals(f.getExpPrevia().getClass().getSimpleName()) && 
+				this.estudios.getClass().getSimpleName().equals(f.getEstudios().getClass().getSimpleName());
 	}
 
 

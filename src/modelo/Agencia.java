@@ -116,7 +116,7 @@ public class Agencia implements IAgencia {
 	}
 	
 	/**
-	 * Genera el ticket de empleo a partir del formulario pasado por un empleado y sus pesos mediante el patron de diseño Double Dispatch.<br>
+	 * Genera el ticket de empleo a partir del formulario pasado por un empleado y sus pesos mediante el patron de diseï¿½o Double Dispatch.<br>
 	 * <b>Pre</b>: Formulario y peso deben ser distintos de null.<br>
 	 * <b>Post</b>: El empleado que lo emitio debe recibir correctamente el ticket retornado por este metodo.<br>
 	 * @param f : Formulario con la preferencia del empleado sobre varios aspectos que afectara al calculo de las coincidencias.<br>
@@ -129,7 +129,7 @@ public class Agencia implements IAgencia {
 	}
 	
 	/**
-	 * Genera el ticket de empleado a partir del formulario pasado por un empleador y sus pesos mediante el patron de diseño Double Dispatch.<br>
+	 * Genera el ticket de empleado a partir del formulario pasado por un empleador y sus pesos mediante el patron de diseï¿½o Double Dispatch.<br>
 	 * <b>Pre</b>: Formulario y peso deben ser distintos de null.<br>
 	 * <b>Post</b>: El empleador que lo emitio debe recibir correctamente el ticket retornado por este metodo.<br>
 	 * @param f : Formulario con la preferencia del empleador sobre varios aspectos que afectara al calculo de las coincidencias.<br>
@@ -195,7 +195,7 @@ public class Agencia implements IAgencia {
 	
 	/**
 	 * Primero, llama a cargar una lista de empelados y otra de empleadores validadas. Luego, recorre estas nuevas listas para crear una nueva 
-	 * Lista de Asignacion para cada Usuario con estas características.<br>
+	 * Lista de Asignacion para cada Usuario con estas caracterï¿½sticas.<br>
 	 * <b>Post</b>: Cada usuario tendra su lista de asignacion correspondiente su/sus tickets.<br>
 	 * @throws UsuariosInsuficientesException 
 	 */
@@ -226,13 +226,13 @@ public class Agencia implements IAgencia {
 	 */
 	private void cargaDisponibles() {
 		for (Empleado empleadoAct : this.empleados) {
-			if (empleadoAct.getTicket() != null && empleadoAct.getTicket().getEstado().equalsIgnoreCase("Activo"))
+			if (empleadoAct.getTicket() != null && empleadoAct.getTicket().isActivo())
 				this.empleadosDisp.add(empleadoAct);
 		}
 		for (Empleador empleadorAct : this.empleadores) {
 			if (!empleadorAct.getTickets().isEmpty()) {			// borra todos los tickets no activos 
 				for (TicketEmpleado ticketAct : empleadorAct.getTickets()) {
-					if (!ticketAct.getEstado().equalsIgnoreCase("Activo"))
+					if (!ticketAct.isActivo())
 						empleadorAct.getTickets().remove(ticketAct);
 				}
 				if (!empleadorAct.getTickets().isEmpty())
@@ -348,16 +348,16 @@ public class Agencia implements IAgencia {
 				empleadoAct = (Empleado) eleccionEmpleado.getUsuarioActual();
 				i = eleccionEmpleador.getIndiceTicket();
 				ticketEmpleado = empleadorAct.getTickets().get(i);
-				while (i < empleadorAct.getTickets().size() && empleadorAct.getTickets().get(i).getEstado().equalsIgnoreCase("finalizado") && ticketEmpleado.equals(empleadorAct.getTickets().get(i))) {
+				while (i < empleadorAct.getTickets().size() && !empleadorAct.getTickets().get(i).isActivo() && ticketEmpleado.equals(empleadorAct.getTickets().get(i))) {
 					i++;
 				}
 				ticketEmpleado = empleadorAct.getTickets().get(i);
 				if (this.matcheoContratacion(ticketEmpleado,empleadoAct,empleadorAct,eleccionEmpleado)) {
 					contrato = new Contrato(empleadoAct,empleadorAct);
 					this.contratos.add(contrato);
-					ticketEmpleado.setEstado("finalizado");
+					ticketEmpleado.finalizarse();
 					empleadorAct.incrPuntajeApp(5);			// Redefinimos que en vez de 50, como 1 ticket equivale a 1 empleado contratado, se sume solo 5
-					empleadoAct.getTicket().setEstado("finalizado");
+					empleadoAct.getTicket().finalizarse();
 					empleadoAct.getTicket().setResultado("exito");
 					empleadoAct.incrPuntajeApp(10);
 					this.fondos += this.calculaComision(contrato,eleccionEmpleado.getIndiceTicket());
@@ -380,7 +380,7 @@ public class Agencia implements IAgencia {
 	 * @return booleano con la respuesta de si hay coincidencia y debe realizarse el contrato o no.
 	 */
 	private boolean matcheoContratacion(TicketEmpleado ticketEmpleado,Empleado empleadoAct,Empleador empleadorAct,ElemRE eleccionEmpleado) {
-		return ticketEmpleado.getEstado().equalsIgnoreCase("activo") && empleadoAct.getTicket().getEstado().equalsIgnoreCase("activo") && empleadorAct == eleccionEmpleado.getUsuarioElegido() && ticketEmpleado.equals(empleadorAct.getTickets().get(eleccionEmpleado.getIndiceTicket()));
+		return ticketEmpleado.isActivo() && empleadoAct.getTicket().isActivo() && empleadorAct == eleccionEmpleado.getUsuarioElegido() && ticketEmpleado.equals(empleadorAct.getTickets().get(eleccionEmpleado.getIndiceTicket()));
 	}
 	
 	/**

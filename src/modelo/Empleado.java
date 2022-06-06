@@ -26,9 +26,9 @@ public class Empleado extends NoAdmin {
     /**
     * Constructor de la clase Empleado. <br>
     * <b>Pre</b>: username y password deben ser distintos de null, edad debe ser mayor a 18. <br>
-    * <b>Post</b>: La instancia de Empleado tendrá sus atributos cargados correctamente<br>
-    * @param username:  String que representa el nombre de usuario que utilizará el Empleado. <br>
-    * @param password: String que representa la contraseña que utilizará el Empleado. <br>
+    * <b>Post</b>: La instancia de Empleado tendrï¿½ sus atributos cargados correctamente<br>
+    * @param username:  String que representa el nombre de usuario que utilizarï¿½ el Empleado. <br>
+    * @param password: String que representa la contraseï¿½a que utilizarï¿½ el Empleado. <br>
     * @param nya:  String que representa el nombre y apellido del Empleado. <br>
     * @param telefono: String que representa el telefono del Empleado. <br>
     * @param fechaNac: String con dia, mes y ano de nacimiento en formato dd/MM/yyyy. 
@@ -67,8 +67,8 @@ public class Empleado extends NoAdmin {
 	}
 
 	/**
-	* Crea un formulario de búsqueda en base a las condiciones pasadas por parámetro. <br>
-	* @return Objeto de tipo Formulario con sus atributos cargados de acuerdo a las condiciones indicadas en los parámetros. 
+	* Crea un formulario de bï¿½squeda en base a las condiciones pasadas por parï¿½metro. <br>
+	* @return Objeto de tipo Formulario con sus atributos cargados de acuerdo a las condiciones indicadas en los parï¿½metros. 
 	*/
 	public Formulario creaFormulario(String locacion,String remuneracion,String cargaHoraria,String puestoLaboral,String expPrevia,String estudios) {
 		String rangoEtario;
@@ -84,9 +84,9 @@ public class Empleado extends NoAdmin {
 	
 	
 	/**
-	* Crea un ticket de empleo enviando el formulario y los pesos a la agencia mediante el patrón de diseño Double Dispatch. <br>
-	* <b>Pre</b>: Todos los parámetros deben ser distintos de null. <br>
-	* <b>Post</b>: El atributo ticket contendrá la referencia al objeto TicketEmpleo correspondiente a su solicitud de trabajo. <br>
+	* Crea un ticket de empleo enviando el formulario y los pesos a la agencia mediante el patrï¿½n de diseï¿½o Double Dispatch. <br>
+	* <b>Pre</b>: Todos los parï¿½metros deben ser distintos de null. <br>
+	* <b>Post</b>: El atributo ticket contendrï¿½ la referencia al objeto TicketEmpleo correspondiente a su solicitud de trabajo. <br>
 	* @param agencia:  Representa un elemento que implemente la interfaz IAgencia. <br>
 	* @param f: Representa un formulario cargado con las condiciones del Empleado. <br>
 	* @param p: Representa la importancia que le da el empleado a cada aspecto del formulario. 
@@ -98,10 +98,10 @@ public class Empleado extends NoAdmin {
 	
 	/**
 	* Modifica el estado del ticket del empleado y penaliza al mismo en su puntaje<br>
-	* <b>Post</b>: El atributo ticket contendrá la referencia al objeto TicketEmpleo correspondiente a su solicitud de trabajo y el puntaje de la aplicación estará decrementado en 1. 
+	* <b>Post</b>: El atributo ticket contendrï¿½ la referencia al objeto TicketEmpleo correspondiente a su solicitud de trabajo y el puntaje de la aplicaciï¿½n estarï¿½ decrementado en 1. 
 	*/
 	public void cancelaTicket() {
-		this.ticket.setEstado("cancelado");
+		this.ticket.cancelarse();
 		this.incrPuntajeApp(-1);
 	}
 	
