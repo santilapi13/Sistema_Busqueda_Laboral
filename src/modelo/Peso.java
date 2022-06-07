@@ -1,8 +1,11 @@
 package modelo;
 
+import java.io.Serializable;
+
 import excepciones.PesoInvalidoException;
 
-public class Peso {
+@SuppressWarnings("serial")
+public class Peso implements Serializable {
 	
 	private double locacion;
 	private double remuneracion;
@@ -15,9 +18,9 @@ public class Peso {
 	/**
 	 * Constructor de peso. Se determina que peso le da el usuario a cada campo del formulario. <br>
 	 * <b>Pre</b>: ticket y usuario deben ser distinto de null.
-	 * <b>Post</b>: se creó el objeto peso correctamente. Se asignaron los valores correctos a cada campo.<br>
-	 * @param locacion: peso que el usuario le da a la locación.
-	 * @param remuneracion: peso que el usuario le da a la remuneración.
+	 * <b>Post</b>: se creï¿½ el objeto peso correctamente. Se asignaron los valores correctos a cada campo.<br>
+	 * @param locacion: peso que el usuario le da a la locaciï¿½n.
+	 * @param remuneracion: peso que el usuario le da a la remuneraciï¿½n.
 	 * @param cargaHr: peso que el usuario le da a la carga horaria.
 	 * @param puestoLaboral: peso que el usuario le da al puesto laboral.
 	 * @param rangoEtario: peso que el usuario le da al rango etario.
@@ -101,7 +104,7 @@ public class Peso {
 	}
 
 	/**
-	*Sobreescribe el método equals, para comparar cada atributo específico de los objetos Peso
+	*Sobreescribe el mï¿½todo equals, para comparar cada atributo especï¿½fico de los objetos Peso
 	*<br>
 	*@return boolean que indica si los objetos de tipo Peso poseen mismos atributos(true) o no(false).
 	*/

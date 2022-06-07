@@ -1,5 +1,7 @@
 package prueba;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.Map;
 
 import excepciones.PesoInvalidoException;
@@ -15,6 +17,10 @@ import modelo.Empleador;
 import modelo.Peso;
 import modelo.Ticket;
 import modelo.TicketEmpleado;
+import persistencia.AgenciaDTO;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
+import persistencia.UtilAgencia;
 
 public class Prueba {
 
@@ -26,11 +32,12 @@ public class Prueba {
 			agencia.addEmpleado(e1);
 			Empleado e2 = new Empleado("lauluna","lau123","Lautaro Luna","223897563","01/01/2001");
 			agencia.addEmpleado(e2);
-			Empleador er1 = new Empleador("santilapi SA", "contraseña", "Santiago Lapiana", 1, 0);
+			Empleador er1 = new Empleador("santilapi SA", "contraseï¿½a", "Santiago Lapiana", 1, 0);
 			agencia.addEmpleador(er1);
-			Empleador er2 = new Empleador("wencho SRL", "contraseña2", "Wenceslao Avalos", 0, 2);
+			Empleador er2 = new Empleador("wencho SRL", "contraseï¿½a2", "Wenceslao Avalos", 0, 2);
 			agencia.addEmpleador(er2);
-			Admin a1 = new Admin("admin1","contraseñaAdmin1");
+			Admin a1 = new Admin("admin1","contraseï¿½aAdmin1");
+			agencia.addAdmin(a1);
 			
 			// CREACION DE TICKETS (locacion, remuneracion, carga horaria, puesto laboral, (rango etario), experiencia previa, estudios)
 			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(1,0.2,0.4,1,0.2,1,0.8));
@@ -104,12 +111,24 @@ public class Prueba {
 			System.out.println(er1);
 			System.out.println(er2);
 			
+			IPersistencia<Serializable> persistencia = new PersistenciaBIN();
+			
+			persistencia.abrirOutput("Agencia.bin");
+			System.out.println("Crea archivo escritura");
+			AgenciaDTO aDTO = UtilAgencia.AgenciaToAgenciaDTO(agencia);
+			persistencia.escribir(aDTO);
+			System.out.println("Agencia grabada exitosamente");
+			persistencia.cerrarOutput();
+            System.out.println("Archivo cerrado");
+            
 		} catch (UsuariosInsuficientesException e) {
 			System.out.println(e.getMessage());
 		} catch (PesoInvalidoException e) {
 			System.out.println(e.getMessage());
 		} catch (UsuarioRepetidoException e) {
 			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			 System.out.println(e.getLocalizedMessage());
 		}
 		
 		

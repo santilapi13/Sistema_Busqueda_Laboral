@@ -7,41 +7,37 @@ import excepciones.UsuariosInsuficientesException;
 /** 
 * @author Grupo 7
  * <br> 
-* Clase que sirve para representar a los usuarios que tienen más acceso a los métodos del sistema. <br>
- * Todos sus métodos delegan la funcionalidad a la agencia.
+* Clase que sirve para representar a los usuarios que tienen mï¿½s acceso a los mï¿½todos del sistema. <br>
+ * Todos sus mï¿½todos delegan la funcionalidad a la agencia.
 */
+@SuppressWarnings("serial")
 public class Admin extends Usuario {
-
-    /**
-     * @aggregation shared
-     */
-    private Agencia agencia = Agencia.getInstance();
 
 	public Admin(String username, String password) {
 		super(username, password);
 	}
 
 	public void iniciaRondaEncuentros() throws UsuariosInsuficientesException {
-		agencia.iniciaRondaEncuentros();
+		Agencia.getInstance().iniciaRondaEncuentros();
 	}
 	
 	public void iniciaRondaElecciones() {
-		agencia.iniciaRondaElecciones();
+		Agencia.getInstance().iniciaRondaElecciones();
 	}
 	
 	public void iniciaRondaContrataciones() {
-		agencia.iniciaRondaContrataciones();
+		Agencia.getInstance().iniciaRondaContrataciones();
 	}
 	
 	public ArrayList<Contrato> getContratos() {
-		return agencia.getContratos();
+		return Agencia.getInstance().getContratos();
 	}
 	
 	public ArrayList<Empleado> getEmpleados() {
-		return agencia.getEmpleados();
+		return Agencia.getInstance().getEmpleados();
 	}
 	
 	public ArrayList<Empleador> getEmpleadores() {
-		return agencia.getEmpleadores();
+		return Agencia.getInstance().getEmpleadores();
 	}
 }

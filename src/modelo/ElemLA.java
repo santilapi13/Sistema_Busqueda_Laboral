@@ -1,31 +1,28 @@
 package modelo;
+
+import java.io.Serializable;
+
 /** 
 * @author Grupo 7
  * <br> 
-* Clase que sirve para representar a los elementos que se almacenarán en la lista de asignación de cada usuario. <br>
+* Clase que sirve para representar a los elementos que se almacenarï¿½n en la lista de asignaciï¿½n de cada usuario. <br>
 *Implementa la interfaz Comparable 
 */
 
-public class ElemLA implements Comparable<ElemLA> {
+@SuppressWarnings("serial")
+public class ElemLA implements Comparable<ElemLA>, Serializable {
 
-    /**
-     * @aggregation shared
-     */
     private NoAdmin usuario;
 	private double puntEntrevista;
-
-    /**
-     * @aggregation shared
-     */
     private Ticket ticket;
 
     /**
     * Constructor de la clase ElemLA. <br>
     * <b>Pre</b>: usuario, puntaje y ticket deben ser distinto de null.<br>
-    * <b>Post</b>: La instancia de ElemLA tendrá sus atributos cargados correctamente<br>
-    * @param usuario: Objeto NoAdmin que fue asignado a la lista de asignación. <br>
+    * <b>Post</b>: La instancia de ElemLA tendrï¿½ sus atributos cargados correctamente<br>
+    * @param usuario: Objeto NoAdmin que fue asignado a la lista de asignaciï¿½n. <br>
     * @param puntaje: Almacena el puntaje de la entrevista entre el Empleador y el Empleado. <br>
-    * @param ticket: Almacena el ticket con el que se comparó en la entrevista entre Empleador y Empleado. 
+    * @param ticket: Almacena el ticket con el que se comparï¿½ en la entrevista entre Empleador y Empleado. 
     */
 	public ElemLA(NoAdmin usuario, double puntaje, Ticket ticket) {
 		this.usuario = usuario;
@@ -47,11 +44,11 @@ public class ElemLA implements Comparable<ElemLA> {
 	
 	/**
 	* Sobreescritura del metodo compareTo( ) definido en la interfaz Comparable. <br>
-	*Establece que el criterio de comparación entre los elementos de la lista de asignación sea en base al puntaje de cada entrevista Empleado - Empleador. <br>
-	* <b>Pre</b>: Tanto el parámetro “o” como el objeto que llame al método deben tener un puntaje de entrevista distinto de null. <br>
-	* <b>Post</b>: ElemLA será comparable<br>
-	* @param o: Elemento de la lista de asignación con el que se desea comparar al elemento que hace la llamada al método. <br>
-	* @return Resultado de la comparación, -1 si el puntaje del elemento pasado como parámetro es menor y 1 si es mayor o igual.
+	*Establece que el criterio de comparaciï¿½n entre los elementos de la lista de asignaciï¿½n sea en base al puntaje de cada entrevista Empleado - Empleador. <br>
+	* <b>Pre</b>: Tanto el parï¿½metro ï¿½oï¿½ como el objeto que llame al mï¿½todo deben tener un puntaje de entrevista distinto de null. <br>
+	* <b>Post</b>: ElemLA serï¿½ comparable<br>
+	* @param o: Elemento de la lista de asignaciï¿½n con el que se desea comparar al elemento que hace la llamada al mï¿½todo. <br>
+	* @return Resultado de la comparaciï¿½n, -1 si el puntaje del elemento pasado como parï¿½metro es menor y 1 si es mayor o igual.
 	*/
 	@Override
 	public int compareTo(ElemLA o) {

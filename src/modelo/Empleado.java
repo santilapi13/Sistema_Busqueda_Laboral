@@ -7,19 +7,12 @@ import java.time.format.DateTimeFormatter;
 /** 
 * @author Grupo 7
 */
+@SuppressWarnings("serial")
 public class Empleado extends NoAdmin {
 	private String nya;
 	private String telefono;
 	private LocalDate fechaNacimiento;
-
-    /**
-     * @aggregation composite
-     */
     private TicketEmpleo ticket;
-
-    /**
-     * @aggregation shared
-     */
     private TicketEmpleado ticketElegido;
 	
     
@@ -41,7 +34,6 @@ public class Empleado extends NoAdmin {
 		this.ticketElegido = null;
 	}
 	
-	
 	public Ticket getTicketElegido() {
 		return ticketElegido;
 	}
@@ -61,10 +53,10 @@ public class Empleado extends NoAdmin {
 	public LocalDate getFechaNacimiento() {
 		return fechaNacimiento;
 	}
-	
 	public TicketEmpleo getTicket() {
 		return ticket;
 	}
+	
 
 	/**
 	* Crea un formulario de b�squeda en base a las condiciones pasadas por par�metro. <br>

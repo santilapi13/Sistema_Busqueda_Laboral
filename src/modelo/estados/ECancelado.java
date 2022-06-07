@@ -1,6 +1,11 @@
-package modelo;
+package modelo.estados;
 
-public class ECancelado implements IEstadoTicket {
+import java.io.Serializable;
+
+import modelo.Ticket;
+
+@SuppressWarnings("serial")
+public class ECancelado implements IEstadoTicket,Serializable {
 	private Ticket ticket;
 
 	public ECancelado(Ticket ticket) {

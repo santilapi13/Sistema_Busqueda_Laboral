@@ -1,6 +1,4 @@
-package datos;
-
-import modelo.Empleado;
+package modelo;
 
 public abstract class Comisiones {
 	

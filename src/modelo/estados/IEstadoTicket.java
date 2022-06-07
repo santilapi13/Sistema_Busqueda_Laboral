@@ -1,4 +1,4 @@
-package modelo;
+package modelo.estados;
 
 public interface IEstadoTicket {
 	void activarse();

@@ -1,26 +1,30 @@
 package modelo;
+
+import java.io.Serializable;
+
 /**
  * @author Grupo 7
  * <br>
- *Clase abstracta que alberga las características comunes de un usuario del sistema, de ella se extienden 
+ *Clase abstracta que alberga las caracterï¿½sticas comunes de un usuario del sistema, de ella se extienden 
  *las clases Admin y Admin.
  *
  */
 
 
 
-public abstract class Usuario {
+@SuppressWarnings("serial")
+public abstract class Usuario implements Serializable {
 
 	private String username;
 	private String password;
 
 	/**
-	*Constructor con dos parámetros para crear un usuario, con su respectivo nombre de usuario y contraseña.<br>
-	*@param username : Parámetro de tipo String, será el nombre para logueo del usuario.
-	*@param password : Parámetro de tipo String, será la contraseña de logueo del usuario.
+	*Constructor con dos parï¿½metros para crear un usuario, con su respectivo nombre de usuario y contraseï¿½a.<br>
+	*@param username : Parï¿½metro de tipo String, serï¿½ el nombre para logueo del usuario.
+	*@param password : Parï¿½metro de tipo String, serï¿½ la contraseï¿½a de logueo del usuario.
 	*
 	*/
-
+	
 	public Usuario(String username, String password) {
 		this.username = username;
 		this.password = password;

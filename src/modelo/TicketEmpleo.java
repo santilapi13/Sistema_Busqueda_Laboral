@@ -4,22 +4,23 @@ package modelo;
  * @author Grupo 7
  * <br>
  * Clase que representa el ticket de un empleador, se instancia cuando un empleador oferta al sistema puestos de trabajo. 
- * Almacenará un formulario con las instrucciones de qué tipo de puesto de trabajo busca, y para cada aspecto un peso asignado 
- * el cual indicará puntualmente qué rasgo anhela mas.
+ * Almacenarï¿½ un formulario con las instrucciones de quï¿½ tipo de puesto de trabajo busca, y para cada aspecto un peso asignado 
+ * el cual indicarï¿½ puntualmente quï¿½ rasgo anhela mas.
  *
  */
 
 
 
+@SuppressWarnings("serial")
 public class TicketEmpleo extends Ticket {
 	
 	private String resultado;
 
 	/**
-	*Constructor con dos parámetros para incluir en el ticket de empleo un formulario y los pesos asignados para cada 
-	*aspecto del formulario, el resultado del ticket se setea inicialmente como “pendiente<br>
-	*@param f : parámetro de tipo Formulario (objeto) que contiene las características del mismo 
-	*@param peso : parámetro de tipo Peso (objeto) que contiene los pesos de cada aspecto del formulario.
+	*Constructor con dos parï¿½metros para incluir en el ticket de empleo un formulario y los pesos asignados para cada 
+	*aspecto del formulario, el resultado del ticket se setea inicialmente como ï¿½pendiente<br>
+	*@param f : parï¿½metro de tipo Formulario (objeto) que contiene las caracterï¿½sticas del mismo 
+	*@param peso : parï¿½metro de tipo Peso (objeto) que contiene los pesos de cada aspecto del formulario.
 	*
 	*/
 
@@ -39,7 +40,7 @@ public class TicketEmpleo extends Ticket {
 
 
 	@Override
-	public double calculaPuntajeEncuentro(ITicket ticket) {	// Compara preferencias de este ticket (buscando un empleador) con las preferencias del ticket de empleado pasado por parámetro
+	public double calculaPuntajeEncuentro(ITicket ticket) {	// Compara preferencias de este ticket (buscando un empleador) con las preferencias del ticket de empleado pasado por parï¿½metro
 		return Agencia.getInstance().calculaPuntajeEncuentro((TicketEmpleado)ticket,this,this.peso);
 	}
 	

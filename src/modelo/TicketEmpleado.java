@@ -4,20 +4,21 @@ package modelo;
  * @author Grupo 7
  * <br>
  * Clase que representa el ticket de un empleado, se instancia cuando un empleado se postula para un puesto de trabajo.
- * Almacenará un formulario con las instrucciones de qué tipo de puesto de trabajo busca, y para cada aspecto 
- * un peso asignado el cual indicará puntualmente en qué característica de trabajo se destaca o prefiere.
+ * Almacenarï¿½ un formulario con las instrucciones de quï¿½ tipo de puesto de trabajo busca, y para cada aspecto 
+ * un peso asignado el cual indicarï¿½ puntualmente en quï¿½ caracterï¿½stica de trabajo se destaca o prefiere.
  *
  */
 
 
+@SuppressWarnings("serial")
 public class TicketEmpleado extends Ticket {
 
 	
 	/**
-	*Constructor con dos parámetros para incluir en el ticket de empleado un formulario y los pesos asignados para 
+	*Constructor con dos parï¿½metros para incluir en el ticket de empleado un formulario y los pesos asignados para 
 	*cada aspecto del formulario.<br>
-	*@param f : parámetro de tipo Formulario (objeto) que contiene las características del mismo 
-	*@param peso : parámetro de tipo Peso (objeto) que contiene los pesos de cada aspecto del formulario.
+	*@param f : parï¿½metro de tipo Formulario (objeto) que contiene las caracterï¿½sticas del mismo 
+	*@param peso : parï¿½metro de tipo Peso (objeto) que contiene los pesos de cada aspecto del formulario.
 	*
 	*/
 
@@ -26,7 +27,7 @@ public class TicketEmpleado extends Ticket {
 	}
 
 	@Override
-	public double calculaPuntajeEncuentro(ITicket ticket) {	// Compara preferencias de este ticket (buscando un empleado) con las preferencias del ticket de empleo (buscando empleador) pasado por parámetro
+	public double calculaPuntajeEncuentro(ITicket ticket) {	// Compara preferencias de este ticket (buscando un empleado) con las preferencias del ticket de empleo (buscando empleador) pasado por parï¿½metro
 		return Agencia.getInstance().calculaPuntajeEncuentro(this,(TicketEmpleo)ticket,this.peso);
 	}
 

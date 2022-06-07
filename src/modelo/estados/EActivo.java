@@ -1,15 +1,20 @@
-package modelo;
+package modelo.estados;
 
-public class ESuspendido implements IEstadoTicket {
+
+import java.io.Serializable;
+
+import modelo.Ticket;
+
+@SuppressWarnings("serial")
+public class EActivo implements IEstadoTicket,Serializable{
 	private Ticket ticket;
 
-	public ESuspendido(Ticket ticket) {
+	public EActivo(Ticket ticket) {
 		this.ticket = ticket;
 	}
-	
+
 	@Override
 	public void activarse() {
-		this.ticket.setEstado(new EActivo(this.ticket));
 	}
 
 	@Override
@@ -19,21 +24,22 @@ public class ESuspendido implements IEstadoTicket {
 
 	@Override
 	public void suspenderse() {
+		this.ticket.setEstado(new ESuspendido(this.ticket));
 	}
 
 	@Override
 	public void finalizarse() {
 		this.ticket.setEstado(new EFinalizado(this.ticket));
 	}
-	
+
 	@Override
 	public boolean isActivo() {
-		return false;
+		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "suspendido";
+		return "activo";
 	}
 	
 }

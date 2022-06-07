@@ -1,11 +1,9 @@
 package modelo;
 
+
+@SuppressWarnings("serial")
 public abstract class NoAdmin extends Usuario implements IEmisor {
 	private double puntajeApp;
-
-    /**
-     * @aggregation composite
-     */
     private ListaAsignacion listaAsignacion;
 	private double comisionAPagar;
 	
@@ -14,7 +12,6 @@ public abstract class NoAdmin extends Usuario implements IEmisor {
 		this.listaAsignacion = new ListaAsignacion();
 		this.comisionAPagar = 0;
 	}
-
 	
 	public double getComisionAPagar() {
 		return comisionAPagar;
@@ -40,12 +37,9 @@ public abstract class NoAdmin extends Usuario implements IEmisor {
 		this.listaAsignacion = listaAsignacion;
 	}
 
-
 	@Override
 	public String toString() {
 		return this.getUsername() + ", PuntajeApp: " + puntajeApp + ", ComisionAPagar: " + comisionAPagar;
 	}
 
-
-	
 }

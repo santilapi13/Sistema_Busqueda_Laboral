@@ -1,4 +1,7 @@
 package modelo.aspectos;
 
-public abstract class CargaHoraria implements Enfrentable {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public abstract class CargaHoraria implements Enfrentable,Serializable {
 }

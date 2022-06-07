@@ -1,9 +1,14 @@
-package modelo;
+package modelo.estados;
 
-public class EFinalizado implements IEstadoTicket {
+import java.io.Serializable;
+
+import modelo.Ticket;
+
+@SuppressWarnings("serial")
+public class ESuspendido implements IEstadoTicket,Serializable {
 	private Ticket ticket;
 
-	public EFinalizado(Ticket ticket) {
+	public ESuspendido(Ticket ticket) {
 		this.ticket = ticket;
 	}
 	
@@ -19,11 +24,11 @@ public class EFinalizado implements IEstadoTicket {
 
 	@Override
 	public void suspenderse() {
-		this.ticket.setEstado(new ESuspendido(this.ticket));
 	}
 
 	@Override
 	public void finalizarse() {
+		this.ticket.setEstado(new EFinalizado(this.ticket));
 	}
 	
 	@Override
@@ -33,7 +38,7 @@ public class EFinalizado implements IEstadoTicket {
 	
 	@Override
 	public String toString() {
-		return "finalizado";
+		return "suspendido";
 	}
 	
 }

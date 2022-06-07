@@ -1,5 +1,8 @@
 package modelo.aspectos;
 
-public abstract class Estudios implements Enfrentable {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public abstract class Estudios implements Enfrentable,Serializable {
 
 }
