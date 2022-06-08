@@ -25,20 +25,18 @@ public class Prueba3 {
 			agencia.addEmpleado(e1);
 			Empleado e2 = new Empleado("lauluna","lau123","Lautaro Luna","223897563","01/01/2001");
 			agencia.addEmpleado(e2);
-			Empleado e3 = new Empleado("wencho","contraseña","Wenceslao Avalos","223897563","01/01/2002");
+			Empleado e3 = new Empleado("wencho","contraseï¿½a","Wenceslao Avalos","223897563","01/01/2002");
 			agencia.addEmpleado(e3);
-			Empleador er1 = new Empleador("santilapi SA", "contraseña", "Santiago Lapiana", 1, 0);
+			Empleador er1 = new Empleador("santilapi SA", "contraseï¿½a", "Santiago Lapiana", 1, 0);
 			agencia.addEmpleador(er1);
-			Admin a1 = new Admin("admin1","contraseñaAdmin1");
+			Admin a1 = new Admin("admin1","contraseï¿½aAdmin1");
 			
 			// CREACION DE TICKETS
 			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(1,0.2,0.4,1,0.2,1,0.8));
 			e2.emiteFormulario(agencia, e2.creaFormulario("HomeOffice","Baja","Extendida","Managment","Media","Terciario") , new Peso(1,0.5,0.4,1,0.2,1,0.8));
 			e3.emiteFormulario(agencia, e3.creaFormulario("HomeOffice","Alta","Extendida","Junior","Mucha","Primario") , new Peso(0.1,0.1,1,0.8,0.1,1,0.8));	// Se fuerza un puntaje negativo para el empleador
 
-			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1));		// indice 0
-			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario",new Peso(1,1,1,1,1,1,1));		// indice 1
-			er1.buscaEmpleados(agencia);	// 2 tickets iguales
+			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1),2);
 			
 			a1.iniciaRondaEncuentros();
 			
@@ -72,7 +70,7 @@ public class Prueba3 {
 			e1.setTicketElegido((TicketEmpleado) e1.getListaAsignacion().getUsuarios().first().getTicket());
 			e2.setTicketElegido((TicketEmpleado) e2.getListaAsignacion().getUsuarios().first().getTicket());
 			e3.setTicketElegido((TicketEmpleado) e2.getListaAsignacion().getUsuarios().first().getTicket());
-			er1.eligeEmpleado(e1,er1.getTickets().get(1));	// No importa para cual ticket los elijan porque son iguales
+			er1.eligeEmpleado(e1,er1.getTickets().get(0));	// No importa para cual ticket los elijan porque son iguales
 			er1.eligeEmpleado(e2,er1.getTickets().get(0));
 
 			a1.iniciaRondaElecciones();

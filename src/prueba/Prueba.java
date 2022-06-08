@@ -43,12 +43,9 @@ public class Prueba {
 			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(1,0.2,0.4,1,0.2,1,0.8));
 			e2.emiteFormulario(agencia, e2.creaFormulario("HomeOffice","Baja","Extendida","Managment","Media","Terciario") , new Peso(1,0.5,0.4,1,0.2,1,0.8));
 
-			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1));		// indice 0
-			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario",new Peso(1,1,1,1,1,1,1));		// indice 1
-			er1.buscaEmpleados(agencia);	// 2 tickets iguales
+			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1),2);		// indice 0
 			
 			er2.creaFormulario("Presencial", "Alta", "Media", "Managment", "Edad Media", "Media", "Primario", new Peso(0.3,0.5,1,1,0.1,1,1));
-			er2.buscaEmpleados(agencia);
 			
 			a1.iniciaRondaEncuentros();
 			
@@ -83,7 +80,7 @@ public class Prueba {
 			e1.setTicketElegido((TicketEmpleado) e1.getListaAsignacion().getUsuarios().first().getTicket());
 			e2.setTicketElegido((TicketEmpleado) e2.getListaAsignacion().getUsuarios().first().getTicket());
 			er1.eligeEmpleado(e1,er1.getTickets().get(0));
-			er1.eligeEmpleado(e2,er1.getTickets().get(1));
+			er1.eligeEmpleado(e2,er1.getTickets().get(0));
 			er2.eligeEmpleado(e1, er2.getTickets().get(0));
 			
 			a1.iniciaRondaElecciones();

@@ -63,14 +63,6 @@ public abstract class Ticket implements ITicket, Serializable {
 		return "fecha: " + fecha.getTime() + ", estado: " + estado;
 	}
 
-	/**
-	 * Sobreescribe el metodo equals, para comparar cada atributo especifico de los
-	 * objetos Ticket<br>
-	 * 
-	 * @return boolean que indica si los objetos de tipo Ticket poseen mismo
-	 *         atributos(true) o no(false).
-	 */
-
 	public void cancelarse() {
 		this.estado.cancelarse();
 	}
@@ -90,11 +82,5 @@ public abstract class Ticket implements ITicket, Serializable {
 	public boolean isActivo() {
 		return this.estado.isActivo();
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		Ticket t = (Ticket) obj;
-		return t.getFormulario().equals(this.formulario) && t.getPeso().equals(this.peso);
-	}
-
+	
 }

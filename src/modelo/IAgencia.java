@@ -3,7 +3,7 @@ package modelo;
 import excepciones.UsuariosInsuficientesException;
 
 public interface IAgencia {
-	TicketEmpleado recibeFormEmpleador(Formulario f,Peso peso);
+	TicketEmpleado recibeFormEmpleador(Formulario f,Peso peso,int cantPuestos);
 	TicketEmpleo recibeFormEmpleado(Formulario f,Peso peso);
 	double calculaPuntajeEncuentro(TicketEmpleado ti,TicketEmpleo tj,Peso peso);
 	void iniciaRondaEncuentros() throws UsuariosInsuficientesException;

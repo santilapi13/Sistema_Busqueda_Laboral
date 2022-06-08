@@ -24,6 +24,7 @@ public class Agencia implements IAgencia {
 	private ArrayList<ElemRE> eleccionesEmpleadores = new ArrayList<ElemRE>();
 	private Map<String, ElemRE> eleccionesEmpleados = new HashMap<String, ElemRE>();
 	private ArrayList<Contrato> contratos = new ArrayList<Contrato>();
+	private BolsaDeTrabajo bolsaDeTrabajo;
 
 	private Agencia() {
 		this.fondos = 0;
@@ -97,9 +98,13 @@ public class Agencia implements IAgencia {
 	public void setContratos(ArrayList<Contrato> contratos) {
 		this.contratos = contratos;
 	}
-	
+
 	public ArrayList<Admin> getAdministradores() {
 		return administradores;
+	}
+
+	public BolsaDeTrabajo getBolsaDeTrabajo() {
+		return bolsaDeTrabajo;
 	}
 
 	public void setAdministradores(ArrayList<Admin> administradores) {
@@ -115,7 +120,7 @@ public class Agencia implements IAgencia {
 		}
 		this.administradores.add(a);
 	}
-	
+
 	/**
 	 * Agrega el empleado ya instanciado a la lista de empleados de la agencia. <br>
 	 * <b>Pre</b>: El parametro e debe ser distinto de null. La lista de empleados
@@ -191,8 +196,8 @@ public class Agencia implements IAgencia {
 	 * @return Ticket de empleado con la informacion correspondiente al formulario f
 	 *         y al peso pasados por parametro.
 	 */
-	public TicketEmpleado recibeFormEmpleador(Formulario f, Peso peso) {
-		TicketEmpleado ticket = new TicketEmpleado(f, peso);
+	public TicketEmpleado recibeFormEmpleador(Formulario f, Peso peso, int cantPuestos) {
+		TicketEmpleado ticket = new TicketEmpleado(f, peso,cantPuestos);
 		return ticket;
 	}
 
@@ -233,7 +238,7 @@ public class Agencia implements IAgencia {
 		for (Empleador empleadorAct : this.empleadoresDisp) {
 			for (TicketEmpleado ticketEmpleado : empleadorAct.getTickets()) {
 				puntajeAct = empAct.getTicket().calculaPuntajeEncuentro(ticketEmpleado);
-				if (puntajeAct > 0 && !lista.ticketRepetido(ticketEmpleado, empleadorAct))
+				if (puntajeAct > 0)
 					lista.getUsuarios().add(new ElemLA(empleadorAct, puntajeAct, ticketEmpleado));
 			}
 		}
@@ -261,7 +266,7 @@ public class Agencia implements IAgencia {
 		for (Empleado empleadoAct : this.empleadosDisp) {
 			for (TicketEmpleado ticketAct : emprAct.getTickets()) {
 				puntajeAct = ticketAct.calculaPuntajeEncuentro(empleadoAct.getTicket());
-				if (puntajeAct > 0 && !lista.ticketRepetido(empleadoAct.getTicket(), empleadoAct))
+				if (puntajeAct > 0)
 					lista.getUsuarios().add(new ElemLA(empleadoAct, puntajeAct, empleadoAct.getTicket()));
 			}
 		}
@@ -391,8 +396,7 @@ public class Agencia implements IAgencia {
 		this.depuraElecciones();
 		for (Empleado empleadoAct : this.empleadosDisp) { // Carga hashmap con las elecciones de los empleados
 			i = 0;
-			while (i < this.empleadoresDisp.size()
-					&& !this.empleadoresDisp.get(i).getTickets().contains(empleadoAct.getTicketElegido()))
+			while (i < this.empleadoresDisp.size() && !this.empleadoresDisp.get(i).getTickets().contains(empleadoAct.getTicketElegido()))
 				i++;
 			empleadorElegido = this.empleadoresDisp.get(i);
 			ElemRE elemAct = new ElemRE(empleadoAct, empleadorElegido,
@@ -454,17 +458,14 @@ public class Agencia implements IAgencia {
 				empleadoAct = (Empleado) eleccionEmpleado.getUsuarioActual();
 				i = eleccionEmpleador.getIndiceTicket();
 				ticketEmpleado = empleadorAct.getTickets().get(i);
-				while (i < empleadorAct.getTickets().size() && !empleadorAct.getTickets().get(i).isActivo()
-						&& ticketEmpleado.equals(empleadorAct.getTickets().get(i))) {
-					i++;
-				}
-				ticketEmpleado = empleadorAct.getTickets().get(i);
 				if (this.matcheoContratacion(ticketEmpleado, empleadoAct, empleadorAct, eleccionEmpleado)) {
 					contrato = new Contrato(empleadoAct, empleadorAct);
 					this.contratos.add(contrato);
-					ticketEmpleado.finalizarse();
-					empleadorAct.incrPuntajeApp(5); // Redefinimos que en vez de 50, como 1 ticket equivale a 1 empleado
-													// contratado, se sume solo 5
+					if (ticketEmpleado.getCantPuestos() == 1) {
+						ticketEmpleado.finalizarse();
+						empleadorAct.incrPuntajeApp(15); // Por finalizar un ticket, el empleador recibe 15 pts
+					}
+					ticketEmpleado.setCantPuestos(ticketEmpleado.getCantPuestos()-1);
 					empleadoAct.getTicket().finalizarse();
 					empleadoAct.getTicket().setResultado("exito");
 					empleadoAct.incrPuntajeApp(10);
@@ -495,11 +496,10 @@ public class Agencia implements IAgencia {
 	 * @return booleano con la respuesta de si hay coincidencia y debe realizarse el
 	 *         contrato o no.
 	 */
-	private boolean matcheoContratacion(TicketEmpleado ticketEmpleado, Empleado empleadoAct, Empleador empleadorAct,
-			ElemRE eleccionEmpleado) {
+	private boolean matcheoContratacion(TicketEmpleado ticketEmpleado, Empleado empleadoAct, Empleador empleadorAct,ElemRE eleccionEmpleado) {
 		return ticketEmpleado.isActivo() && empleadoAct.getTicket().isActivo()
 				&& empleadorAct == eleccionEmpleado.getUsuarioElegido()
-				&& ticketEmpleado.equals(empleadorAct.getTickets().get(eleccionEmpleado.getIndiceTicket()));
+				&& ticketEmpleado == empleadorAct.getTickets().get(eleccionEmpleado.getIndiceTicket());
 	}
 
 	/**
