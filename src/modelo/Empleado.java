@@ -13,7 +13,7 @@ import modelo.aspectos.Presencial;
  * @author Grupo 7
  */
 @SuppressWarnings("serial")
-public class Empleado extends NoAdmin implements Runnable {
+public class Empleado extends NoAdmin {
 	private TicketSimplificado ticketSimp = null;
 	private String nya;
 	private String telefono;
@@ -136,23 +136,28 @@ public class Empleado extends NoAdmin implements Runnable {
 
 	@Override
 	public void run() {
-		int i = 0;
+		int i = 1;
 		int rubro = Util.r.nextInt(0, 3);
 		Locacion loc = null;
+		String locacion = null;
 		switch (Util.r.nextInt(0, 3)) {
 		case 0:
 			loc = new HomeOffice();
+			locacion = "HomeOffice";
 			break;
 		case 1:
 			loc = new Presencial();
+			locacion = "Presencial";
 			break;
 		case 2:
 			loc = new LocIndistinta();
+			locacion = "Indistinta";
 			break;
 		}
-		while (i < 10 && this.ticketSimp == null) {
+		while (i <= 10 && this.ticketSimp == null) {
 			Util.espera();
-			Agencia.getInstance().getBolsaDeTrabajo().buscaTicket(rubro, loc);
+			System.out.println(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion " + locacion + " (intento " + i + ").");
+			BolsaDeTrabajo.getInstance().buscaTicket(this, rubro, loc);
 			i++;
 		}
 	}

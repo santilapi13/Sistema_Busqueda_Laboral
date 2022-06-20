@@ -11,7 +11,7 @@ import modelo.aspectos.Locacion;
 import modelo.aspectos.Presencial;
 
 @SuppressWarnings("serial")
-public class Empleador extends NoAdmin implements Runnable {
+public class Empleador extends NoAdmin {
 
 	private String nombre;
 	private int tipoPersona; // 0: Fisica ; 1: Juridica
@@ -173,20 +173,25 @@ public class Empleador extends NoAdmin implements Runnable {
 	public void run() {
 		int i = 0;
 		Locacion loc = null;
+		String locacion = null;
 		switch (Util.r.nextInt(0, 3)) {
 		case 0:
 			loc = new HomeOffice();
+			locacion = "HomeOffice";
 			break;
 		case 1:
 			loc = new Presencial();
+			locacion = "Presencial";
 			break;
 		case 2:
 			loc = new LocIndistinta();
+			locacion = "Indistinta";
 			break;
 		}
-		while (i < Util.r.nextInt(6)) {
+		while (i < 4) {
 			Util.espera();
-			Agencia.getInstance().getBolsaDeTrabajo().agregaTicket(this, loc);
+			System.out.println(this.nombre + " quiere agregar un ticket para " + Util.rubros[this.rubro] + " y locacion " + locacion);
+			BolsaDeTrabajo.getInstance().agregaTicket(this, loc);
 			i++;
 		}
 	}

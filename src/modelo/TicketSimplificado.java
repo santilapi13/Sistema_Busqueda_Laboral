@@ -24,5 +24,12 @@ public class TicketSimplificado {
 	public Empleador getEmpleador() {
 		return empleador;
 	}
+
+	@Override
+	public String toString() {
+		return "rubro: " + Util.rubros[rubro] + ", locacion: " + locacion + ", empleador: " + empleador;
+	}
+	
+	
 	
 }

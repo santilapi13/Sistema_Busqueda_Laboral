@@ -2,7 +2,7 @@ package modelo;
 
 
 @SuppressWarnings("serial")
-public abstract class NoAdmin extends Usuario {
+public abstract class NoAdmin extends Usuario implements Runnable {
 	private double puntajeApp;
     private ListaAsignacion listaAsignacion;
 	private double comisionAPagar;

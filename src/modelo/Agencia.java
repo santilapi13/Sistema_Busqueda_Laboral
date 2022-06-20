@@ -24,7 +24,6 @@ public class Agencia implements IAgencia {
 	private ArrayList<ElemRE> eleccionesEmpleadores = new ArrayList<ElemRE>();
 	private Map<String, ElemRE> eleccionesEmpleados = new HashMap<String, ElemRE>();
 	private ArrayList<Contrato> contratos = new ArrayList<Contrato>();
-	private BolsaDeTrabajo bolsaDeTrabajo;
 
 	private Agencia() {
 		this.fondos = 0;
@@ -101,10 +100,6 @@ public class Agencia implements IAgencia {
 
 	public ArrayList<Admin> getAdministradores() {
 		return administradores;
-	}
-
-	public BolsaDeTrabajo getBolsaDeTrabajo() {
-		return bolsaDeTrabajo;
 	}
 
 	public void setAdministradores(ArrayList<Admin> administradores) {

@@ -21,4 +21,10 @@ public class Presencial extends Locacion {
 	public double enfrentarTer(Enfrentable aspecto) {
 		return 0.5;
 	}
+
+	@Override
+	public String toString() {
+		return "Presencial";
+	}
+	
 }

@@ -21,4 +21,11 @@ public class LocIndistinta extends Locacion {
 	public double enfrentarTer(Enfrentable aspecto) {
 		return 1;
 	}
+
+	@Override
+	public String toString() {
+		return "Indistinta";
+	}
+	
 }
+
