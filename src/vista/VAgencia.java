@@ -2,18 +2,19 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JList;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
-public class VAgencia extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+public class VAgencia extends JFrame implements IVistaUsuario{
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -28,22 +29,7 @@ public class VAgencia extends JFrame {
 	private JButton btnNewButton_5;
 	private JButton btnNewButton_6;
 	private JLabel lblNewLabel_1;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VAgencia frame = new VAgencia();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private ActionListener actionListener;
 
 	/**
 	 * Create the frame.
@@ -102,6 +88,19 @@ public class VAgencia extends JFrame {
 		
 		this.list = new JList();
 		this.contentPane.add(this.list);
+		this.setVisible(true);
+	}
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		
+		this.actionListener = actionListener;
+		
+	}
+
+	@Override
+	public void cerrarse() {
+		this.dispose();
 	}
 
 }

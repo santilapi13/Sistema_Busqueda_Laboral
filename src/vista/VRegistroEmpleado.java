@@ -16,8 +16,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPasswordField;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
-public class VRegistroEmpleado extends JFrame implements IVistaLogin{
+public class VRegistroEmpleado extends JFrame implements IVistaLogin, KeyListener{
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -32,8 +35,8 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 	private JLabel lblNewLabel_3;
 	private JTextField textUsername;
 	private JLabel lblNewLabel_4;
-	private JTextField textPassword;
 	private ActionListener actionListener;
+	private JPasswordField textPassword;
 
 	public VRegistroEmpleado() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,6 +60,7 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 		panel.add(lblNewLabel_3);
 		
 		textUsername = new JTextField();
+		this.textUsername.addKeyListener(this);
 		panel.add(textUsername);
 		textUsername.setColumns(10);
 		
@@ -64,15 +68,16 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panel.add(lblNewLabel_4);
 		
-		textPassword = new JTextField();
-		panel.add(textPassword);
-		textPassword.setColumns(10);
+		this.textPassword = new JPasswordField();
+		this.textPassword.addKeyListener(this);
+		this.panel.add(this.textPassword);
 		
 		this.lblNewLabel_1 = new JLabel("NOMBRE");
 		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.panel.add(this.lblNewLabel_1);
 		
 		this.textNombre = new JTextField();
+		this.textNombre.addKeyListener(this);
 		this.textNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel.add(this.textNombre);
 		this.textNombre.setColumns(10);
@@ -82,6 +87,7 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 		this.panel.add(this.lblTipoDePersona);
 		
 		this.textTel = new JTextField();
+		this.textTel.addKeyListener(this);
 		this.textTel.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel.add(this.textTel);
 		this.textTel.setColumns(10);
@@ -91,11 +97,13 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 		this.panel.add(this.lblNewLabel_2);
 		
 		this.textFecha = new JTextField();
+		this.textFecha.addKeyListener(this);
 		this.textFecha.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel.add(this.textFecha);
 		this.textFecha.setColumns(10);
 		
 		this.btnRegistrar = new JButton("Registrar");
+		this.btnRegistrar.setEnabled(false);
 		this.contentPane.add(this.btnRegistrar, BorderLayout.SOUTH);
 		this.setVisible(true);
 	}
@@ -111,6 +119,7 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 		return this.textUsername.getText();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String getPassword() {
 		return this.textPassword.getText();
@@ -127,9 +136,8 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 	}
 
 	@Override
-	public String getRubro() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getRubro() {
+		return -1;
 	}
 
 	@Override
@@ -147,4 +155,22 @@ public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 		return this.textTel.getText();
 	}
 
+	public void keyPressed(KeyEvent e) {
+	}
+	public void keyReleased(KeyEvent e) {
+		btnRegistrar.setEnabled(validar());
+	}
+	public void keyTyped(KeyEvent e) {
+	}
+	
+	@SuppressWarnings("deprecation")
+	private boolean validar() {
+		boolean resp=false;
+		resp= textUsername.getText()!=null && !textUsername.getText().isEmpty() 
+				&& textPassword.getText()!=null && !textPassword.getText().isEmpty()
+				&& textNombre.getText()!=null && !textNombre.getText().isEmpty()
+				&& textTel.getText()!=null && !textTel.getText().isEmpty()
+				&& textFecha.getText()!=null && !textFecha.getText().isEmpty();
+		return resp;
+	}
 }

@@ -16,8 +16,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JPasswordField;
 
-public class VRegistroAdmin extends JFrame implements IVistaLogin{
+public class VRegistroAdmin extends JFrame implements IVistaLogin, KeyListener {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -26,7 +29,8 @@ public class VRegistroAdmin extends JFrame implements IVistaLogin{
 	private JLabel lblNewLabel_3;
 	private JTextField textUsername;
 	private JLabel lblNewLabel_4;
-	private JTextField textPassword;
+	private ActionListener actionListener;
+	private JPasswordField textPassword;
 
 	public VRegistroAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,32 +39,33 @@ public class VRegistroAdmin extends JFrame implements IVistaLogin{
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(this.contentPane);
-		
+
 		this.lblNewLabel = new JLabel("REGISTRO ADMIN");
 		this.lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		this.lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		this.contentPane.add(this.lblNewLabel, BorderLayout.NORTH);
-		
+
 		this.panel = new JPanel();
 		this.contentPane.add(this.panel, BorderLayout.CENTER);
 		this.panel.setLayout(new GridLayout(10, 0, 0, 0));
-		
+
 		lblNewLabel_3 = new JLabel("USERNAME");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panel.add(lblNewLabel_3);
-		
+
 		textUsername = new JTextField();
+		this.textUsername.addKeyListener(this);
 		panel.add(textUsername);
 		textUsername.setColumns(10);
-		
+
 		lblNewLabel_4 = new JLabel("PASSWORD");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panel.add(lblNewLabel_4);
-		
-		textPassword = new JTextField();
-		panel.add(textPassword);
-		textPassword.setColumns(10);
-		
+
+		this.textPassword = new JPasswordField();
+		this.textPassword.addKeyListener(this);
+		this.panel.add(this.textPassword);
+
 		this.btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setEnabled(false);
 		this.contentPane.add(this.btnRegistrar, BorderLayout.SOUTH);
@@ -69,20 +74,19 @@ public class VRegistroAdmin extends JFrame implements IVistaLogin{
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
-		// TODO Auto-generated method stub
-		
+		this.btnRegistrar.addActionListener(actionListener);
+		this.actionListener = actionListener;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textUsername.getText();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textPassword.getText();
 	}
 
 	@Override
@@ -98,14 +102,14 @@ public class VRegistroAdmin extends JFrame implements IVistaLogin{
 	}
 
 	@Override
-	public String getRubro() {
+	public int getRubro() {
 		// TODO Auto-generated method stub
-		return null;
+		return -1;
 	}
 
 	@Override
 	public String getTipo() {
-		return "Admin";
+		return "Administrador";
 	}
 
 	@Override
@@ -119,4 +123,18 @@ public class VRegistroAdmin extends JFrame implements IVistaLogin{
 		return null;
 	}
 
+	public void keyPressed(KeyEvent e) {
+	}
+
+	public void keyReleased(KeyEvent e) {
+		this.btnRegistrar.setEnabled(verificar());
+	}
+
+	public void keyTyped(KeyEvent e) {
+	}
+
+	private boolean verificar() {
+		return this.textPassword.getText() != null && !this.textPassword.getText().isEmpty()
+				&& this.textUsername.getText() != null && !this.textUsername.getText().isEmpty();
+	}
 }

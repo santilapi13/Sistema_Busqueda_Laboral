@@ -1,31 +1,24 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.JList;
-import javax.swing.JSpinner;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseEvent;
-import java.awt.FlowLayout;
-import javax.swing.border.MatteBorder;
 import java.awt.Color;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.CompoundBorder;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class VEmpleador extends JFrame implements MouseListener {
+public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -51,22 +44,9 @@ public class VEmpleador extends JFrame implements MouseListener {
 	private JButton btnLista;
 	private JButton btnResultados;
 	private JLabel lblNewLabel_3;
+	private ActionListener actionListener;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VEmpleado frame = new VEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -175,6 +155,7 @@ public class VEmpleador extends JFrame implements MouseListener {
 		this.lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		this.lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.panel_4.add(this.lblNewLabel_3, BorderLayout.NORTH);
+		this.setVisible(true);
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -190,5 +171,16 @@ public class VEmpleador extends JFrame implements MouseListener {
 			btnElegir.setEnabled(false);
 	}
 	public void mouseReleased(MouseEvent e) {
+	}
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+		
+	}
+
+	@Override
+	public void cerrarse() {
+		this.dispose();
 	}
 }

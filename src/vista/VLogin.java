@@ -38,7 +38,7 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	private ActionListener actionListener;
 
 	public VLogin() {
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 280, 317);
 		this.contentPane = new JPanel();
@@ -170,9 +170,9 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	}
 
 	@Override
-	public String getRubro() {
+	public int getRubro() {
 		// TODO Auto-generated method stub
-		return null;
+		return -1;
 	}
 
 	@Override

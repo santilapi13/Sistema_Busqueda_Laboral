@@ -192,7 +192,7 @@ public class Agencia implements IAgencia {
 	 *         y al peso pasados por parametro.
 	 */
 	public TicketEmpleado recibeFormEmpleador(Formulario f, Peso peso, int cantPuestos) {
-		TicketEmpleado ticket = new TicketEmpleado(f, peso,cantPuestos);
+		TicketEmpleado ticket = new TicketEmpleado(f, peso, cantPuestos);
 		return ticket;
 	}
 
@@ -391,7 +391,8 @@ public class Agencia implements IAgencia {
 		this.depuraElecciones();
 		for (Empleado empleadoAct : this.empleadosDisp) { // Carga hashmap con las elecciones de los empleados
 			i = 0;
-			while (i < this.empleadoresDisp.size() && !this.empleadoresDisp.get(i).getTickets().contains(empleadoAct.getTicketElegido()))
+			while (i < this.empleadoresDisp.size()
+					&& !this.empleadoresDisp.get(i).getTickets().contains(empleadoAct.getTicketElegido()))
 				i++;
 			empleadorElegido = this.empleadoresDisp.get(i);
 			ElemRE elemAct = new ElemRE(empleadoAct, empleadorElegido,
@@ -460,7 +461,7 @@ public class Agencia implements IAgencia {
 						ticketEmpleado.finalizarse();
 						empleadorAct.incrPuntajeApp(15); // Por finalizar un ticket, el empleador recibe 15 pts
 					}
-					ticketEmpleado.setCantPuestos(ticketEmpleado.getCantPuestos()-1);
+					ticketEmpleado.setCantPuestos(ticketEmpleado.getCantPuestos() - 1);
 					empleadoAct.getTicket().finalizarse();
 					empleadoAct.getTicket().setResultado("exito");
 					empleadoAct.incrPuntajeApp(10);
@@ -491,7 +492,8 @@ public class Agencia implements IAgencia {
 	 * @return booleano con la respuesta de si hay coincidencia y debe realizarse el
 	 *         contrato o no.
 	 */
-	private boolean matcheoContratacion(TicketEmpleado ticketEmpleado, Empleado empleadoAct, Empleador empleadorAct,ElemRE eleccionEmpleado) {
+	private boolean matcheoContratacion(TicketEmpleado ticketEmpleado, Empleado empleadoAct, Empleador empleadorAct,
+			ElemRE eleccionEmpleado) {
 		return ticketEmpleado.isActivo() && empleadoAct.getTicket().isActivo()
 				&& empleadorAct == eleccionEmpleado.getUsuarioElegido()
 				&& ticketEmpleado == empleadorAct.getTickets().get(eleccionEmpleado.getIndiceTicket());
@@ -528,6 +530,36 @@ public class Agencia implements IAgencia {
 		empleador.agregaComision(comisionEmpleador);
 
 		return comisionEmpleado + comisionEmpleador;
+	}
+
+	public boolean loguearAdmin(String username, String password) {
+		int i = 0;
+		boolean resp = false;
+		while (i <= this.administradores.size() && this.administradores.get(i).getUsername() == username)
+			i++;
+		if (i <= this.administradores.size()) 
+			resp = this.administradores.get(i).getPassword().equalsIgnoreCase(password);
+		return resp;
+	}
+
+	public boolean loguearEmpleador(String username, String password) {
+		int i = 0;
+		boolean resp = false;
+		while (i <= this.empleadores.size() && this.empleadores.get(i).getUsername() == username)
+			i++;
+		if (i <= this.empleadores.size())
+			resp = this.empleadores.get(i).getPassword().equalsIgnoreCase(password);
+		return resp;
+	}
+
+	public boolean loguearEmpleado(String username, String password) {
+		int i = 0;
+		boolean resp = false;
+		while (i <= this.empleados.size() && this.empleados.get(i).getUsername() == username)
+			i++;
+		if (i <= this.empleados.size())
+			resp = this.empleados.get(i).getPassword().equalsIgnoreCase(password);	
+		return resp;
 	}
 
 }

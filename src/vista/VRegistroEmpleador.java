@@ -16,8 +16,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JPasswordField;
 
-public class VRegistroEmpleador extends JFrame implements IVistaLogin{
+public class VRegistroEmpleador extends JFrame implements IVistaLogin, KeyListener{
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -32,27 +35,9 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 	private JLabel lblNewLabel_3;
 	private JTextField textUsername;
 	private JLabel lblNewLabel_4;
-	private JTextField textPassword;
+	private JPasswordField textPassword;
+	private ActionListener actionListener;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VRegistroEmpleador frame = new VRegistroEmpleador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VRegistroEmpleador() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 275, 396);
@@ -75,6 +60,7 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 		panel.add(lblNewLabel_3);
 		
 		textUsername = new JTextField();
+		this.textUsername.addKeyListener(this);
 		panel.add(textUsername);
 		textUsername.setColumns(10);
 		
@@ -82,15 +68,15 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		panel.add(lblNewLabel_4);
 		
-		textPassword = new JTextField();
-		panel.add(textPassword);
-		textPassword.setColumns(10);
+		this.textPassword = new JPasswordField();
+		this.panel.add(this.textPassword);
 		
 		this.lblNewLabel_1 = new JLabel("NOMBRE");
 		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.panel.add(this.lblNewLabel_1);
 		
 		this.textNombre = new JTextField();
+		this.textNombre.addKeyListener(this);
 		this.textNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel.add(this.textNombre);
 		this.textNombre.setColumns(10);
@@ -121,20 +107,19 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
-		// TODO Auto-generated method stub
-		
+		this.btnRegistrar.addActionListener(actionListener);
+		this.actionListener = actionListener;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textUsername.getText();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textPassword.getText();
 	}
 
 	@Override
@@ -145,19 +130,17 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 
 	@Override
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textNombre.getText();
 	}
 
 	@Override
-	public String getRubro() {
-		// TODO Auto-generated method stub
-		return null;
+	public int getRubro() {
+		return this.comboBoxRubro.getSelectedIndex();
 	}
 
 	@Override
 	public String getTipo() {
-		return "Empleador";
+		return (String)this.comboBoxTipo.getSelectedItem();
 	}
 	
 	@Override
@@ -171,4 +154,20 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 		return null;
 	}
 
+	public void keyPressed(KeyEvent e) {
+	}
+	public void keyReleased(KeyEvent e) {
+		this.btnRegistrar.setEnabled(validar());
+	}
+	public void keyTyped(KeyEvent e) {
+	}
+	
+	@SuppressWarnings("deprecation")
+	private boolean validar() {
+		boolean resp=false;
+		resp= textUsername.getText()!=null && !textUsername.getText().isEmpty() 
+				&& textPassword.getText()!=null && !textPassword.getText().isEmpty()
+				&& textNombre.getText()!=null && !textNombre.getText().isEmpty();
+		return resp;
+	}
 }

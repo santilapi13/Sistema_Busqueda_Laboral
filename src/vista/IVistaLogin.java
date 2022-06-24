@@ -16,7 +16,7 @@ public interface IVistaLogin {
 	
 	String getNombre();
 	
-	String getRubro();
+	int getRubro();
 	
 	String getTipo();
 	

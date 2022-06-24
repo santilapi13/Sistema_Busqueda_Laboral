@@ -6,9 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import excepciones.UsuarioRepetidoException;
+import modelo.Admin;
 import modelo.Agencia;
 import modelo.Empleado;
+import modelo.Empleador;
 import vista.IVistaLogin;
+import vista.VAgencia;
+import vista.VEmpleado;
+import vista.VEmpleador;
 import vista.VLogin;
 import vista.VRegistroAdmin;
 import vista.VRegistroEmpleado;
@@ -27,26 +32,42 @@ public class ControladorLogin implements ActionListener {
 		return vista;
 	}
 
-	public void setVista(IVistaLogin vista) {
-		this.vista = vista;
-		this.vista.setActionListener(this);
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
 		if (comando.equalsIgnoreCase("Ingresar")) {
-			// validar
+			ControladorUsuario controladorUsuario = null;
 			String user = this.vista.getUsername();
 			String pass = this.vista.getPassword();
 			String tipo = this.vista.getTipo();
+			switch (tipo) {
+			case "ADMINISTRADOR":
+				if (Agencia.getInstance().loguearAdmin(user, pass)) {
+					this.vista.cerrarse();
+					controladorUsuario= new ControladorUsuario(new VAgencia());
+				} else
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+				break;
+			case "EMPLEADO":
+				if (Agencia.getInstance().loguearEmpleado(user, pass)) {
+					controladorUsuario= new ControladorUsuario(new VEmpleado());
+				} else
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+				break;
+			case "EMPLEADOR":
+				if (Agencia.getInstance().loguearEmpleador(user, pass)) {
+					controladorUsuario= new ControladorUsuario(new VEmpleador());
+				} else
+					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
+				break;
+			}
 		} else if (comando.equalsIgnoreCase("Registrarse")) {
-			
+
 			String tipo = this.vista.getTipo();
 
 			// abir ventana que corresponda
 			switch (tipo) {
-			case "ADMIN":
+			case "ADMINISTRADOR":
 				this.vista.cerrarse();
 				this.vista = new VRegistroAdmin();
 				this.vista.setActionListener(this);
@@ -72,8 +93,20 @@ public class ControladorLogin implements ActionListener {
 					String nya = this.vista.getNombre();
 					String telefono = this.vista.getTelefono();
 					String fechaNacimiento = this.vista.getFecha();
-					Agencia.getInstance().addEmpleado(new Empleado(user,pass,nya,telefono,fechaNacimiento));
+					Agencia.getInstance().addEmpleado(new Empleado(user, pass, nya, telefono, fechaNacimiento));
+				} else if (tipo.equalsIgnoreCase("Administrador")) {
+					Agencia.getInstance().addAdmin(new Admin(user, pass));
+				} else {
+					// empleador
+					String nombre = this.vista.getNombre();
+					int rubro = this.vista.getRubro();
+					int tipoaux = tipo == "FISICA" ? 0 : 1;
+					Agencia.getInstance().addEmpleador(new Empleador(user, pass, nombre, tipoaux, rubro));
 				}
+				this.vista.cerrarse();
+				this.vista = new VLogin();
+				this.vista.setActionListener(this);
+
 			} catch (UsuarioRepetidoException exc) {
 				JOptionPane.showMessageDialog(null, exc.getMessage());
 			}
