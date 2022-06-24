@@ -2,9 +2,11 @@ package vista;
 
 import java.awt.event.ActionListener;
 
-public interface IVista {
+public interface IVistaLogin {
 
 	void setActionListener(ActionListener actionListener);
+	
+	void cerrarse();
 	
 	String getUsername();
 	
@@ -17,5 +19,7 @@ public interface IVista {
 	String getRubro();
 	
 	String getTipo();
+	
+	String getTelefono();
 	
 }

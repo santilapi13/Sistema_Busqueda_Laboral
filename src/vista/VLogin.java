@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class VLogin extends JFrame implements KeyListener, MouseListener, IVista {
+public class VLogin extends JFrame implements KeyListener, MouseListener, IVistaLogin {
 
 	private JPanel contentPane;
 	private JPanel panel;
@@ -36,26 +36,6 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	private JLabel lblNewLabel_2;
 	private JPasswordField textPassword;
 	private ActionListener actionListener;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VRegistroEmpleador frame = new VRegistroEmpleador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 
 	public VLogin() {
 		
@@ -95,8 +75,7 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		this.comboBox = new JComboBox();
 		this.comboBox.addMouseListener(this);
 		this.comboBox.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		this.comboBox
-				.setModel(new DefaultComboBoxModel(new String[] { "TIPO", "EMPLEADO", "EMPLEADOR", "ADMINISTRADOR" }));
+		this.comboBox.setModel(new DefaultComboBoxModel(new String[] { "TIPO", "EMPLEADO", "EMPLEADOR", "ADMINISTRADOR" }));
 		this.panel_2.add(this.comboBox);
 
 		this.panel_1 = new JPanel();
@@ -109,7 +88,6 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		this.panel_1.add(this.btnIngresar);
 
 		this.btnRegistrarse = new JButton("REGISTRARSE");
-		this.btnRegistrarse.setEnabled(false);
 		this.btnRegistrarse.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		this.panel_1.add(this.btnRegistrarse);
 
@@ -126,7 +104,6 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	public void keyReleased(KeyEvent e) {
 		boolean aux = verificar();
 		btnIngresar.setEnabled(aux);
-		btnRegistrarse.setEnabled(aux);
 	}
 
 	public void keyTyped(KeyEvent e) {
@@ -155,7 +132,6 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	public void mouseReleased(MouseEvent e) {
 		boolean aux = verificar();
 		btnIngresar.setEnabled(aux);
-		btnRegistrarse.setEnabled(aux);
 	}
 
 	@Override
@@ -198,4 +174,16 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void cerrarse() {
+		this.dispose();
+	}
+
+	@Override
+	public String getTelefono() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

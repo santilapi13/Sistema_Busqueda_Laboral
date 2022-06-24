@@ -17,43 +17,18 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class VRegistroEmpleador extends JFrame implements IVistaLogin{
+public class VRegistroAdmin extends JFrame implements IVistaLogin{
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
 	private JPanel panel;
 	private JButton btnRegistrar;
-	private JLabel lblNewLabel_1;
-	private JTextField textNombre;
-	private JLabel lblTipoDePersona;
-	private JLabel lblNewLabel_2;
-	private JComboBox comboBoxRubro;
-	private JComboBox comboBoxTipo;
 	private JLabel lblNewLabel_3;
 	private JTextField textUsername;
 	private JLabel lblNewLabel_4;
 	private JTextField textPassword;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VRegistroEmpleador frame = new VRegistroEmpleador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public VRegistroEmpleador() {
+	public VRegistroAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 275, 396);
 		this.contentPane = new JPanel();
@@ -61,7 +36,7 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(this.contentPane);
 		
-		this.lblNewLabel = new JLabel("REGISTRO EMPLEADOR");
+		this.lblNewLabel = new JLabel("REGISTRO ADMIN");
 		this.lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		this.lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		this.contentPane.add(this.lblNewLabel, BorderLayout.NORTH);
@@ -85,33 +60,6 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 		textPassword = new JTextField();
 		panel.add(textPassword);
 		textPassword.setColumns(10);
-		
-		this.lblNewLabel_1 = new JLabel("NOMBRE");
-		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		this.panel.add(this.lblNewLabel_1);
-		
-		this.textNombre = new JTextField();
-		this.textNombre.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		this.panel.add(this.textNombre);
-		this.textNombre.setColumns(10);
-		
-		this.lblTipoDePersona = new JLabel("TIPO DE PERSONA");
-		this.lblTipoDePersona.setFont(new Font("Tahoma", Font.BOLD, 13));
-		this.panel.add(this.lblTipoDePersona);
-		
-		this.comboBoxTipo = new JComboBox();
-		this.comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] {"FISICA", "JURIDICA"}));
-		this.comboBoxTipo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		this.panel.add(this.comboBoxTipo);
-		
-		this.lblNewLabel_2 = new JLabel("RUBRO");
-		this.lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 13));
-		this.panel.add(this.lblNewLabel_2);
-		
-		this.comboBoxRubro = new JComboBox();
-		this.comboBoxRubro.setModel(new DefaultComboBoxModel(new String[] {"SALUD", "COMERCIO LOCAL", "COMERCIO INTERNACIONAL"}));
-		this.comboBoxRubro.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		this.panel.add(this.comboBoxRubro);
 		
 		this.btnRegistrar = new JButton("Registrar");
 		btnRegistrar.setEnabled(false);
@@ -157,9 +105,9 @@ public class VRegistroEmpleador extends JFrame implements IVistaLogin{
 
 	@Override
 	public String getTipo() {
-		return "Empleador";
+		return "Admin";
 	}
-	
+
 	@Override
 	public void cerrarse() {
 		this.dispose();

@@ -114,6 +114,7 @@ public class VSimulacion extends JFrame {
 		this.listResultado = new JList();
 		this.listResultado.setModel(new AbstractListModel() {
 			String[] values = new String[] {""};
+
 			public int getSize() {
 				return values.length;
 			}

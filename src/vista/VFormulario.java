@@ -99,26 +99,7 @@ public class VFormulario extends JFrame implements MouseListener{
 	private ButtonGroup bgExperiencia = new ButtonGroup();
 	private ButtonGroup bgPuesto = new ButtonGroup();
 	private ButtonGroup bgEstudios= new ButtonGroup();
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VFormulario frame = new VFormulario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public VFormulario() {
 		setTitle("SISTEMA DE BUSQUEDA LABORAL");
 		setAlwaysOnTop(true);

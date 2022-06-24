@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-public class VRegistroEmpleado extends JFrame implements IVista{
+public class VRegistroEmpleado extends JFrame implements IVistaLogin{
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -27,31 +27,14 @@ public class VRegistroEmpleado extends JFrame implements IVista{
 	private JTextField textNombre;
 	private JLabel lblTipoDePersona;
 	private JLabel lblNewLabel_2;
-	private JPanel panel_1;
-	private JLabel lblNewLabel_3;
-	private JLabel lblUsername;
 	private JTextField textTel;
 	private JTextField textFecha;
+	private JLabel lblNewLabel_3;
+	private JTextField textUsername;
+	private JLabel lblNewLabel_4;
+	private JTextField textPassword;
+	private ActionListener actionListener;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VRegistroEmpleador frame = new VRegistroEmpleador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public VRegistroEmpleado() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 275, 396);
@@ -67,19 +50,23 @@ public class VRegistroEmpleado extends JFrame implements IVista{
 		
 		this.panel = new JPanel();
 		this.contentPane.add(this.panel, BorderLayout.CENTER);
-		this.panel.setLayout(new GridLayout(9, 0, 0, 0));
+		this.panel.setLayout(new GridLayout(10, 0, 0, 0));
 		
-		this.panel_1 = new JPanel();
-		this.panel.add(this.panel_1);
-		this.panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		lblNewLabel_3 = new JLabel("USERNAME");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
+		panel.add(lblNewLabel_3);
 		
-		this.lblNewLabel_3 = new JLabel("USERNAME");
-		this.lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
-		this.panel_1.add(this.lblNewLabel_3);
+		textUsername = new JTextField();
+		panel.add(textUsername);
+		textUsername.setColumns(10);
 		
-		this.lblUsername = new JLabel("");
-		this.lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		this.panel_1.add(this.lblUsername);
+		lblNewLabel_4 = new JLabel("PASSWORD");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
+		panel.add(lblNewLabel_4);
+		
+		textPassword = new JTextField();
+		panel.add(textPassword);
+		textPassword.setColumns(10);
 		
 		this.lblNewLabel_1 = new JLabel("NOMBRE");
 		this.lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -110,36 +97,33 @@ public class VRegistroEmpleado extends JFrame implements IVista{
 		
 		this.btnRegistrar = new JButton("Registrar");
 		this.contentPane.add(this.btnRegistrar, BorderLayout.SOUTH);
+		this.setVisible(true);
 	}
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
-		// TODO Auto-generated method stub
-		
+		this.btnRegistrar.addActionListener(actionListener);
+		this.actionListener = actionListener;
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textUsername.getText();
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textPassword.getText();
 	}
 
 	@Override
 	public String getFecha() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textFecha.getText();
 	}
 
 	@Override
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.textNombre.getText();
 	}
 
 	@Override
@@ -150,8 +134,17 @@ public class VRegistroEmpleado extends JFrame implements IVista{
 
 	@Override
 	public String getTipo() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Empleado";
+	}
+	
+	@Override
+	public void cerrarse() {
+		this.dispose();
+	}
+
+	@Override
+	public String getTelefono() {
+		return this.textTel.getText();
 	}
 
 }
