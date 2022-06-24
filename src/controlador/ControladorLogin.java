@@ -11,7 +11,7 @@ import modelo.Agencia;
 import modelo.Empleado;
 import modelo.Empleador;
 import vista.IVistaLogin;
-import vista.VAgencia;
+import vista.VAdmin;
 import vista.VEmpleado;
 import vista.VEmpleador;
 import vista.VLogin;
@@ -44,19 +44,19 @@ public class ControladorLogin implements ActionListener {
 			case "ADMINISTRADOR":
 				if (Agencia.getInstance().loguearAdmin(user, pass)) {
 					this.vista.cerrarse();
-					controladorUsuario= new ControladorUsuario(new VAgencia());
+					controladorUsuario= new ControladorUsuario(new VAdmin(user));
 				} else
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 				break;
 			case "EMPLEADO":
 				if (Agencia.getInstance().loguearEmpleado(user, pass)) {
-					controladorUsuario= new ControladorUsuario(new VEmpleado());
+					controladorUsuario= new ControladorUsuario(new VEmpleado(user));
 				} else
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 				break;
 			case "EMPLEADOR":
 				if (Agencia.getInstance().loguearEmpleador(user, pass)) {
-					controladorUsuario= new ControladorUsuario(new VEmpleador());
+					controladorUsuario= new ControladorUsuario(new VEmpleador(user));
 				} else
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 				break;

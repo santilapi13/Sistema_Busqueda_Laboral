@@ -44,11 +44,12 @@ public class VEmpleado extends JFrame implements MouseListener,IVistaUsuario {
 	private JList listResultado;
 	private JLabel lblNewLabel_3;
 	private ActionListener actionListener;
+	private JButton btnSalir;
 
 	/**
 	 * Create the frame.
 	 */
-	public VEmpleado() {
+	public VEmpleado(String username) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 630, 441);
 		this.contentPane = new JPanel();
@@ -127,6 +128,10 @@ public class VEmpleado extends JFrame implements MouseListener,IVistaUsuario {
 		this.btnResultado.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel_5.add(this.btnResultado);
 		
+		this.btnSalir = new JButton("Salir");
+		this.btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		this.panel_5.add(this.btnSalir);
+		
 		this.listResultado = new JList();
 		this.panel_2.add(this.listResultado, BorderLayout.CENTER);
 		
@@ -147,6 +152,7 @@ public class VEmpleado extends JFrame implements MouseListener,IVistaUsuario {
 		this.lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_4.add(this.lblNewLabel_3, BorderLayout.NORTH);
+		this.lblUsername.setText(username);
 		this.setVisible(true);
 	}
 
