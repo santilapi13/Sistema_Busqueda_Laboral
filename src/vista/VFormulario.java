@@ -32,7 +32,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.awt.event.MouseEvent;
 
-public class VFormulario extends JFrame implements MouseListener, IVistaFormulario{
+public class VFormulario extends JFrame implements MouseListener {
 
 	private JPanel contentPane;
 	private JPanel panelBotones;
@@ -438,50 +438,14 @@ public class VFormulario extends JFrame implements MouseListener, IVistaFormular
 		return resp;
 	}
 
-	@Override
 	public void setActionListener(ActionListener actionListener) {
 		this.btnEnviar.addActionListener(actionListener);
 		this.actionlistener=actionListener;
 	}
 
 
-	@Override
 	public void cerrarse() {
 		this.dispose();		
 	}
 
-
-	@Override
-	public void actualizarListaEmpleados(ArrayList<Empleado> empleados) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void actualizarListaEmpleadores(ArrayList<Empleador> empleadores) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void informar(String s) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void actualizarSoliEmpleo(ArrayList<Empleado> empleados) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void actualizarSoliEmpleados(ArrayList<Empleador> empleadores) {
-		// TODO Auto-generated method stub
-		
-	}
 }

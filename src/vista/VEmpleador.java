@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import modelo.Empleado;
+import modelo.Empleador;
+import modelo.ListaAsignacion;
+import modelo.Ticket;
+import modelo.TicketEmpleo;
 
 public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 
@@ -187,5 +194,59 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 	@Override
 	public void cerrarse() {
 		this.dispose();
+	}
+
+	@Override
+	public void actualizarListaEmpleados(ArrayList<Empleado> empleados) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizarListaEmpleadores(ArrayList<Empleador> empleadores) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizarListaAsignacion(ListaAsignacion listaAsignacion) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void informar(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizarSoliEmpleo(ArrayList<Empleado> empleados) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizarSoliEmpleados(ArrayList<Empleador> empleadores) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actualizarTicket(TicketEmpleo ticket) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Ticket getTicketSeleccionado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

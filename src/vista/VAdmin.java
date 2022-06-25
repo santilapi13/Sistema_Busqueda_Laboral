@@ -249,4 +249,10 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		
 	}
 
+	@Override
+	public Ticket getTicketSeleccionado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

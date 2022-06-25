@@ -14,7 +14,6 @@ public class ECancelado implements IEstadoTicket,Serializable {
 	
 	@Override
 	public void activarse() {
-		this.ticket.setEstado(new EActivo(this.ticket));
 	}
 
 	@Override
@@ -23,12 +22,10 @@ public class ECancelado implements IEstadoTicket,Serializable {
 
 	@Override
 	public void suspenderse() {
-		this.ticket.setEstado(new ESuspendido(this.ticket));
 	}
 
 	@Override
 	public void finalizarse() {
-		this.ticket.setEstado(new EFinalizado(this.ticket));
 	}
 	
 	@Override
