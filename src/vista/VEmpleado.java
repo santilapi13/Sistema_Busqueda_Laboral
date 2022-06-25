@@ -24,6 +24,7 @@ import modelo.ElemLA;
 import modelo.Empleado;
 import modelo.Empleador;
 import modelo.ListaAsignacion;
+import modelo.Ticket;
 import modelo.TicketEmpleo;
 
 public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
@@ -286,5 +287,10 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		for (ElemLA elementoAct : listaAsignacion.getUsuarios())
 			this.modeloListaAsignacion.addElement(elementoAct);
 		this.validate();
+	}
+
+	@Override
+	public Ticket getTicketSeleccionado() {
+		return this.listTicket.getSelectedValue();
 	}
 }

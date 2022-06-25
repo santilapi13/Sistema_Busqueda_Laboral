@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import modelo.Empleado;
 import modelo.Empleador;
 import modelo.ListaAsignacion;
+import modelo.Ticket;
 import modelo.TicketEmpleo;
 
 public interface IVistaUsuario {
@@ -26,6 +27,8 @@ public interface IVistaUsuario {
 	void actualizarSoliEmpleados(ArrayList<Empleador> empleadores);
 
 	void actualizarTicket(TicketEmpleo ticket);
+	
+	Ticket getTicketSeleccionado();
 
 	String getUsername();
 

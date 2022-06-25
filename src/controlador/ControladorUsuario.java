@@ -81,6 +81,12 @@ public class ControladorUsuario implements ActionListener {
 				
 			} else if (comando.equalsIgnoreCase("RESULTADO")) {
 
+			} else if (comando.equalsIgnoreCase("MODIFICAR")) {
+				
+			} else if (comando.equalsIgnoreCase("SUSPENDER")) {
+				this.vista.getTicketSeleccionado().suspenderse();
+			} else if (comando.equalsIgnoreCase("CANCELAR")) {
+				this.vista.getTicketSeleccionado().cancelarse();
 			}
 
 		} catch (UsuariosInsuficientesException e) {
