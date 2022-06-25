@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,17 +19,10 @@ import javax.swing.border.EmptyBorder;
 
 import modelo.Empleado;
 import modelo.Empleador;
+import modelo.ListaAsignacion;
 import modelo.NoAdmin;
 import modelo.Ticket;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import javax.swing.JInternalFrame;
-import javax.swing.JTabbedPane;
-import javax.swing.JSplitPane;
-import java.awt.Component;
+import modelo.TicketEmpleo;
 
 public class VAdmin extends JFrame implements IVistaUsuario {
 
@@ -60,7 +54,7 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 	private JPanel panel_3;
 	private JScrollPane scrollPane_2;
 	private JList<String> listNoti;
-	private DefaultListModel<String> modeloListaNoti= new DefaultListModel<String>();
+	private DefaultListModel<String> modeloListaNoti = new DefaultListModel<String>();
 	private JLabel lblNewLabel_4;
 
 	/**
@@ -75,9 +69,9 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		setContentPane(this.principal);
 		this.principal.setLayout(new BorderLayout(0, 0));
 		this.contentPane = new JPanel();
-		//this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		// this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.principal.add(this.contentPane, BorderLayout.NORTH);
-		
+
 		this.contentPane.setLayout(new BoxLayout(this.contentPane, BoxLayout.X_AXIS));
 
 		this.scrollPane_1 = new JScrollPane();
@@ -163,18 +157,18 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		this.lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		this.lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.scrollPane.setColumnHeaderView(this.lblNewLabel_3);
-		
+
 		this.panel_3 = new JPanel();
 		this.principal.add(this.panel_3, BorderLayout.CENTER);
 		this.panel_3.setLayout(new GridLayout(0, 1, 0, 0));
-		
+
 		this.scrollPane_2 = new JScrollPane();
 		this.panel_3.add(this.scrollPane_2);
-		
+
 		this.listNoti = new JList<String>();
 		this.listNoti.setModel(modeloListaNoti);
 		this.scrollPane_2.setViewportView(this.listNoti);
-		
+
 		this.lblNewLabel_4 = new JLabel("NOTIFICACIONES");
 		this.lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.scrollPane_2.setColumnHeaderView(this.lblNewLabel_4);
@@ -204,7 +198,7 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		this.modeloListaNoAdmin.removeAllElements();
 		for (Empleado empleadoAct : empleados)
 			this.modeloListaNoAdmin.addElement(empleadoAct);
-		this.validate();		
+		this.validate();
 	}
 
 	@Override
@@ -214,10 +208,45 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 			this.modeloListaNoAdmin.addElement(empleadorAct);
 		this.validate();
 	}
-	
+
 	@Override
 	public void informar(String s) {
 		this.modeloListaNoti.addElement(s);
 		this.validate();
 	}
+
+	@Override
+	public void actualizarSoliEmpleo(ArrayList<Empleado> empleados) {
+		this.modeloListaTickets.removeAllElements();
+		for (Empleado empleadoAct : empleados)
+			this.modeloListaTickets.addElement(empleadoAct.getTicket());
+		this.validate();
+	}
+
+	@Override
+	public void actualizarSoliEmpleados(ArrayList<Empleador> empleadores) {
+		this.modeloListaTickets.removeAllElements();
+		for (Empleador empleadorAct : empleadores)
+			for (Ticket ticketAct : empleadorAct.getTickets())
+				this.modeloListaTickets.addElement(ticketAct);
+		this.validate();
+	}
+
+	@Override
+	public void actualizarTicket(TicketEmpleo ticket) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public String getUsername() {
+		return this.lblUsername.getText();
+	}
+
+	@Override
+	public void actualizarListaAsignacion(ListaAsignacion listaAsignacion) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

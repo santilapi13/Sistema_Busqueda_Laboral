@@ -36,7 +36,6 @@ public class ControladorLogin implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
 		if (comando.equalsIgnoreCase("Ingresar")) {
-			ControladorUsuario controladorUsuario = null;
 			String user = this.vista.getUsername();
 			String pass = this.vista.getPassword();
 			String tipo = this.vista.getTipo();
@@ -44,19 +43,19 @@ public class ControladorLogin implements ActionListener {
 			case "ADMINISTRADOR":
 				if (Agencia.getInstance().loguearAdmin(user, pass)) {
 					this.vista.cerrarse();
-					controladorUsuario= new ControladorUsuario(new VAdmin(user));
+					new ControladorUsuario(new VAdmin(user));
 				} else
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 				break;
 			case "EMPLEADO":
 				if (Agencia.getInstance().loguearEmpleado(user, pass)) {
-					controladorUsuario= new ControladorUsuario(new VEmpleado(user));
+					new ControladorUsuario(new VEmpleado(user));
 				} else
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 				break;
 			case "EMPLEADOR":
 				if (Agencia.getInstance().loguearEmpleador(user, pass)) {
-					controladorUsuario= new ControladorUsuario(new VEmpleador(user));
+					new ControladorUsuario(new VEmpleador(user));
 				} else
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
 				break;

@@ -16,6 +16,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
+
+import modelo.Empleado;
+import modelo.Empleador;
+
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import java.awt.Font;
@@ -25,9 +29,10 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.awt.event.MouseEvent;
 
-public class VFormulario extends JFrame implements MouseListener{
+public class VFormulario extends JFrame implements MouseListener, IVistaFormulario{
 
 	private JPanel contentPane;
 	private JPanel panelBotones;
@@ -403,7 +408,7 @@ public class VFormulario extends JFrame implements MouseListener{
 		this.labelTitulo.setFont(new Font("Arial", Font.BOLD, 20));
 		this.labelTitulo.setHorizontalAlignment(SwingConstants.LEFT);
 		this.panel.add(this.labelTitulo);
-	
+		this.setVisible(true);
 		
 	}
 
@@ -432,6 +437,51 @@ public class VFormulario extends JFrame implements MouseListener{
 				&& (rdbtnPrimario.isSelected()||rdbtnSecundario.isSelected()||rdbtnTerciario.isSelected());
 		return resp;
 	}
-	public void actionPerformed(ActionEvent e) {
+
+	@Override
+	public void setActionListener(ActionListener actionListener) {
+		this.btnEnviar.addActionListener(actionListener);
+		this.actionlistener=actionListener;
+	}
+
+
+	@Override
+	public void cerrarse() {
+		this.dispose();		
+	}
+
+
+	@Override
+	public void actualizarListaEmpleados(ArrayList<Empleado> empleados) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void actualizarListaEmpleadores(ArrayList<Empleador> empleadores) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void informar(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void actualizarSoliEmpleo(ArrayList<Empleado> empleados) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void actualizarSoliEmpleados(ArrayList<Empleador> empleadores) {
+		// TODO Auto-generated method stub
+		
 	}
 }
