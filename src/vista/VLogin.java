@@ -83,7 +83,7 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		this.panel_1.setLayout(new GridLayout(2, 0, 0, 0));
 
 		this.btnIngresar = new JButton("INGRESAR");
-		this.btnIngresar.setEnabled(false);
+		this.btnIngresar.setEnabled(true);
 		this.btnIngresar.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		this.panel_1.add(this.btnIngresar);
 
@@ -96,42 +96,6 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		this.lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		this.contentPane.add(this.lblNewLabel_2, BorderLayout.NORTH);
 		this.setVisible(true);
-	}
-
-	public void keyPressed(KeyEvent e) {
-	}
-
-	public void keyReleased(KeyEvent e) {
-		boolean aux = verificar();
-		btnIngresar.setEnabled(aux);
-	}
-
-	public void keyTyped(KeyEvent e) {
-	}
-
-	@SuppressWarnings("deprecation")
-	private boolean verificar() {
-		boolean resp = false;
-		resp = textUsername.getText() != null && !textUsername.getText().isEmpty() && textPassword.getText() != null
-				&& !textPassword.getText().isEmpty() && comboBox.getSelectedIndex() != 0;
-		return resp;
-	}
-
-	public void mouseClicked(MouseEvent e) {
-	}
-
-	public void mouseEntered(MouseEvent e) {
-	}
-
-	public void mouseExited(MouseEvent e) {
-	}
-
-	public void mousePressed(MouseEvent e) {
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		boolean aux = verificar();
-		btnIngresar.setEnabled(aux);
 	}
 
 	@Override
@@ -183,6 +147,54 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 	public String getTelefono() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -8,9 +8,9 @@ public class UtilAgencia {
 		AgenciaDTO respuesta = new AgenciaDTO();
 		respuesta.setFondos(agencia.getFondos());
 		respuesta.setContratos(agencia.getContratos());
-		respuesta.setEleccionesEmpleadores(respuesta.getEleccionesEmpleadores());
+		respuesta.setEleccionesEmpleadores(agencia.getEleccionesEmpleadores());
 		respuesta.setEleccionesEmpleados(agencia.getEleccionesEmpleados());
-		respuesta.setEmpleadores(respuesta.getEmpleadores());
+		respuesta.setEmpleadores(agencia.getEmpleadores());
 		respuesta.setEmpleados(agencia.getEmpleados());
 		respuesta.setAdministradores(agencia.getAdministradores());
 		return respuesta;

@@ -135,6 +135,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		this.panel_5.add(this.lblUsername);
 
 		this.btnBuscar = new JButton("Buscar empleo");
+		this.btnBuscar.setActionCommand("Buscar");
 		this.btnBuscar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel_5.add(this.btnBuscar);
 
@@ -144,6 +145,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		this.panel_5.add(this.btnGestionar);
 
 		this.btnLista = new JButton("Lista de Empleadores");
+		this.btnLista.setActionCommand("Lista Asignacion");
 		this.btnLista.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel_5.add(this.btnLista);
 
@@ -198,7 +200,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		
+
 	}
 
 	public void mouseReleased(MouseEvent e) {
@@ -206,13 +208,12 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 			btnElegir.setEnabled(true);
 		else
 			btnElegir.setEnabled(false);
-		
+
 		if (!this.listTicket.isSelectionEmpty()) {
 			this.btnModificar.setEnabled(true);
 			this.btnSuspender.setEnabled(true);
 			this.btnCancelar.setEnabled(true);
-		}
-		else{
+		} else {
 			this.btnModificar.setEnabled(false);
 			this.btnSuspender.setEnabled(false);
 			this.btnCancelar.setEnabled(false);
@@ -292,5 +293,10 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 	@Override
 	public Ticket getTicketSeleccionado() {
 		return this.listTicket.getSelectedValue();
+	}
+
+	@Override
+	public ElemLA getElemLASeleccionado() {
+		return this.listAsignacion.getSelectedValue();
 	}
 }

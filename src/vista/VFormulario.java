@@ -20,8 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
 
 public class VFormulario extends JFrame implements MouseListener, KeyListener {
 

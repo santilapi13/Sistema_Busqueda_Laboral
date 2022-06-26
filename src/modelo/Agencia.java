@@ -310,6 +310,7 @@ public class Agencia extends Observable implements IAgencia {
 		if (this.empleados.isEmpty() || this.empleadores.isEmpty())
 			throw new UsuariosInsuficientesException(
 					"Debe existir al menos un empleado y un empleador para iniciar la ronda");
+		
 		this.cargaDisponibles();
 		for (i = 0; i < this.empleadosDisp.size(); i++) {
 			empAct = empleadosDisp.get(i);
@@ -333,6 +334,8 @@ public class Agencia extends Observable implements IAgencia {
 	 * al menos un ticket activo.<br>
 	 */
 	private void cargaDisponibles() {
+		this.empleadoresDisp.removeAll(empleadoresDisp);
+		this.empleadosDisp.removeAll(empleadosDisp);
 		for (Empleado empleadoAct : this.empleados) {
 			if (empleadoAct.getTicket() != null && empleadoAct.getTicket().isActivo())
 				this.empleadosDisp.add(empleadoAct);
@@ -441,13 +444,20 @@ public class Agencia extends Observable implements IAgencia {
 	 * una eleccion, ya que traeria problemas en la ronda de contratacion.
 	 */
 	public void depuraElecciones() {
+
 		Empleado empleadoAct;
+		ArrayList<Empleado> empleadosElimina = new ArrayList<Empleado>();
+		int i;
 		int N = this.empleadosDisp.size();
-		for (int i = 0; i < N; i++) {
+
+		for (i = 0; i < N; i++) {
 			empleadoAct = this.empleadosDisp.get(i);
-			if (empleadoAct.getTicketElegido() == null)
-				this.empleadosDisp.remove(empleadoAct);
+			if (empleadoAct.getTicketElegido() == null) {
+				empleadosElimina.add(empleadoAct);
+			}
 		}
+		for (i = 0; i < empleadosElimina.size(); i++)
+			this.empleadosDisp.remove(empleadosElimina.get(i));
 	}
 
 	/**

@@ -122,12 +122,6 @@ public class Empleador extends NoAdmin {
 	 * @param peso:          importancia que el empleador le da a cada una de las
 	 *                       caracter�sticas del empleo. peso !=null.
 	 */
-	public void creaFormulario(String locacion, String remuneracion, String cargaHoraria, String puestoLaboral, String rangoEtario, String expPrevia, String estudios, Peso peso) {
-		FormularioFactory factory = new FormularioFactory();
-		Formulario f = factory.getFormulario(locacion, remuneracion, cargaHoraria, puestoLaboral, rangoEtario,
-				expPrevia, estudios);
-		this.emiteFormulario(f, peso, 1);
-	}
 
 	public void creaFormulario(String locacion, String remuneracion, String cargaHoraria, String puestoLaboral, String rangoEtario, String expPrevia, String estudios, Peso peso, int cantPuestos) {
 		FormularioFactory factory = new FormularioFactory();
@@ -169,7 +163,6 @@ public class Empleador extends NoAdmin {
 		this.tickets.get(i).cancelarse();
 	}
 
-	@Override
 	public void run() {
 		int i = 0;
 		Locacion loc = null;
@@ -190,6 +183,7 @@ public class Empleador extends NoAdmin {
 		}
 		while (i < 4) {
 			Util.espera();
+			this.notificador(this.nombre + " quiere agregar un ticket para " + Util.rubros[this.rubro] + " y locacion " + locacion);
 			System.out.println(this.nombre + " quiere agregar un ticket para " + Util.rubros[this.rubro] + " y locacion " + locacion);
 			BolsaDeTrabajo.getInstance().agregaTicket(this, loc);
 			i++;

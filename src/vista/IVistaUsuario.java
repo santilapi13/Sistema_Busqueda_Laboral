@@ -3,6 +3,7 @@ package vista;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import modelo.ElemLA;
 import modelo.Empleado;
 import modelo.Empleador;
 import modelo.ListaAsignacion;
@@ -31,5 +32,7 @@ public interface IVistaUsuario {
 	Ticket getTicketSeleccionado();
 
 	String getUsername();
+
+	ElemLA getElemLASeleccionado();
 
 }

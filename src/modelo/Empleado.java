@@ -99,10 +99,9 @@ public class Empleado extends NoAdmin {
 		else
 			rangoEtario = "Edad Avanzada";
 		FormularioFactory factory = new FormularioFactory();
-		Formulario f = factory.getFormulario(locacion, remuneracion, cargaHoraria, puestoLaboral, rangoEtario, expPrevia,estudios);
+		Formulario f = factory.getFormulario(locacion, remuneracion, cargaHoraria, puestoLaboral, rangoEtario, expPrevia, estudios);
 		this.emiteFormulario(f, peso);
 	}
-
 
 	/**
 	 * Crea un ticket de empleo enviando el formulario y los pesos a la agencia
@@ -119,9 +118,8 @@ public class Empleado extends NoAdmin {
 	 *                 aspecto del formulario.
 	 */
 	public void emiteFormulario(Formulario f, Peso peso) {
-        this.ticket = Agencia.getInstance().recibeFormEmpleado(f, peso);
-    }
-
+		this.ticket = Agencia.getInstance().recibeFormEmpleado(f, peso);
+	}
 
 	/**
 	 * Modifica el estado del ticket del empleado y penaliza al mismo en su
@@ -157,7 +155,10 @@ public class Empleado extends NoAdmin {
 		}
 		while (i <= 10 && this.ticketSimp == null) {
 			Util.espera();
-			System.out.println(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion " + locacion + " (intento " + i + ").");
+			this.notificador(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion "
+					+ locacion + " (intento " + i + ").");
+			System.out.println(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion "
+					+ locacion + " (intento " + i + ").");
 			BolsaDeTrabajo.getInstance().buscaTicket(this, rubro, loc);
 			i++;
 		}

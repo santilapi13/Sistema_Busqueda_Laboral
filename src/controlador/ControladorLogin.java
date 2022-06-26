@@ -2,6 +2,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.Serializable;
 import java.security.InvalidParameterException;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,6 +15,10 @@ import modelo.Admin;
 import modelo.Agencia;
 import modelo.Empleado;
 import modelo.Empleador;
+import persistencia.AgenciaDTO;
+import persistencia.IPersistencia;
+import persistencia.PersistenciaBIN;
+import persistencia.UtilAgencia;
 import vista.IVistaLogin;
 import vista.VAdmin;
 import vista.VEmpleado;
@@ -25,16 +31,28 @@ import vista.VRegistroEmpleador;
 public class ControladorLogin implements ActionListener, Observer {
 	
 	private IVistaLogin vista = null;
+	private static ControladorLogin instance = null;
 
-	public ControladorLogin() {
+	private ControladorLogin() {
 		Agencia.getInstance().setUsuarioLogueado(null, null);
 		this.vista = new VLogin();
 		this.vista.setActionListener(this);
 		Agencia.getInstance().addObserver(this);
 	}
+	
+	public static ControladorLogin getInstance() {
+		if (instance == null)
+			instance = new ControladorLogin();
+		return instance;
+	}
 
 	public IVistaLogin getVista() {
 		return vista;
+	}
+
+	public void setVista(IVistaLogin vista) {
+		this.vista = vista;
+		this.vista.setActionListener(this);
 	}
 
 	@Override
@@ -68,6 +86,8 @@ public class ControladorLogin implements ActionListener, Observer {
 				this.vista = new VRegistroEmpleado();
 				this.vista.setActionListener(this);
 				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo para registrarse.");
 			}
 
 		} else if (comando.equalsIgnoreCase("Registrar")) {
@@ -82,8 +102,7 @@ public class ControladorLogin implements ActionListener, Observer {
 					Agencia.getInstance().addEmpleado(new Empleado(user, pass, nya, telefono, fechaNacimiento));
 				} else if (tipo.equalsIgnoreCase("Administrador")) {
 					Agencia.getInstance().addAdmin(new Admin(user, pass));
-				} else {
-					// empleador
+				} else {	// empleador
 					String nombre = this.vista.getNombre();
 					int rubro = this.vista.getRubro();
 					int tipoaux = tipo == "FISICA" ? 0 : 1;
@@ -93,9 +112,18 @@ public class ControladorLogin implements ActionListener, Observer {
 				this.vista = new VLogin();
 				this.vista.setActionListener(this);
 				Agencia.getInstance().setUsuarioLogueado(null, null);
-
+				
+				IPersistencia<Serializable> persistencia = new PersistenciaBIN();
+				
+				persistencia.abrirOutput("Agencia.bin");
+				AgenciaDTO aDTO = UtilAgencia.AgenciaToAgenciaDTO(Agencia.getInstance());
+				persistencia.escribir(aDTO);
+				persistencia.cerrarOutput();
+				
 			} catch (UsuarioRepetidoException exc) {
 				JOptionPane.showMessageDialog(null, exc.getMessage());
+			} catch (IOException exc) {
+				JOptionPane.showMessageDialog(null, exc.getLocalizedMessage());
 			}
 		}
 	}
@@ -106,13 +134,13 @@ public class ControladorLogin implements ActionListener, Observer {
 			throw new InvalidParameterException();
 		if (arg.toString().contentEquals("ADMINISTRADOR")) {
 			this.vista.cerrarse();
-			new ControladorUsuario(new VAdmin());
+			ControladorUsuario.getInstance().setVista(new VAdmin(Agencia.getInstance().getUsuarioLogueado().getUsername()));
 		} else if (arg.toString().contentEquals("EMPLEADO")) {
 			this.vista.cerrarse();
-			new ControladorUsuario(new VEmpleado(Agencia.getInstance().getUsuarioLogueado().getUsername()));
+			ControladorUsuario.getInstance().setVista(new VEmpleado(Agencia.getInstance().getUsuarioLogueado().getUsername()));
 		} else if (arg.toString().contentEquals("EMPLEADOR")) {
 			this.vista.cerrarse();
-			new ControladorUsuario(new VEmpleador(Agencia.getInstance().getUsuarioLogueado().getUsername()));
+			ControladorUsuario.getInstance().setVista(new VEmpleador(Agencia.getInstance().getUsuarioLogueado().getUsername()));
 		} else if (arg.toString().contentEquals("INCORRECTO"))
 			JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
 	}

@@ -14,9 +14,20 @@ import vista.VFormulario;
 
 public class ControladorFormulario implements ActionListener {
 	private VFormulario vista = null;
+	private static ControladorFormulario instance = null;
 
-	public ControladorFormulario() {
-		this.vista = new VFormulario();
+	private ControladorFormulario() {
+		
+	}
+	
+	public static ControladorFormulario getInstance() {
+		if (instance == null)
+			instance = new ControladorFormulario();
+		return instance;
+	}
+
+	public void setVista(VFormulario vista) {
+		this.vista = vista;
 		this.vista.setActionListener(this);
 		if (Agencia.getInstance().getTipoUsuarioLogueado().equalsIgnoreCase("EMPLEADOR"))
 			this.vista.isEmpleador();
@@ -43,35 +54,19 @@ public class ControladorFormulario implements ActionListener {
 				if (tipo.equalsIgnoreCase("EMPLEADO")) {
 
 					Empleado empleado = (Empleado) Agencia.getInstance().getUsuarioLogueado();
-					empleado.creaFormulario(locacion, remuneracion, cargaH, puesto, tipo, estudios, pesos);
+					empleado.creaFormulario(locacion, remuneracion, cargaH, puesto, experiencia, estudios, pesos);
 
 				} else if (tipo.equalsIgnoreCase("EMPLEADOR")) {
 					Empleador empleador = (Empleador) Agencia.getInstance().getUsuarioLogueado();
+					String rangoEtario = this.vista.getRangoEtario();
 					int cant = this.vista.getTextCant();
-					if (cant > 1) {
-						empleador.creaFormulario(locacion, remuneracion, cargaH, puesto, experiencia, tipo, estudios,
-								pesos, cant);
-					} else {
-						empleador.creaFormulario(locacion, remuneracion, cargaH, puesto, experiencia, tipo, estudios,
-								pesos);
-					}
+					empleador.creaFormulario(locacion, remuneracion, cargaH, puesto, rangoEtario, experiencia, estudios, pesos, cant);
 				}
 				this.vista.cerrarse();
-
-			} else if (comando.equalsIgnoreCase("MODIFICAR")) {
-				if (tipo.equalsIgnoreCase("EMPLEADO")) {
-					Empleado empleado = (Empleado) Agencia.getInstance().getUsuarioLogueado();
-					empleado.getTicket().modificar(locacion, remuneracion, cargaH, puesto, experiencia, tipo, estudios, pesos);
-				} else {
-					Empleador empleador = (Empleador) Agencia.getInstance().getUsuarioLogueado();
-					int cant = this.vista.getTextCant();
-					
-				}
 			}
 		} catch (PesoInvalidoException exc) {
 			JOptionPane.showMessageDialog(null, exc.getMessage());
 		}
-
 	}
 
 }

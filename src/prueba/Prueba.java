@@ -45,7 +45,7 @@ public class Prueba {
 
 			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1),2);		// indice 0
 			
-			er2.creaFormulario("Presencial", "Alta", "Media", "Managment", "Edad Media", "Media", "Primario", new Peso(0.3,0.5,1,1,0.1,1,1));
+			er2.creaFormulario("Presencial", "Alta", "Media", "Managment", "Edad Media", "Media", "Primario", new Peso(0.3,0.5,1,1,0.1,1,1),1);
 			
 			a1.iniciaRondaEncuentros();
 			

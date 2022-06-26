@@ -17,6 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import modelo.Contrato;
+import modelo.ElemLA;
 import modelo.Empleado;
 import modelo.Empleador;
 import modelo.ListaAsignacion;
@@ -56,11 +58,12 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 	private JList<String> listNoti;
 	private DefaultListModel<String> modeloListaNoti = new DefaultListModel<String>();
 	private JLabel lblNewLabel_4;
+	private JButton btnContratos;
 
 	/**
 	 * Create the frame.
 	 */
-	public VAdmin() {
+	public VAdmin(String username) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 695, 440);
 
@@ -97,7 +100,7 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 
 		this.panel_1 = new JPanel();
 		this.panel.add(this.panel_1, BorderLayout.CENTER);
-		this.panel_1.setLayout(new GridLayout(9, 0, 0, 0));
+		this.panel_1.setLayout(new GridLayout(10, 0, 0, 0));
 
 		this.panel_2 = new JPanel();
 		this.panel_1.add(this.panel_2);
@@ -108,7 +111,7 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		this.lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_2.add(this.lblNewLabel_1);
 
-		this.lblUsername = new JLabel("");
+		this.lblUsername = new JLabel(username);
 		this.lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		this.lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel_2.add(this.lblUsername);
@@ -140,6 +143,10 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		this.btnRC = new JButton("INICIAR RONDA DE CONTRATACION");
 		this.btnRC.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.panel_1.add(this.btnRC);
+		
+		this.btnContratos = new JButton("CONTRATOS");
+		this.btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		this.panel_1.add(this.btnContratos);
 
 		this.btnSalir = new JButton("SALIR");
 		this.btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -184,6 +191,7 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		this.btnSalir.addActionListener(actionListener);
 		this.btnRE.addActionListener(actionListener);
 		this.btnRC.addActionListener(actionListener);
+		this.btnContratos.addActionListener(actionListener);
 		this.actionListener = actionListener;
 	}
 
@@ -230,7 +238,7 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 				this.modeloListaTickets.addElement(ticketAct);
 		this.validate();
 	}
-
+	
 	@Override
 	public void actualizarTicket(TicketEmpleo ticket) {
 		// TODO Auto-generated method stub
@@ -250,6 +258,12 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 
 	@Override
 	public Ticket getTicketSeleccionado() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ElemLA getElemLASeleccionado() {
 		// TODO Auto-generated method stub
 		return null;
 	}
