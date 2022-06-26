@@ -2,6 +2,9 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.InvalidParameterException;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
@@ -19,13 +22,14 @@ import vista.VRegistroAdmin;
 import vista.VRegistroEmpleado;
 import vista.VRegistroEmpleador;
 
-public class ControladorLogin implements ActionListener {
+public class ControladorLogin implements ActionListener, Observer {
+	
 	private IVistaLogin vista = null;
 
 	public ControladorLogin() {
 		this.vista = new VLogin();
 		this.vista.setActionListener(this);
-
+		Agencia.getInstance().addObserver(this);
 	}
 
 	public IVistaLogin getVista() {
@@ -36,30 +40,12 @@ public class ControladorLogin implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String comando = e.getActionCommand();
 		if (comando.equalsIgnoreCase("Ingresar")) {
+			
 			String user = this.vista.getUsername();
 			String pass = this.vista.getPassword();
 			String tipo = this.vista.getTipo();
-			switch (tipo) {
-			case "ADMINISTRADOR":
-				if (Agencia.getInstance().loguearAdmin(user, pass)) {
-					this.vista.cerrarse();
-					new ControladorUsuario(new VAdmin(user));
-				} else
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
-				break;
-			case "EMPLEADO":
-				if (Agencia.getInstance().loguearEmpleado(user, pass)) {
-					new ControladorUsuario(new VEmpleado(user));
-				} else
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
-				break;
-			case "EMPLEADOR":
-				if (Agencia.getInstance().loguearEmpleador(user, pass)) {
-					new ControladorUsuario(new VEmpleador(user));
-				} else
-					JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta");
-				break;
-			}
+			Agencia.getInstance().loguear(user,pass,tipo);
+			
 		} else if (comando.equalsIgnoreCase("Registrarse")) {
 
 			String tipo = this.vista.getTipo();
@@ -110,5 +96,22 @@ public class ControladorLogin implements ActionListener {
 				JOptionPane.showMessageDialog(null, exc.getMessage());
 			}
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if (o != Agencia.getInstance())
+			throw new InvalidParameterException();
+		if (arg.toString().contentEquals("ADMINISTRADOR")) {
+			this.vista.cerrarse();
+			new ControladorUsuario(new VAdmin());
+		} else if (arg.toString().contentEquals("EMPLEADO")) {
+			this.vista.cerrarse();
+			new ControladorUsuario(new VEmpleado());
+		} else if (arg.toString().contentEquals("EMPLEADOR")) {
+			this.vista.cerrarse();
+			new ControladorUsuario(new VEmpleador());
+		} else if (arg.toString().contentEquals("INCORRECTO"))
+			JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
 	}
 }

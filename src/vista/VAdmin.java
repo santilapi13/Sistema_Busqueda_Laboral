@@ -60,7 +60,7 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 	/**
 	 * Create the frame.
 	 */
-	public VAdmin(String username) {
+	public VAdmin() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 695, 440);
 
@@ -144,7 +144,6 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		this.btnSalir = new JButton("SALIR");
 		this.btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		this.panel_1.add(this.btnSalir);
-		this.lblUsername.setText(username);
 
 		this.scrollPane = new JScrollPane();
 		this.contentPane.add(this.scrollPane);

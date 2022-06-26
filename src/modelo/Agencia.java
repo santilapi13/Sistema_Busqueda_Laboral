@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Observable;
 
 import excepciones.UsuarioRepetidoException;
 import excepciones.UsuariosInsuficientesException;
@@ -12,7 +13,7 @@ import excepciones.UsuariosInsuficientesException;
  * @author Grupo 7<br>
  *         Clase con todas las funcionalidades del sistema
  */
-public class Agencia implements IAgencia {
+public class Agencia extends Observable implements IAgencia {
 
 	private double fondos; // fondos representa la suma de las comisiones que deben cada usuario
 	private static Agencia instance = null;
@@ -532,34 +533,35 @@ public class Agencia implements IAgencia {
 		return comisionEmpleado + comisionEmpleador;
 	}
 
-	public boolean loguearAdmin(String username, String password) {
-		int i = 0;
-		boolean resp = false;
-		while (i <= this.administradores.size() && this.administradores.get(i).getUsername() == username)
-			i++;
-		if (i <= this.administradores.size()) 
-			resp = this.administradores.get(i).getPassword().equalsIgnoreCase(password);
-		return resp;
-	}
+	public void loguear(String username, String password, String tipo) {
+        int i = 0;
+        boolean resp = false;
+        String mensaje = "INCORRECTO";
+        if (tipo.equalsIgnoreCase("ADMINISTRADOR")) {
+        	
+            while (i < this.administradores.size() && !this.administradores.get(i).getUsername().equalsIgnoreCase(username))
+                i++;
+            if (i < this.administradores.size() && this.administradores.get(i).getPassword().equals(password))
+            	mensaje = "ADMINISTRADOR";
+            
+        } else if (tipo.equalsIgnoreCase("EMPLEADOR")) {
+        	
+            while (i < this.empleadores.size() && !this.empleadores.get(i).getUsername().equalsIgnoreCase(username))
+                i++;
+            if (i < this.empleadores.size() && this.empleadores.get(i).getPassword().equals(password))
+            	mensaje = "EMPLEADOR";
+            
+        } else if (tipo.equalsIgnoreCase("EMPLEADO")) {
 
-	public boolean loguearEmpleador(String username, String password) {
-		int i = 0;
-		boolean resp = false;
-		while (i <= this.empleadores.size() && this.empleadores.get(i).getUsername() == username)
-			i++;
-		if (i <= this.empleadores.size())
-			resp = this.empleadores.get(i).getPassword().equalsIgnoreCase(password);
-		return resp;
-	}
-
-	public boolean loguearEmpleado(String username, String password) {
-		int i = 0;
-		boolean resp = false;
-		while (i <= this.empleados.size() && this.empleados.get(i).getUsername() == username)
-			i++;
-		if (i <= this.empleados.size())
-			resp = this.empleados.get(i).getPassword().equalsIgnoreCase(password);	
-		return resp;
-	}
+            while (i < this.empleados.size() && !this.empleados.get(i).getUsername().equalsIgnoreCase(username))
+                i++;
+            if (i < this.empleados.size() && this.empleados.get(i).getPassword().equals(password))
+            	mensaje = "EMPLEADO";
+            
+        }
+        
+        this.setChanged();
+        this.notifyObservers(mensaje);
+    }
 
 }

@@ -139,7 +139,6 @@ public class VLogin extends JFrame implements KeyListener, MouseListener, IVista
 		this.btnIngresar.addActionListener(actionListener);
 		this.btnRegistrarse.addActionListener(actionListener);
 		this.actionListener = actionListener;
-
 	}
 
 	@Override

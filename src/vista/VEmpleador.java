@@ -59,7 +59,7 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 	/**
 	 * Create the frame.
 	 */
-	public VEmpleador(String username) {
+	public VEmpleador() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 630, 441);
 		this.contentPane = new JPanel();
@@ -166,7 +166,6 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 		this.lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		this.lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.panel_4.add(this.lblNewLabel_3, BorderLayout.NORTH);
-		this.lblUsername.setText(username);
 		this.setVisible(true);
 	}
 
