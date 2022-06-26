@@ -64,7 +64,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 	/**
 	 * Create the frame.
 	 */
-	public VEmpleado() {
+	public VEmpleado(String username) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 630, 441);
 		this.principal = new JPanel();
@@ -129,7 +129,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		this.panel_5.add(this.lblNewLabel_2);
 		this.lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 
-		this.lblUsername = new JLabel("");
+		this.lblUsername = new JLabel(username);
 		this.lblUsername.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_5.add(this.lblUsername);
@@ -184,6 +184,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		this.scrollPane.setColumnHeaderView(this.lblNewLabel_4);
 		this.listTicket.setModel(modeloListaTicket);
 		this.listAsignacion.setModel(modeloListaAsignacion);
+
 		this.setVisible(true);
 	}
 

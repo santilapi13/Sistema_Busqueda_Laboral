@@ -32,9 +32,9 @@ public class Prueba3 {
 			Admin a1 = new Admin("admin1","contrase�aAdmin1");
 			
 			// CREACION DE TICKETS
-			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(1,0.2,0.4,1,0.2,1,0.8));
-			e2.emiteFormulario(agencia, e2.creaFormulario("HomeOffice","Baja","Extendida","Managment","Media","Terciario") , new Peso(1,0.5,0.4,1,0.2,1,0.8));
-			e3.emiteFormulario(agencia, e3.creaFormulario("HomeOffice","Alta","Extendida","Junior","Mucha","Primario") , new Peso(0.1,0.1,1,0.8,0.1,1,0.8));	// Se fuerza un puntaje negativo para el empleador
+			e1.creaFormulario("Presencial", "Alta", "Completa", "Senior", "Media", "Terciario",new Peso(1, 0.2, 0.4, 1, 0.2, 1, 0.8));
+			e2.creaFormulario("HomeOffice", "Baja", "Extendida", "Managment", "Media", "Terciario",new Peso(1, 0.5, 0.4, 1, 0.2, 1, 0.8));
+			e3.creaFormulario("HomeOffice","Alta","Extendida","Junior","Mucha","Primario", new Peso(0.1,0.1,1,0.8,0.1,1,0.8));	// Se fuerza un puntaje negativo para el empleador
 
 			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1),2);
 			

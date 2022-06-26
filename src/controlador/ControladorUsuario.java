@@ -84,7 +84,7 @@ public class ControladorUsuario implements ActionListener, Observer {
 			} else if (comando.equalsIgnoreCase("RESULTADO")) {
 
 			} else if (comando.equalsIgnoreCase("MODIFICAR")) {
-
+				new ControladorFormulario();
 			} else if (comando.equalsIgnoreCase("SUSPENDER")) {
 				this.vista.getTicketSeleccionado().suspenderse();
 			} else if (comando.equalsIgnoreCase("CANCELAR")) {

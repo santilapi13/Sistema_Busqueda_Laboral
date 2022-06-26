@@ -2,9 +2,9 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import modelo.ElemLA;
 import modelo.Empleado;
 import modelo.Empleador;
 import modelo.ListaAsignacion;
@@ -53,13 +54,14 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 	private JLabel lblNewLabel_3;
 	private ActionListener actionListener;
 	private JButton btnSalir;
+	private JList<ElemLA> listAsignacion;
 
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public VEmpleador() {
+	public VEmpleador(String username) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 630, 441);
 		this.contentPane = new JPanel();
@@ -121,7 +123,7 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 		this.lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_5.add(this.lblNewLabel_2);
 		
-		this.lblUsername = new JLabel("");
+		this.lblUsername = new JLabel(username);
 		this.lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		this.lblUsername.setFont(new Font("Tahoma", Font.BOLD, 13));
 		this.panel_5.add(this.lblUsername);
@@ -180,14 +182,45 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 			btnElegir.setEnabled(true);
 		else
 			btnElegir.setEnabled(false);
+	
+		
+		JButton but = (JButton) e.getSource();
+		if (but.getActionCommand().equalsIgnoreCase("Modificar")) {
+			ActionEvent event = new ActionEvent(this.listTicket.getSelectedIndex(), 0, but.getActionCommand());;
+			this.actionListener.actionPerformed(event);
+		}
 	}
+	
 	public void mouseReleased(MouseEvent e) {
+		if (!this.listAsignacion.isSelectionEmpty())
+			btnElegir.setEnabled(true);
+		else
+			btnElegir.setEnabled(false);
+		
+		if (!this.listTicket.isSelectionEmpty()) {
+			this.btnModificar.setEnabled(true);
+			this.btnSuspender.setEnabled(true);
+			this.btnCancelar.setEnabled(true);
+		}
+		else{
+			this.btnModificar.setEnabled(false);
+			this.btnSuspender.setEnabled(false);
+			this.btnCancelar.setEnabled(false);
+		}
 	}
 
 	@Override
 	public void setActionListener(ActionListener actionListener) {
+		this.btnCrear.addActionListener(actionListener);
+		this.btnCancelar.addActionListener(actionListener);
+		this.btnElegir.addActionListener(actionListener);
+		this.btnGestionar.addActionListener(actionListener);
+		this.btnLista.addActionListener(actionListener);
+		this.btnModificar.addActionListener(actionListener);
+		this.btnResultados.addActionListener(actionListener);
+		this.btnSalir.addActionListener(actionListener);
+		this.btnSuspender.addActionListener(actionListener);
 		this.actionListener = actionListener;
-		
 	}
 
 	@Override
@@ -245,7 +278,6 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.lblUsername.getText();
 	}
 }

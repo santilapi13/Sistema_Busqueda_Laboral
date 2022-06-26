@@ -27,6 +27,13 @@ public class TicketEmpleado extends Ticket {
 		super(formulario,peso);
 		this.cantPuestos = cantPuestos;
 	}
+	
+	public void modificar(String locacion, String remuneracion, String cargaHoraria,String puestoLaboral, String rangoEtario,String expPrevia,String estudios,Peso pesos,int cantPuestos) {
+		FormularioFactory f = new FormularioFactory();
+		this.formulario = f.getFormulario(locacion, remuneracion, cargaHoraria, puestoLaboral, rangoEtario, expPrevia, estudios);
+		this.peso = pesos;
+		this.cantPuestos = cantPuestos;
+	}
 
 	@Override
 	public double calculaPuntajeEncuentro(ITicket ticket) {	// Compara preferencias de este ticket (buscando un empleado) con las preferencias del ticket de empleo (buscando empleador) pasado por par�metro

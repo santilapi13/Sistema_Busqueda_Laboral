@@ -24,20 +24,21 @@ public class ControladorFormulario implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String comando = e.getActionCommand();
-		if (comando.equalsIgnoreCase("ENVIAR")) {
-			String locacion = this.vista.getLocacion();
-			String remuneracion = this.vista.getRemuneracion();
-			String cargaH = this.vista.getCargaHoraria();
-			String puesto = this.vista.getPuestoLaboral();
-			String experiencia = this.vista.getExperienciaPrevia();
-			String estudios = this.vista.getEstudios();
-			String tipo = Agencia.getInstance().getTipoUsuarioLogueado();
 
-			try {
-				Peso pesos = new Peso(vista.getTextPLocacion(), vista.getTextPRemuneracion(), vista.getTextPCargaH(),
-						vista.getTextPPuesto(), vista.getTextPRangoE(), vista.getTextPExperiencia(),
-						vista.getTextPEstudios());
+		String comando = e.getActionCommand();
+		String locacion = this.vista.getLocacion();
+		String remuneracion = this.vista.getRemuneracion();
+		String cargaH = this.vista.getCargaHoraria();
+		String puesto = this.vista.getPuestoLaboral();
+		String experiencia = this.vista.getExperienciaPrevia();
+		String estudios = this.vista.getEstudios();
+		String tipo = Agencia.getInstance().getTipoUsuarioLogueado();
+		try {
+			Peso pesos = new Peso(vista.getTextPLocacion(), vista.getTextPRemuneracion(), vista.getTextPCargaH(),
+					vista.getTextPPuesto(), vista.getTextPRangoE(), vista.getTextPExperiencia(),
+					vista.getTextPEstudios());
+
+			if (comando.equalsIgnoreCase("ENVIAR")) {
 
 				if (tipo.equalsIgnoreCase("EMPLEADO")) {
 
@@ -56,11 +57,21 @@ public class ControladorFormulario implements ActionListener {
 					}
 				}
 				this.vista.cerrarse();
-			} catch (PesoInvalidoException exc) {
-				JOptionPane.showMessageDialog(null, exc.getMessage());
-			}
 
+			} else if (comando.equalsIgnoreCase("MODIFICAR")) {
+				if (tipo.equalsIgnoreCase("EMPLEADO")) {
+					Empleado empleado = (Empleado) Agencia.getInstance().getUsuarioLogueado();
+					empleado.getTicket().modificar(locacion, remuneracion, cargaH, puesto, experiencia, tipo, estudios, pesos);
+				} else {
+					Empleador empleador = (Empleador) Agencia.getInstance().getUsuarioLogueado();
+					int cant = this.vista.getTextCant();
+					
+				}
+			}
+		} catch (PesoInvalidoException exc) {
+			JOptionPane.showMessageDialog(null, exc.getMessage());
 		}
+
 	}
 
 }

@@ -40,8 +40,8 @@ public class Prueba {
 			agencia.addAdmin(a1);
 			
 			// CREACION DE TICKETS (locacion, remuneracion, carga horaria, puesto laboral, (rango etario), experiencia previa, estudios)
-			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(1,0.2,0.4,1,0.2,1,0.8));
-			e2.emiteFormulario(agencia, e2.creaFormulario("HomeOffice","Baja","Extendida","Managment","Media","Terciario") , new Peso(1,0.5,0.4,1,0.2,1,0.8));
+			e1.creaFormulario("Presencial", "Alta", "Completa", "Senior", "Media", "Terciario",new Peso(1, 0.2, 0.4, 1, 0.2, 1, 0.8));
+			e2.creaFormulario("HomeOffice", "Baja", "Extendida", "Managment", "Media", "Terciario",new Peso(1, 0.5, 0.4, 1, 0.2, 1, 0.8));
 
 			er1.creaFormulario("HomeOffice","Media","Media","Senior","Edad Temprana","Media","Terciario", new Peso(1,1,1,1,1,1,1),2);		// indice 0
 			

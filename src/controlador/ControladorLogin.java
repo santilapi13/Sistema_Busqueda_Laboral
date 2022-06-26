@@ -109,10 +109,10 @@ public class ControladorLogin implements ActionListener, Observer {
 			new ControladorUsuario(new VAdmin());
 		} else if (arg.toString().contentEquals("EMPLEADO")) {
 			this.vista.cerrarse();
-			new ControladorUsuario(new VEmpleado());
+			new ControladorUsuario(new VEmpleado(Agencia.getInstance().getUsuarioLogueado().getUsername()));
 		} else if (arg.toString().contentEquals("EMPLEADOR")) {
 			this.vista.cerrarse();
-			new ControladorUsuario(new VEmpleador());
+			new ControladorUsuario(new VEmpleador(Agencia.getInstance().getUsuarioLogueado().getUsername()));
 		} else if (arg.toString().contentEquals("INCORRECTO"))
 			JOptionPane.showMessageDialog(null, "Usuario o contrasena incorrecta");
 	}

@@ -16,7 +16,7 @@ public class Prueba5 {
 			agencia.addEmpleado(e1);
 			
 			// CREACION DE TICKETS (Con un peso negativo)
-			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(-1,0.2,0.4,1,0.2,1,0.8));
+			e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario", new Peso(-1,0.2,0.4,1,0.2,1,0.8));
 			
 		} catch (PesoInvalidoException e) {
 			System.out.println(e.getMessage());

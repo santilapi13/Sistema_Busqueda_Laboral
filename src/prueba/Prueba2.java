@@ -22,10 +22,10 @@ public class Prueba2 {
 			Empleado e1 = new Empleado("santisosa","saso123","Santiago Sosa","223585835","01/01/2002");
 			agencia.addEmpleado(e1);
 			
-			Admin a1 = new Admin("admin1","contraseñaAdmin1");
+			Admin a1 = new Admin("admin1","contraseï¿½aAdmin1");
 			
 			// CREACION DE TICKETS ( 1 empleado y no hay empleadores)
-			e1.emiteFormulario(agencia, e1.creaFormulario("Presencial","Alta","Completa","Senior","Media","Terciario") , new Peso(1,0.2,0.4,1,0.2,1,0.8));
+			e1.creaFormulario("Presencial", "Alta", "Completa", "Senior", "Media", "Terciario",new Peso(1, 0.2, 0.4, 1, 0.2, 1, 0.8));
 			
 			a1.iniciaRondaEncuentros();
 			

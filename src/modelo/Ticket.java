@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -18,7 +19,7 @@ import modelo.estados.IEstadoTicket;
 @SuppressWarnings("serial")
 public abstract class Ticket implements ITicket, Serializable {
 
-	private Formulario formulario;
+	protected Formulario formulario;
 	private Calendar fecha;
 	private IEstadoTicket estado;
 
@@ -58,9 +59,14 @@ public abstract class Ticket implements ITicket, Serializable {
 		return peso;
 	}
 
-	@Override
+	public String getFechaString(Calendar gregorianCalendarDate) {
+		SimpleDateFormat formattedDate = new SimpleDateFormat("dd-MMM-yyyy");
+		String dateFormatted = formattedDate.format(gregorianCalendarDate.getTime());
+		return dateFormatted;
+	}
+
 	public String toString() {
-		return "fecha: " + fecha.getTime() + ", estado: " + estado;
+		return "fecha: " + getFechaString(fecha) + "  estado: " + estado;
 	}
 
 	public void cancelarse() {
@@ -82,5 +88,5 @@ public abstract class Ticket implements ITicket, Serializable {
 	public boolean isActivo() {
 		return this.estado.isActivo();
 	}
-	
+
 }

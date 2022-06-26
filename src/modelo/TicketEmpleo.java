@@ -29,8 +29,13 @@ public class TicketEmpleo extends Ticket {
 		super(formulario,peso);
 		this.resultado = "pendiente";
 	}
-
 	
+	public void modificar(String locacion, String remuneracion, String cargaHoraria,String puestoLaboral, String rangoEtario,String expPrevia,String estudios,Peso pesos) {
+		FormularioFactory f = new FormularioFactory();
+		this.formulario = f.getFormulario(locacion, remuneracion, cargaHoraria, puestoLaboral, rangoEtario, expPrevia, estudios);
+		this.peso = pesos;
+	}
+
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
 	}
