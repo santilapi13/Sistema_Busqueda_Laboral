@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,6 +19,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+
+import modelo.ICelda;
+
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
@@ -60,7 +64,7 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 	private JLabel lblNewLabel_4;
 	private JPanel radiobtn_3;
 	private JRadioButton rdbtnMedia;
-	private JRadioButton rdbtnVCompleta;
+	private JRadioButton rdbtnCompleta;
 	private JRadioButton rdbtnExtendida;
 	private JPanel panelPuesto;
 	private JPanel label_4;
@@ -118,20 +122,8 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 	private JTextField textPEstudios;
 	private JLabel lblNewLabel_6;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VFormulario frame = new VFormulario();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
-	public VFormulario() {
+	public VFormulario(String tipo) {
 		setTitle("SISTEMA DE BUSQUEDA LABORAL");
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -231,19 +223,19 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 		this.panelRemuneracion.add(this.radiobtn_2);
 		this.radiobtn_2.setLayout(new GridLayout(0, 3, 0, 0));
 
-		this.rdbtnV1 = new JRadioButton("Hasta V1");
+		this.rdbtnV1 = new JRadioButton("Baja");
 		this.rdbtnV1.addMouseListener(this);
 		this.rdbtnV1.setFont(new Font("Arial", Font.PLAIN, 12));
 		this.radiobtn_2.add(this.rdbtnV1);
 		this.bgRemuneracion.add(rdbtnV1);
 
-		this.rdbtnV1V2 = new JRadioButton("Entre V1 y V2");
+		this.rdbtnV1V2 = new JRadioButton("Media");
 		this.rdbtnV1V2.addMouseListener(this);
 		this.rdbtnV1V2.setFont(new Font("Arial", Font.PLAIN, 12));
 		this.radiobtn_2.add(this.rdbtnV1V2);
 		this.bgRemuneracion.add(rdbtnV1V2);
 
-		this.rdbtnV2 = new JRadioButton("Mas de V2");
+		this.rdbtnV2 = new JRadioButton("Alta");
 		this.rdbtnV2.addMouseListener(this);
 		this.rdbtnV2.setFont(new Font("Arial", Font.PLAIN, 12));
 		this.radiobtn_2.add(this.rdbtnV2);
@@ -272,11 +264,11 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 		this.radiobtn_3.add(this.rdbtnMedia);
 		this.bgCargaHoraria.add(rdbtnMedia);
 
-		this.rdbtnVCompleta = new JRadioButton("Completa");
-		this.rdbtnVCompleta.addMouseListener(this);
-		this.rdbtnVCompleta.setFont(new Font("Arial", Font.PLAIN, 12));
-		this.radiobtn_3.add(this.rdbtnVCompleta);
-		this.bgCargaHoraria.add(rdbtnVCompleta);
+		this.rdbtnCompleta = new JRadioButton("Completa");
+		this.rdbtnCompleta.addMouseListener(this);
+		this.rdbtnCompleta.setFont(new Font("Arial", Font.PLAIN, 12));
+		this.radiobtn_3.add(this.rdbtnCompleta);
+		this.bgCargaHoraria.add(rdbtnCompleta);
 
 		this.rdbtnExtendida = new JRadioButton("Extendida");
 		this.rdbtnExtendida.addMouseListener(this);
@@ -548,6 +540,11 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 		this.lblNewLabel_6.setForeground(UIManager.getColor("Button.background"));
 		this.lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		this.panelPesos.add(this.lblNewLabel_6, BorderLayout.SOUTH);
+		
+		this.rdbtnE1.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
+		this.rdbtnE2.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
+		this.rdbtnE3.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
+		this.textCant.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
 		this.setVisible(true);
 
 	}
@@ -573,7 +570,7 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 		boolean resp = false;
 		resp = (rdbtnHomeOffice.isSelected() || rdbtnPresencial.isSelected() || rdbtnIndistinto.isSelected())
 				&& (rdbtnV1.isSelected() || rdbtnV1V2.isSelected() || rdbtnV2.isSelected())
-				&& (rdbtnMedia.isSelected() || rdbtnVCompleta.isSelected() || rdbtnExtendida.isSelected())
+				&& (rdbtnMedia.isSelected() || rdbtnCompleta.isSelected() || rdbtnExtendida.isSelected())
 				&& (rdbtnJunior.isSelected() || rdbtnSenior.isSelected() || rdbtnManagement.isSelected())
 				&& (!rdbtnE1.isEnabled() || rdbtnE1.isSelected() || rdbtnE2.isSelected() || rdbtnE3.isSelected())
 				&& (rdbtnNada.isSelected() || rdbtnMucha.isSelected() || rdbtnEMedia.isSelected())
@@ -587,7 +584,6 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 	}
 
 	public void setActionListener(ActionListener actionListener) {
-		this.btnEnviar.addActionListener(actionListener);
 		this.actionlistener = actionListener;
 	}
 
@@ -600,5 +596,33 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 	}
 	public void keyTyped(KeyEvent e) {
+	}
+	
+	public String getLocacion() {
+		return (this.rdbtnHomeOffice.isSelected())?"HomeOffice":(this.rdbtnPresencial.isSelected())?"Presencial":"Indisitnto";
+	}
+	
+	public String getRemuneracion() {
+		return (this.rdbtnV1.isSelected())?"Baja":(this.rdbtnV1V2.isSelected())?"Media":"Alta";
+	}
+	
+	public String getCargaHoraria() {
+		return (this.rdbtnMedia.isSelected())?"Media":(this.rdbtnCompleta.isSelected())?"Completa":"Extendida";
+	}
+	
+	public String getPuestoLaboral() {
+		return (this.rdbtnJunior.isSelected())?"Junio":(this.rdbtnSenior.isSelected())?"Senior":"Managment";
+	}
+	
+	public String getRangoEtario() {
+		return (this.rdbtnE1.isSelected())?"Edad temprana":(this.rdbtnE2.isSelected())?"Edad Media":"Edad Avanzada";
+	}
+	
+	public String getExperienciaPrevia() {
+		return (this.rdbtnNada.isSelected())?"Nada":(this.rdbtnEMedia.isSelected())?"Media":"Mucha";
+	}
+	
+	public String getEstudios() {
+		return (this.rdbtnPrimario.isSelected())?"Primario":(this.rdbtnSecundario.isSelected())?"Secundario":"Terciario";
 	}
 }
