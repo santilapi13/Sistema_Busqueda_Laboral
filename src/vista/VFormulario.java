@@ -1,11 +1,11 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,17 +13,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-
-import modelo.ICelda;
-
-import java.awt.event.KeyListener;
-import java.awt.event.KeyEvent;
 
 public class VFormulario extends JFrame implements MouseListener, KeyListener {
 
@@ -122,8 +118,7 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 	private JTextField textPEstudios;
 	private JLabel lblNewLabel_6;
 
-	
-	public VFormulario(String tipo) {
+	public VFormulario() {
 		setTitle("SISTEMA DE BUSQUEDA LABORAL");
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -540,11 +535,6 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 		this.lblNewLabel_6.setForeground(UIManager.getColor("Button.background"));
 		this.lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		this.panelPesos.add(this.lblNewLabel_6, BorderLayout.SOUTH);
-		
-		this.rdbtnE1.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
-		this.rdbtnE2.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
-		this.rdbtnE3.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
-		this.textCant.setEnabled(tipo.equalsIgnoreCase("EMPLEADOR"));
 		this.setVisible(true);
 
 	}
@@ -575,15 +565,16 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 				&& (!rdbtnE1.isEnabled() || rdbtnE1.isSelected() || rdbtnE2.isSelected() || rdbtnE3.isSelected())
 				&& (rdbtnNada.isSelected() || rdbtnMucha.isSelected() || rdbtnEMedia.isSelected())
 				&& (rdbtnPrimario.isSelected() || rdbtnSecundario.isSelected() || rdbtnTerciario.isSelected())
-				&& !this.textPLocacion.getText().isEmpty() && !this.textPPuesto.getText().isEmpty() 
+				&& !this.textPLocacion.getText().isEmpty() && !this.textPPuesto.getText().isEmpty()
 				&& !this.textPCargaH.getText().isEmpty() && !this.textPEstudios.getText().isEmpty()
 				&& !this.textPExperiencia.getText().isEmpty() && !this.textPRangoE.getText().isEmpty()
-				&& !this.textPRemuneracion.getText().isEmpty()
-				&& (!this.textCant.isEnabled()|| this.textCant.getText()!=null|| !this.textCant.getText().isEmpty());
+				&& !this.textPRemuneracion.getText().isEmpty() && (!this.textCant.isEnabled()
+						|| this.textCant.getText() != null || !this.textCant.getText().isEmpty());
 		return resp;
 	}
 
 	public void setActionListener(ActionListener actionListener) {
+		this.btnEnviar.addActionListener(actionListener);
 		this.actionlistener = actionListener;
 	}
 
@@ -593,36 +584,120 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 	}
+
 	public void keyReleased(KeyEvent e) {
 	}
+
 	public void keyTyped(KeyEvent e) {
 	}
-	
+
 	public String getLocacion() {
-		return (this.rdbtnHomeOffice.isSelected())?"HomeOffice":(this.rdbtnPresencial.isSelected())?"Presencial":"Indisitnto";
+		return (this.rdbtnHomeOffice.isSelected()) ? "HomeOffice"
+				: (this.rdbtnPresencial.isSelected()) ? "Presencial" : "Indisitnto";
 	}
-	
+
 	public String getRemuneracion() {
-		return (this.rdbtnV1.isSelected())?"Baja":(this.rdbtnV1V2.isSelected())?"Media":"Alta";
+		return (this.rdbtnV1.isSelected()) ? "Baja" : (this.rdbtnV1V2.isSelected()) ? "Media" : "Alta";
 	}
-	
+
 	public String getCargaHoraria() {
-		return (this.rdbtnMedia.isSelected())?"Media":(this.rdbtnCompleta.isSelected())?"Completa":"Extendida";
+		return (this.rdbtnMedia.isSelected()) ? "Media" : (this.rdbtnCompleta.isSelected()) ? "Completa" : "Extendida";
 	}
-	
+
 	public String getPuestoLaboral() {
-		return (this.rdbtnJunior.isSelected())?"Junio":(this.rdbtnSenior.isSelected())?"Senior":"Managment";
+		return (this.rdbtnJunior.isSelected()) ? "Junio" : (this.rdbtnSenior.isSelected()) ? "Senior" : "Managment";
 	}
-	
+
 	public String getRangoEtario() {
-		return (this.rdbtnE1.isSelected())?"Edad temprana":(this.rdbtnE2.isSelected())?"Edad Media":"Edad Avanzada";
+		return (this.rdbtnE1.isSelected()) ? "Edad temprana"
+				: (this.rdbtnE2.isSelected()) ? "Edad Media" : "Edad Avanzada";
 	}
-	
+
 	public String getExperienciaPrevia() {
-		return (this.rdbtnNada.isSelected())?"Nada":(this.rdbtnEMedia.isSelected())?"Media":"Mucha";
+		return (this.rdbtnNada.isSelected()) ? "Nada" : (this.rdbtnEMedia.isSelected()) ? "Media" : "Mucha";
 	}
-	
+
 	public String getEstudios() {
-		return (this.rdbtnPrimario.isSelected())?"Primario":(this.rdbtnSecundario.isSelected())?"Secundario":"Terciario";
+		return (this.rdbtnPrimario.isSelected()) ? "Primario"
+				: (this.rdbtnSecundario.isSelected()) ? "Secundario" : "Terciario";
+	}
+
+	public int getTextCant() {
+		try {
+			return Integer.parseInt(this.textCant.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public double getTextPLocacion() {
+		try {
+			return Double.parseDouble(this.textPLocacion.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public double getTextPRemuneracion() {
+		try {
+			return Double.parseDouble(this.textPRemuneracion.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public double getTextPCargaH() {
+		try {
+			return Double.parseDouble(this.textPCargaH.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public double getTextPPuesto() {
+		try {
+			return Double.parseDouble(this.textPPuesto.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public double getTextPRangoE() {
+		try {
+			return Double.parseDouble(this.textPRangoE.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public double getTextPExperiencia() {
+		try {
+			return Double.parseDouble(this.textPExperiencia.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public double getTextPEstudios() {
+		try {
+			return Double.parseDouble(this.textPEstudios.getText());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			return 0;
+		}
+	}
+
+	public void isEmpleador() {
+		this.textCant.setEnabled(true);
+		this.rdbtnE1.setEnabled(true);
+		this.rdbtnE2.setEnabled(true);
+		this.rdbtnE3.setEnabled(true);
 	}
 }

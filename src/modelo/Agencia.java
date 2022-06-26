@@ -25,6 +25,8 @@ public class Agencia extends Observable implements IAgencia {
 	private ArrayList<ElemRE> eleccionesEmpleadores = new ArrayList<ElemRE>();
 	private Map<String, ElemRE> eleccionesEmpleados = new HashMap<String, ElemRE>();
 	private ArrayList<Contrato> contratos = new ArrayList<Contrato>();
+	private Usuario usuarioLogueado = null;
+	private String tipoUsuarioLogueado = null;
 
 	private Agencia() {
 		this.fondos = 0;
@@ -105,6 +107,29 @@ public class Agencia extends Observable implements IAgencia {
 
 	public void setAdministradores(ArrayList<Admin> administradores) {
 		this.administradores = administradores;
+	}
+
+	public Usuario getUsuarioLogueado() {
+		return usuarioLogueado;
+	}
+
+	public String getTipoUsuarioLogueado() {
+		return tipoUsuarioLogueado;
+	}
+
+	public void setUsuarioLogueado(String username, String tipo) {
+		Usuario usuario = null;
+		if (tipo != null) {
+			if (tipo.equalsIgnoreCase("EMPLEADO")) {
+				usuario = this.getEmpleado(username);
+			} else if (tipo.equalsIgnoreCase("EMPLEADOR")) {
+				usuario = this.getEmpleador(username);
+			} else if (tipo.equalsIgnoreCase("ADMINISTRADOR")) {
+				usuario = this.getAdministrador(username);
+			}
+		}
+		this.usuarioLogueado = usuario;
+		this.tipoUsuarioLogueado = tipo;
 	}
 
 	public void addAdmin(Admin a) throws UsuarioRepetidoException {
@@ -534,34 +559,66 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	public void loguear(String username, String password, String tipo) {
-        int i = 0;
-        boolean resp = false;
-        String mensaje = "INCORRECTO";
-        if (tipo.equalsIgnoreCase("ADMINISTRADOR")) {
-        	
-            while (i < this.administradores.size() && !this.administradores.get(i).getUsername().equalsIgnoreCase(username))
-                i++;
-            if (i < this.administradores.size() && this.administradores.get(i).getPassword().equals(password))
-            	mensaje = "ADMINISTRADOR";
-            
-        } else if (tipo.equalsIgnoreCase("EMPLEADOR")) {
-        	
-            while (i < this.empleadores.size() && !this.empleadores.get(i).getUsername().equalsIgnoreCase(username))
-                i++;
-            if (i < this.empleadores.size() && this.empleadores.get(i).getPassword().equals(password))
-            	mensaje = "EMPLEADOR";
-            
-        } else if (tipo.equalsIgnoreCase("EMPLEADO")) {
+		int i = 0;
+		String mensaje = "INCORRECTO";
+		if (tipo.equalsIgnoreCase("ADMINISTRADOR")) {
 
-            while (i < this.empleados.size() && !this.empleados.get(i).getUsername().equalsIgnoreCase(username))
-                i++;
-            if (i < this.empleados.size() && this.empleados.get(i).getPassword().equals(password))
-            	mensaje = "EMPLEADO";
-            
-        }
-        
-        this.setChanged();
-        this.notifyObservers(mensaje);
-    }
+			while (i < this.administradores.size()
+					&& !this.administradores.get(i).getUsername().equalsIgnoreCase(username))
+				i++;
+			if (i < this.administradores.size() && this.administradores.get(i).getPassword().equals(password))
+				mensaje = "ADMINISTRADOR";
+
+		} else if (tipo.equalsIgnoreCase("EMPLEADOR")) {
+
+			while (i < this.empleadores.size() && !this.empleadores.get(i).getUsername().equalsIgnoreCase(username))
+				i++;
+			if (i < this.empleadores.size() && this.empleadores.get(i).getPassword().equals(password))
+				mensaje = "EMPLEADOR";
+
+		} else if (tipo.equalsIgnoreCase("EMPLEADO")) {
+			while (i < this.empleados.size() && !this.empleados.get(i).getUsername().equalsIgnoreCase(username))
+				i++;
+			if (i < this.empleados.size() && this.empleados.get(i).getPassword().equals(password))
+				mensaje = "EMPLEADO";
+
+		}
+		if (mensaje != "INCORRECTO") {
+			setUsuarioLogueado(username, tipo);
+		}
+
+		this.setChanged();
+		this.notifyObservers(mensaje);
+	}
+
+	private Empleado getEmpleado(String username) {
+		int i = 0;
+		Empleado empleado = null;
+		while (i < this.empleados.size() && !this.empleados.get(i).getUsername().equalsIgnoreCase(username))
+			i++;
+		if (i < this.empleados.size())
+			empleado = this.empleados.get(i);
+		return empleado;
+	}
+
+	private Empleador getEmpleador(String username) {
+		int i = 0;
+		Empleador empleador = null;
+		while (i < this.empleadores.size() && !this.empleadores.get(i).getUsername().equalsIgnoreCase(username))
+			i++;
+		if (i < this.empleadores.size())
+			empleador = this.empleadores.get(i);
+		return empleador;
+	}
+
+	private Admin getAdministrador(String username) {
+		int i = 0;
+		Admin admin = null;
+		while (i < this.administradores.size() && !this.administradores.get(i).getUsername().equalsIgnoreCase(username))
+			i++;
+		if (i < this.administradores.size())
+			admin = this.administradores.get(i);
+		return admin;
+	}
 
 }

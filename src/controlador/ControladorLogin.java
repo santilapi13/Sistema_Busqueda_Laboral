@@ -27,6 +27,7 @@ public class ControladorLogin implements ActionListener, Observer {
 	private IVistaLogin vista = null;
 
 	public ControladorLogin() {
+		Agencia.getInstance().setUsuarioLogueado(null, null);
 		this.vista = new VLogin();
 		this.vista.setActionListener(this);
 		Agencia.getInstance().addObserver(this);
@@ -91,6 +92,7 @@ public class ControladorLogin implements ActionListener, Observer {
 				this.vista.cerrarse();
 				this.vista = new VLogin();
 				this.vista.setActionListener(this);
+				Agencia.getInstance().setUsuarioLogueado(null, null);
 
 			} catch (UsuarioRepetidoException exc) {
 				JOptionPane.showMessageDialog(null, exc.getMessage());

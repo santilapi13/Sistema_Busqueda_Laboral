@@ -90,19 +90,19 @@ public class Empleado extends NoAdmin {
 	 * @return Objeto de tipo Formulario con sus atributos cargados de acuerdo a las
 	 *         condiciones indicadas en los par�metros.
 	 */
-	public Formulario creaFormulario(String locacion, String remuneracion, String cargaHoraria, String puestoLaboral,
-			String expPrevia, String estudios) {
-		String rangoEtario;
-		if (this.getEdad() < 40)
-			rangoEtario = "Edad Temprana";
-		else if (this.getEdad() < 50)
-			rangoEtario = "Edad Media";
-		else
-			rangoEtario = "Edad Avanzada";
-		FormularioFactory factory = new FormularioFactory();
-		return factory.getFormulario(locacion, remuneracion, cargaHoraria, puestoLaboral, rangoEtario, expPrevia,
-				estudios);
-	}
+	public void creaFormulario(String locacion, String remuneracion, String cargaHoraria, String puestoLaboral,
+            String expPrevia, String estudios, Peso peso) {
+        String rangoEtario;
+        if (this.getEdad() < 40)
+            rangoEtario = "Edad Temprana";
+        else if (this.getEdad() < 50)
+            rangoEtario = "Edad Media";
+        else
+            rangoEtario = "Edad Avanzada";
+        FormularioFactory factory = new FormularioFactory();
+        Formulario f = factory.getFormulario(locacion, remuneracion, cargaHoraria, puestoLaboral, rangoEtario, expPrevia,estudios);
+        this.emiteFormulario(f, peso);
+    }
 
 	/**
 	 * Crea un ticket de empleo enviando el formulario y los pesos a la agencia
@@ -118,9 +118,9 @@ public class Empleado extends NoAdmin {
 	 * @param p:       Representa la importancia que le da el empleado a cada
 	 *                 aspecto del formulario.
 	 */
-	public void emiteFormulario(IAgencia agencia, Formulario f, Peso peso) {
-		this.ticket = agencia.recibeFormEmpleado(f, peso);
-	}
+	public void emiteFormulario(Formulario f, Peso peso) {
+        this.ticket = Agencia.getInstance().recibeFormEmpleado(f, peso);
+    }
 
 	/**
 	 * Modifica el estado del ticket del empleado y penaliza al mismo en su
