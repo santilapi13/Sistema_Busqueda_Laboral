@@ -23,7 +23,6 @@ public class ControladorThread implements ActionListener {
 
 		if (comando.equalsIgnoreCase("Iniciar")) {
 			this.vista.setEnabledFalse();
-			Agencia agencia = Agencia.getInstance();
 
 			for (int i = 0; i < Agencia.getInstance().getEmpleados().size(); i++) {
 				Empleado e = Agencia.getInstance().getEmpleados().get(i);

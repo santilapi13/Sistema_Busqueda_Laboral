@@ -22,6 +22,7 @@ import modelo.Empleado;
 import modelo.Empleador;
 import java.awt.Color;
 
+@SuppressWarnings("serial")
 public class VSimulacion extends JFrame {
 
 	private JPanel contentPane;

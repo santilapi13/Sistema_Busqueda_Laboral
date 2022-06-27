@@ -20,8 +20,8 @@ import modelo.estados.IEstadoTicket;
 public abstract class Ticket implements ITicket, Serializable {
 
 	protected Formulario formulario;
-	private Calendar fecha;
-	private IEstadoTicket estado;
+	protected Calendar fecha;
+	protected IEstadoTicket estado;
 
 	protected Peso peso;
 

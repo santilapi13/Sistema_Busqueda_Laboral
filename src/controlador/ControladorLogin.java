@@ -28,6 +28,7 @@ import vista.VRegistroAdmin;
 import vista.VRegistroEmpleado;
 import vista.VRegistroEmpleador;
 
+@SuppressWarnings("deprecation")
 public class ControladorLogin implements ActionListener, Observer {
 	
 	private IVistaLogin vista = null;

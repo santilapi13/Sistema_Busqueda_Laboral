@@ -26,6 +26,7 @@ import modelo.NoAdmin;
 import modelo.Ticket;
 import modelo.TicketEmpleo;
 
+@SuppressWarnings("serial")
 public class VAdmin extends JFrame implements IVistaUsuario {
 
 	private JPanel principal;

@@ -48,4 +48,8 @@ public class TicketEmpleado extends Ticket {
 		this.cantPuestos = cantPuestos;
 	}
 
+	public String toString() {
+		return "fecha: " + getFechaString(fecha) + "  estado: " + estado + ", nro puestos: " + this.cantPuestos;
+	}
+	
 }

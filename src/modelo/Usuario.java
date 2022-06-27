@@ -10,7 +10,7 @@ import java.util.Observable;
  *
  */
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "deprecation" })
 public abstract class Usuario extends Observable implements Serializable {
 
 	private String username;

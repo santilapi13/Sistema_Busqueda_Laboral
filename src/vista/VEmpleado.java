@@ -27,6 +27,7 @@ import modelo.ListaAsignacion;
 import modelo.Ticket;
 import modelo.TicketEmpleo;
 
+@SuppressWarnings("serial")
 public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 
 	private JPanel principal;
@@ -49,7 +50,6 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 	private JButton btnBuscar;
 	private JButton btnGestionar;
 	private JButton btnLista;
-	private JButton btnResultado;
 	private JLabel lblNewLabel_3;
 	private ActionListener actionListener;
 	private JButton btnSalir;
@@ -60,6 +60,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 	private JList<TicketEmpleo> listTicket;
 	private DefaultListModel<TicketEmpleo> modeloListaTicket = new DefaultListModel<TicketEmpleo>();
 	private DefaultListModel<ElemLA> modeloListaAsignacion = new DefaultListModel<ElemLA>();
+	private DefaultListModel<String> modeloListaNoti = new DefaultListModel<String>();
 
 	/**
 	 * Create the frame.
@@ -123,7 +124,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 
 		this.panel_5 = new JPanel();
 		this.panel_2.add(this.panel_5, BorderLayout.NORTH);
-		this.panel_5.setLayout(new GridLayout(7, 1, 0, 0));
+		this.panel_5.setLayout(new GridLayout(6, 1, 0, 0));
 
 		this.lblNewLabel_2 = new JLabel("USUARIO:");
 		this.panel_5.add(this.lblNewLabel_2);
@@ -148,10 +149,6 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		this.btnLista.setActionCommand("Lista Asignacion");
 		this.btnLista.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel_5.add(this.btnLista);
-
-		this.btnResultado = new JButton("Resultado");
-		this.btnResultado.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		this.panel_5.add(this.btnResultado);
 
 		this.btnSalir = new JButton("Salir");
 		this.btnSalir.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -179,6 +176,7 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		this.principal.add(this.scrollPane, BorderLayout.SOUTH);
 
 		this.listNoti = new JList<String>();
+		this.listNoti.setModel(modeloListaNoti);
 		this.scrollPane.setViewportView(this.listNoti);
 
 		this.lblNewLabel_4 = new JLabel("Notificaciones");
@@ -228,7 +226,6 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 		this.btnGestionar.addActionListener(actionListener);
 		this.btnLista.addActionListener(actionListener);
 		this.btnModificar.addActionListener(actionListener);
-		this.btnResultado.addActionListener(actionListener);
 		this.btnSalir.addActionListener(actionListener);
 		this.btnSuspender.addActionListener(actionListener);
 		this.actionListener = actionListener;
@@ -253,10 +250,10 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 	}
 
 	@Override
-	public void informar(String s) {
-		// TODO Auto-generated method stub
-
-	}
+    public void informar(String s) {
+        this.modeloListaNoti.addElement(s);
+        this.validate();
+    }
 
 	@Override
 	public void actualizarSoliEmpleo(ArrayList<Empleado> empleados) {

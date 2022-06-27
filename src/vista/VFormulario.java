@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings("serial")
 public class VFormulario extends JFrame implements MouseListener, KeyListener {
 
 	private JPanel contentPane;
@@ -551,7 +552,6 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 	public void mousePressed(MouseEvent e) {
 	}
 
-	@SuppressWarnings("deprecation")
 	public void mouseReleased(MouseEvent e) {
 		this.btnEnviar.setEnabled(validar());
 	}

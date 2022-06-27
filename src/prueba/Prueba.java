@@ -149,7 +149,7 @@ public class Prueba {
 			System.out.println("\nCONTRATOS RESULTANTES:");
 			for (Contrato contratoAct : agencia.getContratos())
 				System.out.println(contratoAct);
-			/*
+			
 			IPersistencia<Serializable> persistencia = new PersistenciaBIN();
 			
 			persistencia.abrirOutput("Agencia.bin");
@@ -159,15 +159,15 @@ public class Prueba {
 			System.out.println("Agencia grabada exitosamente");
 			persistencia.cerrarOutput();
             System.out.println("Archivo cerrado");
-            */
+            
 		} catch (UsuariosInsuficientesException e) {
 			System.out.println(e.getMessage());
 		} catch (PesoInvalidoException e) {
 			System.out.println(e.getMessage());
 		} catch (UsuarioRepetidoException e) {
 			System.out.println(e.getMessage());
-		//} catch (IOException e) {
-		//	 System.out.println(e.getLocalizedMessage());
+		} catch (IOException e) {
+			 System.out.println(e.getLocalizedMessage());
 		}
 		
 		

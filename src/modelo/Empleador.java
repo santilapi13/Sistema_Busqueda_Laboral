@@ -184,7 +184,6 @@ public class Empleador extends NoAdmin {
 		while (i < 4) {
 			Util.espera();
 			this.notificador(this.nombre + " quiere agregar un ticket para " + Util.rubros[this.rubro] + " y locacion " + locacion);
-			System.out.println(this.nombre + " quiere agregar un ticket para " + Util.rubros[this.rubro] + " y locacion " + locacion);
 			BolsaDeTrabajo.getInstance().agregaTicket(this, loc);
 			i++;
 		}

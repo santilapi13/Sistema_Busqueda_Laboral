@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 
 import modelo.Empleado;
 
+@SuppressWarnings({ "deprecation", "serial" })
 public class PanelEmpleado extends JPanel implements Observer {
 	private JScrollPane scrollPane;
 	private JTextArea textArea;

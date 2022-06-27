@@ -29,6 +29,7 @@ import modelo.TicketEmpleado;
 import modelo.TicketEmpleo;
 import javax.swing.JScrollPane;
 
+@SuppressWarnings("serial")
 public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 
 	private JPanel contentPane;
@@ -52,7 +53,6 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 	private JButton btnCrear;
 	private JButton btnGestionar;
 	private JButton btnLista;
-	private JButton btnResultados;
 	private JLabel lblNewLabel_3;
 	private ActionListener actionListener;
 	private JButton btnSalir;
@@ -126,7 +126,7 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 
 		this.panel_5 = new JPanel();
 		this.panel_6.add(this.panel_5);
-		this.panel_5.setLayout(new GridLayout(7, 1, 0, 0));
+		this.panel_5.setLayout(new GridLayout(6, 1, 0, 0));
 
 		this.lblNewLabel_2 = new JLabel("USUARIO:");
 		this.lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -151,10 +151,6 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 		this.btnLista.setActionCommand("Lista Asignacion");
 		this.btnLista.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		this.panel_5.add(this.btnLista);
-
-		this.btnResultados = new JButton("Resultado");
-		this.btnResultados.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		this.panel_5.add(this.btnResultados);
 
 		this.btnSalir = new JButton("Salir");
 		this.panel_5.add(this.btnSalir);
@@ -200,11 +196,6 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 	}
 
 	public void mousePressed(MouseEvent e) {
-		/*
-		 * if (!listaAsignacion.isSelectionEmpty()) btnElegir.setEnabled(true); else
-		 * btnElegir.setEnabled(false);
-		 */
-
 	}
 	
 
@@ -224,13 +215,6 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 			this.btnSuspender.setEnabled(false);
 			this.btnCancelar.setEnabled(false);
 		}
-		/*
-		JButton but = (JButton) e.getSource();
-		if (but.getActionCommand().equalsIgnoreCase("Modificar")) {
-			ActionEvent event = new ActionEvent(this.listTickets.getSelectedIndex(), 0, but.getActionCommand());
-			;
-			this.actionListener.actionPerformed(event);
-		} */
 	}
 
 	@Override
@@ -241,7 +225,6 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 		this.btnGestionar.addActionListener(actionListener);
 		this.btnLista.addActionListener(actionListener);
 		this.btnModificar.addActionListener(actionListener);
-		this.btnResultados.addActionListener(actionListener);
 		this.btnSalir.addActionListener(actionListener);
 		this.btnSuspender.addActionListener(actionListener);
 		this.actionListener = actionListener;
@@ -254,14 +237,10 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 
 	@Override
 	public void actualizarListaEmpleados(ArrayList<Empleado> empleados) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void actualizarListaEmpleadores(ArrayList<Empleador> empleadores) {
-		// TODO Auto-generated method stub
-
 	}
 	
 
@@ -274,15 +253,13 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 	}
 
 	@Override
-	public void informar(String s) {
-		// TODO Auto-generated method stub
-
-	}
+    public void informar(String s) {
+        this.modeloNoti.addElement(s);
+        this.validate();
+    }
 
 	@Override
 	public void actualizarSoliEmpleo(ArrayList<Empleado> empleados) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -157,8 +157,6 @@ public class Empleado extends NoAdmin {
 			Util.espera();
 			this.notificador(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion "
 					+ locacion + " (intento " + i + ").");
-			System.out.println(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion "
-					+ locacion + " (intento " + i + ").");
 			BolsaDeTrabajo.getInstance().buscaTicket(this, rubro, loc);
 			i++;
 		}

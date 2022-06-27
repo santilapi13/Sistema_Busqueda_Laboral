@@ -13,6 +13,7 @@ import excepciones.UsuariosInsuficientesException;
  * @author Grupo 7<br>
  *         Clase con todas las funcionalidades del sistema
  */
+@SuppressWarnings("deprecation")
 public class Agencia extends Observable implements IAgencia {
 
 	private double fondos; // fondos representa la suma de las comisiones que deben cada usuario

@@ -20,6 +20,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
+@SuppressWarnings("serial")
 public class VRegistroEmpleado extends JFrame implements IVistaLogin, KeyListener{
 
 	private JPanel contentPane;

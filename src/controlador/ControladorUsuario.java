@@ -24,10 +24,10 @@ import vista.IVistaUsuario;
 import vista.VFormulario;
 import vista.VLogin;
 
+@SuppressWarnings("deprecation")
 public class ControladorUsuario implements ActionListener, Observer {
 	private IVistaUsuario vista = null;
 	private static ControladorUsuario instance = null;
-	ControladorFormulario controladorFormulario = null;
 
 	private ControladorUsuario() {
 	}
@@ -62,11 +62,9 @@ public class ControladorUsuario implements ActionListener, Observer {
 
 			} else if (comando.equalsIgnoreCase("COMISIONES")) {
 				for (Empleador empleadorAct : Agencia.getInstance().getEmpleadores())
-					this.vista.informar("Username: " + empleadorAct.getUsername() + " debe pagar "
-							+ empleadorAct.getComisionAPagar());
+					this.vista.informar("Username: " + empleadorAct.getUsername() + " debe pagar " + empleadorAct.getComisionAPagar());
 				for (Empleado empleadoAct : Agencia.getInstance().getEmpleados())
-					this.vista.informar("Username: " + empleadoAct.getUsername() + " debe pagar "
-							+ empleadoAct.getComisionAPagar());
+					this.vista.informar("Username: " + empleadoAct.getUsername() + " debe pagar " + empleadoAct.getComisionAPagar());
 
 			} else if (comando.equalsIgnoreCase("INICIAR RONDA DE ENCUENTROS")) {
 				Agencia.getInstance().iniciaRondaEncuentros();
@@ -111,7 +109,6 @@ public class ControladorUsuario implements ActionListener, Observer {
 					Empleador empleador = (Empleador) Agencia.getInstance().getUsuarioLogueado();
 					if (empleador != null)
 						this.vista.actualizarTickets(empleador);
-						//this.vista.actualizarSoliEmpleados(Agencia.getInstance().getEmpleadores());
 				}
 
 			} else if (comando.equalsIgnoreCase("LISTA ASIGNACION")) {
@@ -120,23 +117,15 @@ public class ControladorUsuario implements ActionListener, Observer {
 				if (noAdmin != null)
 					this.vista.actualizarListaAsignacion(noAdmin.getListaAsignacion());
 
-			} else if (comando.equalsIgnoreCase("RESULTADO")) {
-
 			} else if (comando.equalsIgnoreCase("MODIFICAR")) {
 				String tipo = Agencia.getInstance().getTipoUsuarioLogueado();
 				if (tipo.equalsIgnoreCase("EMPLEADO")) {
 					ControladorFormulario.getInstance().setVista(new VFormulario());
 				} else {
-					    Empleador empleador = (Empleador) Agencia.getInstance().getUsuarioLogueado();
-	                    TicketEmpleado ticket=(TicketEmpleado)this.vista.getTicketSeleccionado();
-	                    empleador.getTickets().remove(ticket);
-	                    ControladorFormulario.getInstance().setVista(new VFormulario());
-					/*TicketEmpleado ticket=(TicketEmpleado)this.vista.getTicketSeleccionado();
-                    empleador.getTickets().remove(ticket);
-					
 					Empleador empleador = (Empleador) Agencia.getInstance().getUsuarioLogueado();
-					empleador.getTickets().remove((int) a.getSource());
-					ControladorFormulario.getInstance().setVista(new VFormulario());*/
+					TicketEmpleado ticket = (TicketEmpleado) this.vista.getTicketSeleccionado();
+					empleador.getTickets().remove(ticket);
+					ControladorFormulario.getInstance().setVista(new VFormulario());
 				}
 			} else if (comando.equalsIgnoreCase("SUSPENDER")) {
 				this.vista.getTicketSeleccionado().suspenderse();
@@ -148,13 +137,13 @@ public class ControladorUsuario implements ActionListener, Observer {
 				String tipo = Agencia.getInstance().getTipoUsuarioLogueado();
 				if (tipo.equalsIgnoreCase("EMPLEADO")) {
 					Empleado empleado = (Empleado) Agencia.getInstance().getUsuarioLogueado();
-					System.out.println(Agencia.getInstance().getUsuarioLogueado());
-					empleado.setTicketElegido((TicketEmpleado)this.vista.getElemLASeleccionado().getTicket());
+					empleado.setTicketElegido((TicketEmpleado) this.vista.getElemLASeleccionado().getTicket());
+					this.vista.informar(empleado + " eligio a "+ this.vista.getElemLASeleccionado().getUsuario());
 				} else {
 					Empleador empleador = (Empleador) Agencia.getInstance().getUsuarioLogueado();
 					TicketEmpleado ticketElegido = (TicketEmpleado) this.vista.getTicketSeleccionado();
 					Empleado empleadoElegido = (Empleado) this.vista.getElemLASeleccionado().getUsuario();
-					System.out.println(empleadoElegido + " elegido para " + ticketElegido);
+					this.vista.informar(empleador + " eligio a "+ empleadoElegido + " para el ticket "+ ticketElegido);
 					empleador.eligeEmpleado(empleadoElegido, ticketElegido);
 				}
 			}
@@ -168,8 +157,6 @@ public class ControladorUsuario implements ActionListener, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
