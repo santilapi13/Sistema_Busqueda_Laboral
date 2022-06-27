@@ -593,7 +593,7 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 
 	public String getLocacion() {
 		return (this.rdbtnHomeOffice.isSelected()) ? "HomeOffice"
-				: (this.rdbtnPresencial.isSelected()) ? "Presencial" : "Indisitnto";
+				: (this.rdbtnPresencial.isSelected()) ? "Presencial" : "Indistinto";
 	}
 
 	public String getRemuneracion() {
@@ -605,7 +605,7 @@ public class VFormulario extends JFrame implements MouseListener, KeyListener {
 	}
 
 	public String getPuestoLaboral() {
-		return (this.rdbtnJunior.isSelected()) ? "Junio" : (this.rdbtnSenior.isSelected()) ? "Senior" : "Managment";
+		return (this.rdbtnJunior.isSelected()) ? "Junior" : (this.rdbtnSenior.isSelected()) ? "Senior" : "Managment";
 	}
 
 	public String getRangoEtario() {

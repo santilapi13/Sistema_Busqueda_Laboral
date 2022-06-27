@@ -310,7 +310,7 @@ public class Agencia extends Observable implements IAgencia {
 		if (this.empleados.isEmpty() || this.empleadores.isEmpty())
 			throw new UsuariosInsuficientesException(
 					"Debe existir al menos un empleado y un empleador para iniciar la ronda");
-		
+
 		this.cargaDisponibles();
 		for (i = 0; i < this.empleadosDisp.size(); i++) {
 			empAct = empleadosDisp.get(i);
@@ -334,18 +334,18 @@ public class Agencia extends Observable implements IAgencia {
 	 * al menos un ticket activo.<br>
 	 */
 	private void cargaDisponibles() {
-		this.empleadoresDisp.removeAll(empleadoresDisp);
-		this.empleadosDisp.removeAll(empleadosDisp);
 		for (Empleado empleadoAct : this.empleados) {
 			if (empleadoAct.getTicket() != null && empleadoAct.getTicket().isActivo())
 				this.empleadosDisp.add(empleadoAct);
 		}
+		ArrayList<TicketEmpleado> ticketsNoActivos = new ArrayList<TicketEmpleado>();
 		for (Empleador empleadorAct : this.empleadores) {
 			if (!empleadorAct.getTickets().isEmpty()) { // borra todos los tickets no activos
 				for (TicketEmpleado ticketAct : empleadorAct.getTickets()) {
 					if (!ticketAct.isActivo())
-						empleadorAct.getTickets().remove(ticketAct);
+						ticketsNoActivos.add(ticketAct);
 				}
+				empleadorAct.getTickets().removeAll(ticketsNoActivos);
 				if (!empleadorAct.getTickets().isEmpty())
 					this.empleadoresDisp.add(empleadorAct);
 			}
@@ -505,8 +505,29 @@ public class Agencia extends Observable implements IAgencia {
 				}
 			}
 		}
+		this.limpiar();
+	}
+	
+	private void limpiar() {
 		this.empleadosDisp.removeAll(empleadosDisp);
 		this.empleadoresDisp.removeAll(empleadoresDisp);
+		
+		for (Empleado empleadoActual : this.empleados) {
+			empleadoActual.getListaAsignacion().getUsuarios()
+					.removeAll(empleadoActual.getListaAsignacion().getUsuarios());
+			empleadoActual.setTicketElegido(null);
+		}
+		
+		for (Empleador empleadorActual : this.empleadores) {
+			empleadorActual.getListaAsignacion().getUsuarios()
+					.removeAll(empleadorActual.getListaAsignacion().getUsuarios());
+			empleadorActual.getTicketsAsignados().removeAll(empleadorActual.getTicketsAsignados());
+			empleadorActual.getEmpleadosElegidos().removeAll(empleadorActual.getEmpleadosElegidos());
+		}
+		
+		this.eleccionesEmpleadores.removeAll(this.eleccionesEmpleadores);
+		this.eleccionesEmpleados.clear();
+		
 	}
 
 	/**

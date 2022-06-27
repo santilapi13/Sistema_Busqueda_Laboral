@@ -29,6 +29,8 @@ public interface IVistaUsuario {
 
 	void actualizarTicket(TicketEmpleo ticket);
 	
+	void actualizarTickets(Empleador empleador);
+	
 	Ticket getTicketSeleccionado();
 
 	String getUsername();

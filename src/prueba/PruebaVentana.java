@@ -9,6 +9,7 @@ import controlador.ControladorFormulario;
 import controlador.ControladorLogin;
 import controlador.ControladorUsuario;
 import modelo.Agencia;
+import modelo.Empleado;
 import persistencia.AgenciaDTO;
 import persistencia.IPersistencia;
 import persistencia.PersistenciaBIN;

@@ -108,6 +108,48 @@ public class Prueba {
 			System.out.println(er1);
 			System.out.println(er2);
 			
+			
+			Empleado e3 = new Empleado("santisosa2","saso123","Santiago Sosa","223585835","01/01/2002");
+			agencia.addEmpleado(e3);
+			
+			e3.creaFormulario("Presencial", "Alta", "Completa", "Senior", "Media", "Terciario",new Peso(1, 0.2, 0.4, 1, 0.2, 1, 0.8));
+			
+			a1.iniciaRondaEncuentros();
+			
+			// MUESTRA LISTAS DE ASIGNACION
+						System.out.println("\n" + e3.getUsername());
+						System.out.println(e3.getTicket());
+						System.out.println("Lista de asignacion: ");
+						for (ElemLA i : e3.getListaAsignacion().getUsuarios())
+							System.out.println(i);
+						
+
+						System.out.println("\n" + er1.getUsername());
+						for (Ticket ticket : er1.getTickets())
+							System.out.println(ticket);
+						System.out.println("Lista de asignacion: ");
+						for (ElemLA j : er1.getListaAsignacion().getUsuarios())
+							System.out.println(j);
+			
+			e3.setTicketElegido((TicketEmpleado) e3.getListaAsignacion().getUsuarios().first().getTicket());
+			er1.eligeEmpleado(e3,er1.getTickets().get(0));
+			
+			System.out.println("\nELECCIONES EMPLEADORES:");
+			for (ElemRE eleccionEmpleador : agencia.getEleccionesEmpleadores())		// Muestra elecciones de empleadores
+				System.out.println(eleccionEmpleador);
+			
+			System.out.println("\nELECCIONES EMPLEADOS");
+			for (Map.Entry<String,ElemRE> entry : agencia.getEleccionesEmpleados().entrySet()) {	// Muestra elecciones de empleados
+				System.out.println(entry.getValue());
+			}
+			
+			a1.iniciaRondaElecciones();
+			a1.iniciaRondaContrataciones();
+			
+			System.out.println("\nCONTRATOS RESULTANTES:");
+			for (Contrato contratoAct : agencia.getContratos())
+				System.out.println(contratoAct);
+			/*
 			IPersistencia<Serializable> persistencia = new PersistenciaBIN();
 			
 			persistencia.abrirOutput("Agencia.bin");
@@ -117,15 +159,15 @@ public class Prueba {
 			System.out.println("Agencia grabada exitosamente");
 			persistencia.cerrarOutput();
             System.out.println("Archivo cerrado");
-            
+            */
 		} catch (UsuariosInsuficientesException e) {
 			System.out.println(e.getMessage());
 		} catch (PesoInvalidoException e) {
 			System.out.println(e.getMessage());
 		} catch (UsuarioRepetidoException e) {
 			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			 System.out.println(e.getLocalizedMessage());
+		//} catch (IOException e) {
+		//	 System.out.println(e.getLocalizedMessage());
 		}
 		
 		

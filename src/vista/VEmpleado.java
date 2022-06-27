@@ -299,4 +299,10 @@ public class VEmpleado extends JFrame implements MouseListener, IVistaUsuario {
 	public ElemLA getElemLASeleccionado() {
 		return this.listAsignacion.getSelectedValue();
 	}
+
+	@Override
+	public void actualizarTickets(Empleador empleador) {
+		// TODO Auto-generated method stub
+		
+	}
 }

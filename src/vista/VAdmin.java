@@ -268,4 +268,10 @@ public class VAdmin extends JFrame implements IVistaUsuario {
 		return null;
 	}
 
+	@Override
+	public void actualizarTickets(Empleador empleador) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

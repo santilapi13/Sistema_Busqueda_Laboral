@@ -206,6 +206,7 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 		 */
 
 	}
+	
 
 	public void mouseReleased(MouseEvent e) {
 		if (!this.listaAsignacion.isSelectionEmpty() && !this.listTickets.isSelectionEmpty())
@@ -262,6 +263,7 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 		// TODO Auto-generated method stub
 
 	}
+	
 
 	@Override
 	public void actualizarListaAsignacion(ListaAsignacion listaAsignacion) {
@@ -292,6 +294,13 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 		this.validate();
 	}
 
+	public void actualizarTickets(Empleador empleador) {
+        this.modeloListaTickets.removeAllElements();
+        for(TicketEmpleado ticketAct: empleador.getTickets())
+            this.modeloListaTickets.addElement(ticketAct);
+        this.validate();
+    }
+	
 	@Override
 	public void actualizarTicket(TicketEmpleo ticket) {
 		// TODO Auto-generated method stub
@@ -299,10 +308,9 @@ public class VEmpleador extends JFrame implements MouseListener, IVistaUsuario {
 	}
 
 	@Override
-	public Ticket getTicketSeleccionado() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 public Ticket getTicketSeleccionado() {
+        return this.listTickets.getSelectedValue();
+    }
 
 	@Override
 	public String getUsername() {
