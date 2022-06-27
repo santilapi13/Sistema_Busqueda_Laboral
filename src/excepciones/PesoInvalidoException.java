@@ -1,7 +1,7 @@
 package excepciones;
 
 /**
-*Excepción que indica que el peso es inválido, debido a que sus atributos deben tener un valor entre 0 y 1. <br>
+*Excepcion que indica que el peso es invalido, debido a que sus atributos deben tener un valor entre 0 y 1. <br>
 */
 
 @SuppressWarnings("serial")

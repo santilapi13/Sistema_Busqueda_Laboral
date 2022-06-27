@@ -29,8 +29,17 @@ import modelo.aspectos.Secundario;
 import modelo.aspectos.Senior;
 import modelo.aspectos.Terciario;
 
+/**
+ * @author Grupo 7<br>
+ * Clase utilizada para la creacion de Formularios de Busqueda <br>
+ */
 public class FormularioFactory {
-
+	
+	/**
+     * Metodo utilizado para crear un Formulario de busqueda laboral a partir de los aspectos indicados por parametros.<br>
+     *<b>Pre</b>: Todos los parametros deben ser distintos de null.<br>
+     *@return Formulario de busqueda laboral cargado con las clases de los aspectos correspondientes. <br>
+     */
 	public Formulario getFormulario(String locacion,String remuneracion,String cargaHoraria,String puestoLaboral,String rangoEtario,String expPrevia,String estudios) {
 		Locacion loc = null;
 		Remuneracion rem = null;

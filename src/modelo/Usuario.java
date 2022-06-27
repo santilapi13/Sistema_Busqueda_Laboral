@@ -5,7 +5,7 @@ import java.util.Observable;
 
 /**
  * @author Grupo 7 <br>
- *         Clase abstracta que alberga las caracterï¿½sticas comunes de un
+ *         Clase abstracta que alberga las caracteristicas comunes de un
  *         usuario del sistema, de ella se extienden las clases Admin y Admin.
  *
  */

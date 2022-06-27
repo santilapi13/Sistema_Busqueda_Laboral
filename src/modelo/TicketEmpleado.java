@@ -16,11 +16,11 @@ public class TicketEmpleado extends Ticket {
 	private int cantPuestos;
 	
 	/**
-	*Constructor con dos par�metros para incluir en el ticket de empleado un formulario y los pesos asignados para 
+	*Constructor con dos parametros para incluir en el ticket de empleado un formulario y los pesos asignados para 
 	*cada aspecto del formulario.<br>
-	*@param f : par�metro de tipo Formulario (objeto) que contiene las caracter�sticas del mismo 
-	*@param peso : par�metro de tipo Peso (objeto) que contiene los pesos de cada aspecto del formulario.
-	*
+	*@param formulario : parametro de tipo Formulario (objeto) que contiene las caracteristicas del mismo 
+	*@param peso : parametro de tipo Peso (objeto) que contiene los pesos de cada aspecto del formulario.
+	*@param cantPuestos: cantidad de puestos ofrecidos para el mismo ticket.
 	*/
 	
 	public TicketEmpleado(Formulario formulario, Peso peso, int cantPuestos) {

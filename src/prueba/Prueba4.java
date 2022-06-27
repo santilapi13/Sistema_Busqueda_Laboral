@@ -18,7 +18,7 @@ public class Prueba4 {
 		} catch (UsuarioRepetidoException e) {
 			System.out.println(e.getMessage());
 		} finally {
-			//MUESTRA EMPLEADOS PARA QUE SE VEA QUE NO SE AÑADIO
+			//MUESTRA EMPLEADOS PARA QUE SE VEA QUE NO SE ANADIO
 			for (Empleado empleadoAct : agencia.getEmpleados())
 				System.out.println(empleadoAct);
 		}

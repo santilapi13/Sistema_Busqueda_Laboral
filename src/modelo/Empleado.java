@@ -23,20 +23,13 @@ public class Empleado extends NoAdmin {
 
 	/**
 	 * Constructor de la clase Empleado. <br>
-	 * <b>Pre</b>: username y password deben ser distintos de null, edad debe ser
-	 * mayor a 18. <br>
-	 * <b>Post</b>: La instancia de Empleado tendr� sus atributos cargados
-	 * correctamente<br>
-	 * 
-	 * @param username: String que representa el nombre de usuario que utilizar� el
-	 *                  Empleado. <br>
-	 * @param password: String que representa la contrase�a que utilizar� el
-	 *                  Empleado. <br>
-	 * @param nya:      String que representa el nombre y apellido del Empleado.
-	 *                  <br>
+	 * <b>Pre</b>: username y password deben ser distintos de null. <br>
+	 * <b>Post</b>: La instancia de Empleado tendr� sus atributos cargados correctamente<br>
+	 * @param username: String que representa el nombre de usuario que utilizara el Empleado. <br>                 
+	 * @param password: String que representa la contrase�a que utilizara el Empleado. <br>            
+	 * @param nya:      String que representa el nombre y apellido del Empleado.<br> 
 	 * @param telefono: String que representa el telefono del Empleado. <br>
-	 * @param fechaNac: String con dia, mes y ano de nacimiento en formato
-	 *                  dd/MM/yyyy.
+	 * @param fechaNac: String con dia, mes y ano de nacimiento en formato dd/MM/yyyy.              
 	 */
 	public Empleado(String username, String password, String nya, String telefono, String fechaNac) {
 		super(username, password);
@@ -84,11 +77,7 @@ public class Empleado extends NoAdmin {
 	}
 
 	/**
-	 * Crea un formulario de b�squeda en base a las condiciones pasadas por
-	 * par�metro. <br>
-	 * 
-	 * @return Objeto de tipo Formulario con sus atributos cargados de acuerdo a las
-	 *         condiciones indicadas en los par�metros.
+	 * Crea un formulario de busqueda en base a las condiciones pasadas por parametro. <br>      
 	 */
 	public void creaFormulario(String locacion, String remuneracion, String cargaHoraria, String puestoLaboral, String expPrevia, String estudios, Peso peso) {
 		String rangoEtario;
@@ -104,29 +93,19 @@ public class Empleado extends NoAdmin {
 	}
 
 	/**
-	 * Crea un ticket de empleo enviando el formulario y los pesos a la agencia
-	 * mediante el patr�n de dise�o Double Dispatch. <br>
-	 * <b>Pre</b>: Todos los par�metros deben ser distintos de null. <br>
-	 * <b>Post</b>: El atributo ticket contendr� la referencia al objeto
-	 * TicketEmpleo correspondiente a su solicitud de trabajo. <br>
-	 * 
-	 * @param agencia: Representa un elemento que implemente la interfaz IAgencia.
-	 *                 <br>
-	 * @param f:       Representa un formulario cargado con las condiciones del
-	 *                 Empleado. <br>
-	 * @param p:       Representa la importancia que le da el empleado a cada
-	 *                 aspecto del formulario.
+	 * Crea un ticket de empleo enviando el formulario y los pesos a la agencia. <br>
+	 * <b>Pre</b>: Todos los parametros deben ser distintos de null. <br>
+	 * <b>Post</b>: El atributo ticket contendra la referencia al objeto TicketEmpleo correspondiente a su solicitud de trabajo. <br>
+	 * @param f:       Representa un formulario cargado con las condiciones del Empleado. <br>
+	 * @param peso:       Representa la importancia que le da el empleado a cada aspecto del formulario.          
 	 */
 	public void emiteFormulario(Formulario f, Peso peso) {
 		this.ticket = Agencia.getInstance().recibeFormEmpleado(f, peso);
 	}
 
 	/**
-	 * Modifica el estado del ticket del empleado y penaliza al mismo en su
-	 * puntaje<br>
-	 * <b>Post</b>: El atributo ticket contendr� la referencia al objeto
-	 * TicketEmpleo correspondiente a su solicitud de trabajo y el puntaje de la
-	 * aplicaci�n estar� decrementado en 1.
+	 * Modifica el estado del ticket del empleado y penaliza al mismo en su puntaje<br>
+	 * <b>Post</b>: El atributo estado contendra la referencia a un nuevo Estado Cancelado  y el puntaje de la aplicacion estara decrementado en 1.
 	 */
 	public void cancelaTicket() {
 		this.ticket.cancelarse();
@@ -155,8 +134,7 @@ public class Empleado extends NoAdmin {
 		}
 		while (i <= 10 && this.ticketSimp == null) {
 			Util.espera();
-			this.notificador(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion "
-					+ locacion + " (intento " + i + ").");
+			this.notificador(this.getNya() + " quiere buscar un ticket para " + Util.rubros[rubro] + " y locacion " + locacion + " (intento " + i + ").");
 			BolsaDeTrabajo.getInstance().buscaTicket(this, rubro, loc);
 			i++;
 		}

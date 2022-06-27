@@ -21,12 +21,11 @@ public class Peso implements Serializable {
 	 * <b>Post</b>: se cre� el objeto peso correctamente. Se asignaron los valores correctos a cada campo.<br>
 	 * @param locacion: peso que el usuario le da a la locaci�n.
 	 * @param remuneracion: peso que el usuario le da a la remuneraci�n.
-	 * @param cargaHr: peso que el usuario le da a la carga horaria.
-	 * @param puestoLaboral: peso que el usuario le da al puesto laboral.
+	 * @param cargaHoraria: peso que el usuario le da a la carga horaria.
+	 * @param tipoPuesto: peso que el usuario le da al puesto laboral.
 	 * @param rangoEtario: peso que el usuario le da al rango etario.
 	 * @param expPrevia: peso que el usuario le da a la experiencia previa.
-	 * @param estudios: peso que el usuario le da a los estudios.
-	 * @throws PesoInvalidoException : si alguno de los atributos del peso no esta en el rango establecido. 0<=valor campo<=1.
+	 * @param estudiosCursados: peso que el usuario le da a los estudios.
 	 */
 	public Peso(double locacion, double remuneracion, double cargaHoraria, double tipoPuesto, double rangoEtario, double expPrevia, double estudiosCursados) throws PesoInvalidoException{
 		if (locacion < 0 || locacion > 1 || remuneracion < 0 || remuneracion > 1 || cargaHoraria < 0 || cargaHoraria > 1 || tipoPuesto < 0 || tipoPuesto > 1 || rangoEtario < 0 || rangoEtario > 1 || expPrevia < 0 || expPrevia > 1 || estudiosCursados < 0 || estudiosCursados > 1 )

@@ -26,12 +26,12 @@ public abstract class Ticket implements ITicket, Serializable {
 	protected Peso peso;
 
 	/**
-	 * Constructor con dos par�metros para incluir en el ticket un formulario y los
+	 * Constructor con dos parametros para incluir en el ticket un formulario y los
 	 * pesos asignados para cada aspecto del formulario<br>
 	 * 
-	 * @param f    : par�metro de tipo Formulario (objeto) que contiene las
+	 * @param formulario    : parametro de tipo Formulario (objeto) que contiene las
 	 *             caracter�sticas del mismo
-	 * @param peso : par�metro de tipo Peso (objeto) que contiene los pesos de cada
+	 * @param peso : parametro de tipo Peso (objeto) que contiene los pesos de cada
 	 *             aspecto del formulario.
 	 *
 	 */

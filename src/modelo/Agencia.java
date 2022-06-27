@@ -145,14 +145,10 @@ public class Agencia extends Observable implements IAgencia {
 
 	/**
 	 * Agrega el empleado ya instanciado a la lista de empleados de la agencia. <br>
-	 * <b>Pre</b>: El parametro e debe ser distinto de null. La lista de empleados
-	 * debe estar inicializada. <br>
+	 * <b>Pre</b>: El parametro e debe ser distinto de null. La lista de empleados debe estar inicializada. <br>
 	 * <b>Post</b>: El empleado estara en la lista empleados. <br>
-	 * 
 	 * @param e : Empleado que se desea agregar a la lista.
-	 * @throws UsuarioRepetidoException : Evita que el empleado se agregue a la
-	 *                                  lista si su username ya esta siendo usado
-	 *                                  por otro empleado.
+	 * @throws UsuarioRepetidoException : Evita que el empleado se agregue a la lista si su username ya esta siendo usado por otro empleado.                                
 	 */
 	public void addEmpleado(Empleado e) throws UsuarioRepetidoException {
 		for (Empleado empAct : this.empleados) { // Estamos admitiendo que haya un empleado y empleador con igual
@@ -165,16 +161,11 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	/**
-	 * Agrega el empleador ya instanciado a la lista de empleadores de la agencia.
-	 * <br>
-	 * <b>Pre</b>: El parametro e debe ser distinto de null. La lista de empleadores
-	 * debe estar inicializada. <br>
+	 * Agrega el empleador ya instanciado a la lista de empleadores de la agencia.<br>
+	 * <b>Pre</b>: El parametro e debe ser distinto de null. La lista de empleadores debe estar inicializada. <br>
 	 * <b>Post</b>: El empleador estara en la lista empleadores. <br>
-	 * 
 	 * @param e : Empleador que se desea agregar a la lista.
-	 * @throws UsuarioRepetidoException : Evita que el empleador se agregue a la
-	 *                                  lista si su username ya esta siendo usado
-	 *                                  por otro empleador.
+	 * @throws UsuarioRepetidoException : Evita que el empleador se agregue a la lista si su username ya esta siendo usado por otro empleador.                                
 	 */
 	public void addEmpleador(Empleador e) throws UsuarioRepetidoException {
 		for (Empleador empAct : this.empleadores) // Estamos admitiendo que haya un empleado y empleador con igual
@@ -186,18 +177,12 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	/**
-	 * Genera el ticket de empleo a partir del formulario pasado por un empleado y
-	 * sus pesos mediante el patron de dise�o Double Dispatch.<br>
+	 * Genera el ticket de empleo a partir de un formulario y sus pesos.<br>
 	 * <b>Pre</b>: Formulario y peso deben ser distintos de null.<br>
-	 * <b>Post</b>: El empleado que lo emitio debe recibir correctamente el ticket
-	 * retornado por este metodo.<br>
-	 * 
-	 * @param f    : Formulario con la preferencia del empleado sobre varios
-	 *             aspectos que afectara al calculo de las coincidencias.<br>
-	 * @param peso : Tiene el peso correspondiente a cada uno de los aspectos, segun
-	 *             la preferencia del empleado.<br>
-	 * @return Ticket de empleo con la informacion correspondiente al formulario f y
-	 *         al peso pasados por parametro.
+	 * <b>Post</b>: El empleado que lo emitio debe recibir correctamente el ticket retornado por este metodo.<br>
+	 * @param f    : Formulario con la preferencia del empleado sobre varios aspectos que afectara al calculo de las coincidencias.<br>
+	 * @param peso : Tiene el peso correspondiente a cada uno de los aspectos, segun la preferencia del empleado.<br>
+	 * @return Ticket de empleo con la informacion correspondiente al formulario f y al peso pasados por parametro.
 	 */
 	public TicketEmpleo recibeFormEmpleado(Formulario f, Peso peso) {
 		TicketEmpleo ticket = new TicketEmpleo(f, peso);
@@ -205,53 +190,45 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	/**
-	 * Genera el ticket de empleado a partir del formulario pasado por un empleador
-	 * y sus pesos mediante el patron de dise�o Double Dispatch.<br>
+	 * Genera el ticket de empleado a partir de un formulario y sus pesos.<br>
 	 * <b>Pre</b>: Formulario y peso deben ser distintos de null.<br>
-	 * <b>Post</b>: El empleador que lo emitio debe recibir correctamente el ticket
-	 * retornado por este metodo.<br>
-	 * 
-	 * @param f    : Formulario con la preferencia del empleador sobre varios
-	 *             aspectos que afectara al calculo de las coincidencias.<br>
-	 * @param peso : Tiene el peso correspondiente a cada uno de los aspectos, segun
-	 *             la preferencia del empleador.<br>
-	 * @return Ticket de empleado con la informacion correspondiente al formulario f
-	 *         y al peso pasados por parametro.
+	 * <b>Post</b>: El empleador que lo emitio debe recibir correctamente el ticket retornado por este metodo.<br>
+	 * @param f    : Formulario con la preferencia del empleador sobre varios aspectos que afectara al calculo de las coincidencias.<br>
+	 * @param peso : Tiene el peso correspondiente a cada uno de los aspectos, segun la preferencia del empleador.<br>
+	 * @return Ticket de empleado con la informacion correspondiente al formulario f y al peso pasados por parametro.
 	 */
 	public TicketEmpleado recibeFormEmpleador(Formulario f, Peso peso, int cantPuestos) {
 		TicketEmpleado ticket = new TicketEmpleado(f, peso, cantPuestos);
 		return ticket;
 	}
 
+	/**
+	 * Calcula el puntaje de coincidencia entre un ticket de empleado y uno de empleo (previamente generados con el patron Factory).
+	 * Para ello, utiliza el patron de diseno Double Dispatch, permitiendo que los calculos se efectuen desde la perspectiva del empleado
+	 * o del empleador segun la matriz correspondiente al aspecto analizado.<br>
+	 * @param ti : ticket con las preferencias del empleador de los distintos aspectos.<br>
+	 * @param tj : ticket con las preferencias del empleado de los distintos aspectos.<br>
+	 * @param peso: ponderacion de cada aspecto ya sea del empleado o del empleador.
+	 */
 	public double calculaPuntajeEncuentro(TicketEmpleado ti, TicketEmpleo tj, Peso peso) {
 		double puntaje = 0;
-		puntaje += tj.getFormulario().getCargaHoraria().enfrentar(ti.getFormulario().getCargaHoraria())
-				* peso.getCargaHoraria();
-		puntaje += tj.getFormulario().getEstudios().enfrentar(ti.getFormulario().getEstudios())
-				* peso.getEstudiosCursados();
+		puntaje += tj.getFormulario().getCargaHoraria().enfrentar(ti.getFormulario().getCargaHoraria()) * peso.getCargaHoraria();
+		puntaje += tj.getFormulario().getEstudios().enfrentar(ti.getFormulario().getEstudios()) * peso.getEstudiosCursados();
 		puntaje += tj.getFormulario().getExpPrevia().enfrentar(ti.getFormulario().getExpPrevia()) * peso.getExpPrevia();
 		puntaje += tj.getFormulario().getLocacion().enfrentar(ti.getFormulario().getLocacion()) * peso.getLocacion();
-		puntaje += tj.getFormulario().getRangoEtario().enfrentar(ti.getFormulario().getRangoEtario())
-				* peso.getRangoEtario();
-		puntaje += tj.getFormulario().getRemuneracion().enfrentar(ti.getFormulario().getRemuneracion())
-				* peso.getRemuneracion();
-		puntaje += tj.getFormulario().getPuestoLaboral().enfrentar(ti.getFormulario().getPuestoLaboral())
-				* peso.getTipoPuesto();
+		puntaje += tj.getFormulario().getRangoEtario().enfrentar(ti.getFormulario().getRangoEtario()) * peso.getRangoEtario();
+		puntaje += tj.getFormulario().getRemuneracion().enfrentar(ti.getFormulario().getRemuneracion()) * peso.getRemuneracion();
+		puntaje += tj.getFormulario().getPuestoLaboral().enfrentar(ti.getFormulario().getPuestoLaboral()) * peso.getTipoPuesto();
 		return puntaje;
 	}
 
 	/**
-	 * Crea una nueva Lista de Asignacion, ordenada segun puntaje de coincidencia,
-	 * de los empleadores que mas coincidan con las preferencias del empleado pasado
-	 * por parametro.<br>
-	 * <b>Pre</b>: empAct debe ser distinto de null y debe haber emitido un ticket
-	 * (lo tiene como atributo), cuyo estado debe ser activo.<br>
-	 * <b>Post</b>: la Lista de Asignacion se carga con las caracteristicas de los
-	 * tickets de los empleadores que pueden interesarle al empleado, ordenados por
-	 * puntaje.<br>
-	 * 
-	 * @param empAct : Empleado al cual se le generara su lista de asignacion a
-	 *               partir de todos los empleadores disponibles.<br>
+	 * Crea una nueva Lista de Asignacion, ordenada segun puntaje de coincidencia, de los empleadores que mas coincidan con las preferencias del 
+	 * empleado pasado por parametro.<br>
+	 * <b>Pre</b>: empAct debe ser distinto de null y debe haber emitido un ticket (lo tiene como atributo), cuyo estado debe ser activo.<br>
+	 * <b>Post</b>: la Lista de Asignacion se carga con las caracteristicas de los tickets de los empleadores que pueden interesarle al empleado, 
+	 * ordenados por puntaje.<br>
+	 * @param empAct : Empleado al cual se le generara su lista de asignacion a partir de todos los empleadores disponibles.<br>            
 	 * @return Lista de Asignacion correspondiente al empleado pasado por parametro.
 	 */
 	private ListaAsignacion creaLAEmpleado(Empleado empAct) {
@@ -268,19 +245,13 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	/**
-	 * Crea una nueva Lista de Asignacion, ordenada segun puntaje de coincidencia,
-	 * de los empleados que mas coincidan con las preferencias del empleador pasado
-	 * por parametro.<br>
-	 * <b>Pre</b>: emprAct debe ser distinto de null y debe haber emitido al menos
-	 * un ticket cuyo estado es activo.<br>
-	 * <b>Post</b>: la Lista de Asignacion se carga con las caracteristicas de los
-	 * tickets de los empleados que pueden interesarle al empleador, ordenados por
-	 * puntaje.<br>
-	 * 
-	 * @param emprAct : Empleador al cual se le generara su lista de asignacion a
-	 *                partir de todos los empleadores disponibles.<br>
-	 * @return Lista de Asignacion correspondiente al empleador pasado por
-	 *         parametro.
+	 * Crea una nueva Lista de Asignacion, ordenada segun puntaje de coincidencia, de los empleados que mas coincidan con las preferencias del 
+	 * empleador pasado por parametro.<br>
+	 * <b>Pre</b>: emprAct debe ser distinto de null y debe haber emitido al menos un ticket cuyo estado es activo.<br>
+	 * <b>Post</b>: la Lista de Asignacion se carga con las caracteristicas de los tickets de los empleados que pueden interesarle al empleador,
+	 *  ordenados por puntaje.<br> 
+	 * @param emprAct : Empleador al cual se le generara su lista de asignacion a partir de todos los empleadores disponibles.<br>         
+	 * @return Lista de Asignacion correspondiente al empleador pasado por parametro.
 	 */
 	private ListaAsignacion creaLAEmpleadores(Empleador emprAct) {
 		ListaAsignacion lista = new ListaAsignacion();
@@ -296,12 +267,9 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	/**
-	 * Primero, llama a cargar una lista de empelados y otra de empleadores
-	 * validadas. Luego, recorre estas nuevas listas para crear una nueva Lista de
-	 * Asignacion para cada Usuario con estas caracter�sticas.<br>
-	 * <b>Post</b>: Cada usuario tendra su lista de asignacion correspondiente
-	 * su/sus tickets.<br>
-	 * 
+	 * Primero, llama a cargar una lista de empelados y otra de empleadores validadas. Luego, recorre estas nuevas listas para crear una nueva 
+	 * Lista de Asignacion para cada Usuario con estas caracter�sticas.<br>
+	 * <b>Post</b>: Cada usuario tendra su lista de asignacion correspondiente su/sus tickets.<br>
 	 * @throws UsuariosInsuficientesException
 	 */
 	public void iniciaRondaEncuentros() throws UsuariosInsuficientesException {
@@ -324,15 +292,12 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	/**
-	 * Carga a partir de las listas de empleados y empleadores, una nueva lista con
-	 * los empleados que hayan emitido un ticket que siga activo y otra con los
-	 * empleadores que hayan emitido al menos un ticket cuyo estado sea activo. De
-	 * esta forma se evitan hacer validaciones en metodos posteriores.<br>
-	 * <b>Pre</b>: Debe existir al menos un empleado y un empleador para iniciar la
-	 * ronda.<br>
-	 * <b>Post</b>: Se borraran los tickets inactivos de los empleadores y se
-	 * cargaran las listas EmpleadosDisp y EmpleadoresDisp con aquellos que tengan
-	 * al menos un ticket activo.<br>
+	 * Carga a partir de las listas de empleados y empleadores, una nueva lista con los empleados que hayan emitido un ticket que siga activo
+	 * y otra con los empleadores que hayan emitido al menos un ticket cuyo estado sea activo. De esta forma se evitan hacer validaciones
+	 * en metodos posteriores.<br>
+	 * <b>Pre</b>: Debe existir al menos un empleado y un empleador para iniciar la ronda.<br>
+	 * <b>Post</b>: Se borraran los tickets inactivos de los empleadores y se cargaran las listas EmpleadosDisp y EmpleadoresDisp con aquellos que 
+	 * tengan al menos un ticket activo.<br>
 	 */
 	private void cargaDisponibles() {
 		for (Empleado empleadoAct : this.empleados) {
@@ -354,8 +319,8 @@ public class Agencia extends Observable implements IAgencia {
 	}
 
 	/**
-	 * Actualiza los puntajes de la aplicacion de cada usuario partcipe de la ronda
-	 * de encuentros. Se comprueban las siguientes caracteristicas:<br>
+	 * Actualiza los puntajes de la aplicacion de cada usuario partcipe de la ronda de encuentros. 
+	 * Se comprueban las siguientes caracteristicas:<br>
 	 * - Por cada Lista de Asignacion de un empleado en la que un empleador se
 	 * ubique primero, se le suma 10 puntos.<br>
 	 * - Por cada Lista de Asignacion de un empleador en la que un empleado se
@@ -550,10 +515,8 @@ public class Agencia extends Observable implements IAgencia {
 	 * @return booleano con la respuesta de si hay coincidencia y debe realizarse el
 	 *         contrato o no.
 	 */
-	private boolean matcheoContratacion(TicketEmpleado ticketEmpleado, Empleado empleadoAct, Empleador empleadorAct,
-			ElemRE eleccionEmpleado) {
-		return ticketEmpleado.isActivo() && empleadoAct.getTicket().isActivo()
-				&& empleadorAct == eleccionEmpleado.getUsuarioElegido()
+	private boolean matcheoContratacion(TicketEmpleado ticketEmpleado, Empleado empleadoAct, Empleador empleadorAct,ElemRE eleccionEmpleado) {
+		return ticketEmpleado.isActivo() && empleadoAct.getTicket().isActivo() && empleadorAct == eleccionEmpleado.getUsuarioElegido()
 				&& ticketEmpleado == empleadorAct.getTickets().get(eleccionEmpleado.getIndiceTicket());
 	}
 

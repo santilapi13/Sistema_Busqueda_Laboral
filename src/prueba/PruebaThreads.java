@@ -2,8 +2,8 @@ package prueba;
 
 import java.util.ArrayList;
 
+import controlador.ControladorThread;
 import excepciones.UsuarioRepetidoException;
-import modelo.Admin;
 import modelo.Agencia;
 import modelo.Empleado;
 import modelo.Empleador;
@@ -18,7 +18,6 @@ public class PruebaThreads {
 		try {
 			for (int i=0;i<10;i++) {
 				empleadoAct = new Empleado("empleado "+i,"asd","empleado "+i,"123","01/01/2002");
-				hilos.add(new Thread(empleadoAct));
 				agencia.addEmpleado(empleadoAct);
 			}
 			
@@ -30,10 +29,7 @@ public class PruebaThreads {
 			agencia.addEmpleador(er2);
 			Thread t2 = new Thread(er2);
 			
-			t1.start();
-			t2.start();
-			for (int i=0;i<10;i++)
-				hilos.get(i).start();
+			ControladorThread Simulacion = new ControladorThread();
 			
 		} catch (UsuarioRepetidoException e) {
 			e.printStackTrace();

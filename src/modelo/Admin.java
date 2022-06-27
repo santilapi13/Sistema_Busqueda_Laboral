@@ -7,8 +7,8 @@ import excepciones.UsuariosInsuficientesException;
 /** 
 * @author Grupo 7
  * <br> 
-* Clase que sirve para representar a los usuarios que tienen m�s acceso a los m�todos del sistema. <br>
- * Todos sus m�todos delegan la funcionalidad a la agencia.
+* Clase que sirve para representar a los usuarios que tienen mas acceso a los metodos del sistema. <br>
+ * Todos sus metodos delegan la funcionalidad a la agencia.
 */
 @SuppressWarnings("serial")
 public class Admin extends Usuario {
